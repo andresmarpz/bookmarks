@@ -6,7 +6,7 @@ import { Inter as FontSans } from 'next/font/google'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 
-import Auth from '@/components/shared/Auth'
+import Auth from '@/components/shared/auth'
 
 const fontSans = FontSans({
   subsets: ['latin'],

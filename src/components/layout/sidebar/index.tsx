@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
-import ThemeChanger from '../shared/ThemeChanger'
+import ThemeChanger from '../../shared/theme-changer'
+import UserDropdown from './user-dropdown'
 
 interface Props {
   avatar: string
@@ -14,13 +15,7 @@ export default function Sidebar({ avatar }: Props) {
 
         <span className="flex items-center gap-2">
           <ThemeChanger />
-          <Image
-            className="rounded-full"
-            src={avatar}
-            alt="User profile avatar"
-            width={28}
-            height={28}
-          />
+          <UserDropdown avatar={avatar} />
         </span>
       </div>
     </aside>

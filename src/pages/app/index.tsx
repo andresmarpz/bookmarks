@@ -1,6 +1,7 @@
 import { useSession } from 'next-auth/react'
 
-import Sidebar from '@/components/layout/Sidebar'
+import Sidebar from '@/components/layout/sidebar'
+import NewBookmark from '@/components/shared/new-bookmark'
 
 const App = () => {
   const { data } = useSession()
@@ -8,8 +9,8 @@ const App = () => {
   return (
     <div className="flex">
       <Sidebar avatar={data?.user!.image!} />
-      <main>
-        <h1>App</h1>
+      <main className="p-2">
+        <NewBookmark />
       </main>
     </div>
   )
