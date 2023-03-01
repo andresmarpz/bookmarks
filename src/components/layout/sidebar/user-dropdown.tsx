@@ -3,14 +3,14 @@ import Link from 'next/link'
 import { LogOut, Settings } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 
-import { cn } from '@/lib/utils'
+import { cn } from '~/lib/utils'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
+} from '~/components/ui/dropdown-menu'
 
 interface Props {
   avatar: string

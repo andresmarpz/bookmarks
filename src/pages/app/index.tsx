@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react'
 
-import Sidebar from '@/components/layout/sidebar'
-import NewBookmark from '@/components/shared/new-bookmark'
+import Sidebar from '~/components/layout/sidebar'
+import NewBookmark from '~/components/shared/new-bookmark'
 
 const App = () => {
   const { data } = useSession()

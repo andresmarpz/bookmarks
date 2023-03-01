@@ -1,16 +1,15 @@
 import { Edit2, Indent, Link, Loader, Loader2, PlusIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 
-import { cn } from '@/lib/utils'
+import { cn } from '~/lib/utils'
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger
-} from '@/components/ui/dialog'
+} from '~/components/ui/dialog'
 import { Button } from '../button'
 import InputField from '../form/input-field'
-import { Input } from '../input'
 
 export default function NewBookmark() {
   const { handleSubmit, register } = useForm()

@@ -1,10 +1,9 @@
 import Head from 'next/head'
 
-import { trpc } from '@/lib/trpc'
-import { cn } from '@/lib/utils'
+import { api } from '~/lib/api'
 
 export default function Home() {
-  const hello = trpc.hello.useQuery({ text: 'client' })
+  const hello = api.example.hello.useQuery({ text: 'client' })
   if (!hello.data) {
     return <div>Loading...</div>
   }

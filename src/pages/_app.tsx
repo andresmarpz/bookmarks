@@ -1,12 +1,13 @@
-import { trpc } from '@/lib/trpc'
-import '@/styles/globals.css'
+import '~/styles/globals.css'
 import { NextComponentType } from 'next'
-import type { AppProps } from 'next/app'
+import type { AppType } from 'next/app'
 import { Inter as FontSans } from 'next/font/google'
+import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 
-import Auth from '@/components/shared/auth'
+import { api } from '~/lib/api'
+import Auth from '~/components/shared/auth'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -15,10 +16,9 @@ const fontSans = FontSans({
 })
 
 type ComponentType = NextComponentType & { auth?: boolean }
-const Application = ({
-  Component,
-  pageProps: { session, ...pageProps }
-}: AppProps) => {
+const Application: AppType<{
+  session: Session | null
+}> = ({ Component, pageProps: { session, ...pageProps } }) => {
   return (
     <>
       <style jsx global>{`
@@ -46,4 +46,4 @@ const Application = ({
   )
 }
 
-export default trpc.withTRPC(Application)
+export default api.withTRPC(Application)
