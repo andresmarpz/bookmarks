@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc'
+import { prisma } from '~/server/prisma'
 
 export const bookmarkRouter = createTRPCRouter({
   createBookmark: protectedProcedure
@@ -9,7 +10,7 @@ export const bookmarkRouter = createTRPCRouter({
         title: z.string().optional(),
         description: z.string().optional(),
         favicon: z.string().url().optional(),
-        collectionId: z.string()
+        collectionId: z.string().optional()
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -21,32 +22,45 @@ export const bookmarkRouter = createTRPCRouter({
           favicon: input.favicon,
           user: {
             connect: {
-              email: ctx.session.user.email ?? undefined
+              id: ctx.session.user.id
             }
           },
-          collection: {
-            connect: {
-              id: input.collectionId
-            }
-          }
+          collection: input.collectionId
+            ? {
+                connect: {
+                  id: input.collectionId
+                }
+              }
+            : undefined
         }
       })
       return bookmark
+    }),
+  getBookmarks: protectedProcedure
+    .input(
+      z.object({
+        collectionId: z.string().nullish(),
+        cursor: z.string().nullish()
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const bookmarks = await prisma.bookmark.findMany({
+        where: {
+          collectionId: input.collectionId,
+          userId: ctx.session.user.id
+        },
+        take: 101,
+        skip: input.cursor ? 1 : 0,
+        cursor: input.cursor ? { id: input.cursor } : undefined
+      })
+      let nextCursor: typeof input.cursor | undefined = undefined
+      if (bookmarks.length > 100) {
+        const next = bookmarks.pop()
+        nextCursor = next!.id
+      }
+      return {
+        items: bookmarks,
+        nextCursor
+      }
     })
-  // hello: publicProcedure
-  //   .input(z.object({ text: z.string() }))
-  //   .query(({ input }) => {
-  //     return {
-  //       greeting: `Hello ${input.text}`
-  //     }
-  //   }),
-
-  // getAll: publicProcedure.query(({ ctx }) => {
-  //   // return ctx.prisma.example.findMany()
-  //   return []
-  // }),
-
-  // getSecretMessage: protectedProcedure.query(() => {
-  //   return 'you can now see this secret message!'
-  // })
 })
