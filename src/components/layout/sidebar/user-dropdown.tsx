@@ -8,15 +8,17 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '~/components/ui/dropdown-menu'
 
 interface Props {
   avatar: string
+  email: string
 }
 
-export default function UserDropdown({ avatar }: Props) {
+export default function UserDropdown({ avatar, email }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -33,7 +35,10 @@ export default function UserDropdown({ avatar }: Props) {
           alt="User profile image from GitHub"
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="min-w-fit">
+        <DropdownMenuLabel className="font-normal dark:text-neutral-500">
+          {email}
+        </DropdownMenuLabel>
         <DropdownMenuItem>
           <Link href="/settings" className="flex items-center gap-2">
             <Settings className="h-4 w-4" />

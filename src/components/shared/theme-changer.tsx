@@ -13,15 +13,15 @@ export default function ThemeChanger() {
       type="button"
       className={cn(
         'flex h-8 w-8 items-center justify-center rounded p-1',
-        'hover:bg-gray-100 dark:hover:bg-gray-800',
-        'focus:outline-none focus:ring-2 focus:ring-gray-800 dark:focus:ring-gray-200'
+        'hover:bg-neutral-100 dark:hover:bg-neutral-800',
+        'focus:outline-none focus:ring-2 focus:ring-neutral-800 dark:focus:ring-neutral-200'
       )}
       onClick={theme === undefined ? undefined : handleClick}
       aria-label="Toggle current website theme between dark and light"
       disabled={!theme}
     >
       {theme === undefined ? (
-        <div className="h-5 w-5 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+        <div className="h-5 w-5 animate-pulse rounded bg-neutral-200 dark:bg-neutral-700" />
       ) : theme === 'dark' ? (
         <Sun
           className="h-5 w-5"

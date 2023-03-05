@@ -6,7 +6,7 @@ interface State {
 }
 
 interface Setters {
-  setCurrentCollection: (collection: Collection) => void
+  setCurrentCollection: (collection: State['currentCollection']) => void
 }
 
 export type StoreType = State & Setters

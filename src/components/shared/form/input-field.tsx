@@ -6,20 +6,18 @@ import { Input } from '../input'
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string
 
-  register: ReturnType<UseFormRegister<FieldValues>>
   pre?: React.ReactNode
 }
 
 const InputField = React.forwardRef<HTMLInputElement, Props>(
-  ({ label, register, pre, type, ...props }, ref) => {
+  ({ label, pre, type, ...props }, forwardedRef) => {
     return (
       <label>
         <span className="mb-2 block text-sm text-neutral-500">{label}</span>
         <div className="relative">
           <Input
-            {...register}
             {...props}
-            ref={ref}
+            ref={forwardedRef}
             hasPrefix={!!pre}
             type={type || 'text'}
           />
