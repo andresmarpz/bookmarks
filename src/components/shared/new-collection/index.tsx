@@ -49,6 +49,7 @@ export default function NewCollection() {
           <InputField
             label="Name"
             pre={<Pencil className="h-4 w-4 text-neutral-500" />}
+            autoComplete="off"
             {...register('name', { required: true })}
           />
 

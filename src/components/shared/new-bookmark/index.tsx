@@ -1,11 +1,14 @@
-import { forwardRef } from 'react'
-import mql from '@microlink/mql'
+import { forwardRef, useState } from 'react'
+import mql, { MicrolinkError } from '@microlink/mql'
 import { Edit2, Indent, Link, Loader, PlusIcon } from 'lucide-react'
 import { FieldErrors, Resolver, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import useCollections from '~/hooks/use-collections'
 
 import { api } from '~/lib/api'
+import mapMicrolinkErrorToMessage from '~/lib/microlink-errors'
 import { cn } from '~/lib/utils'
+import Spinner from '~/components/shared/spinner'
 import {
   Dialog,
   DialogContent,
@@ -48,25 +51,34 @@ SelectField.displayName = 'SelectField'
 export default function NewBookmark() {
   const { mutate, isLoading, isError } =
     api.bookmark.createBookmark.useMutation()
-  const { handleSubmit, register, setValue } = useForm<FormValues>()
+  const { handleSubmit, register, setValue, setError } = useForm<FormValues>()
 
   const { collections } = useCollections()
 
+  const [loading, setLoading] = useState(isLoading)
+
   const onSubmit = handleSubmit(async (data) => {
-    const metadata = await mql(data.url)
+    setLoading(true)
 
-    const {
-      data: { title, description, logo }
-    } = metadata
+    try {
+      const {
+        data: { title, description, logo }
+      } = await mql(data.url)
 
-    mutate({
-      url: data.url,
-      title: data.title || title || undefined,
-      description: data.description || description || undefined,
-      favicon: logo?.url,
-      collectionId:
-        data.collection === 'undefined' ? undefined : data.collection
-    })
+      mutate({
+        url: data.url,
+        title: data.title || title || undefined,
+        description: data.description || description || undefined,
+        favicon: logo?.url,
+        collectionId:
+          data.collection === 'undefined' ? undefined : data.collection
+      })
+    } catch (error) {
+      const microlinkError = error as MicrolinkError
+      toast
+    } finally {
+      setLoading(false)
+    }
   })
 
   return (
@@ -116,10 +128,10 @@ export default function NewBookmark() {
 
           <Button
             type="submit"
-            className="m-auto w-full max-w-[175px]"
-            disabled={isLoading}
+            className="m-auto h-10 w-full max-w-[175px] py-0"
+            disabled={loading}
           >
-            {isLoading ? <Loader /> : 'Create'}
+            {loading ? <Spinner /> : 'Create'}
           </Button>
         </form>
       </DialogContent>

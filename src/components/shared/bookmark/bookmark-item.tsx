@@ -1,15 +1,19 @@
 import Image from 'next/image'
 import { Bookmark } from '@prisma/client'
+import { m } from 'framer-motion'
 
 import { cn } from '~/lib/utils'
 
 interface Props {
   bookmark: Bookmark
+  index: number
 }
 
-export default function BookmarkItem({ bookmark }: Props) {
+export default function BookmarkItem({ bookmark, index }: Props) {
   return (
-    <li
+    <m.li
+      animate={{ opacity: [0, 1], translateY: [16, 0] }}
+      transition={{ duration: 0.2, delay: index * 0.075 }}
       className={cn(
         'h-fit w-full rounded-md shadow',
         'bg-white dark:bg-neutral-950',
@@ -27,10 +31,10 @@ export default function BookmarkItem({ bookmark }: Props) {
           <Image
             src={bookmark.favicon}
             alt=""
-            width={32}
-            height={32}
-            className="rounded-md"
+            width={24}
+            height={24}
             unoptimized
+            className="shrink-0 grow-0 basis-6 rounded-md"
           />
         )}
         <span>
@@ -43,6 +47,6 @@ export default function BookmarkItem({ bookmark }: Props) {
           </p>
         </span>
       </a>
-    </li>
+    </m.li>
   )
 }

@@ -10,8 +10,12 @@ interface Props {
 export default function CollectionList({ collections }: Props) {
   return (
     <ul>
-      {collections.map((collection) => (
-        <CollectionItem key={collection.id} collection={collection} />
+      {collections.map((collection, index) => (
+        <CollectionItem
+          key={collection.id}
+          collection={collection}
+          index={index}
+        />
       ))}
     </ul>
   )

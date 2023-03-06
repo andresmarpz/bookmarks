@@ -11,12 +11,16 @@ const App = () => {
   const { currentCollection } = useStore()
 
   return (
-    <div className="flex min-h-screen items-stretch">
+    <div className="flex h-screen items-stretch">
       <Sidebar avatar={data?.user!.image!} />
-      <main className="flex w-full grow flex-col bg-slate-50 dark:bg-black">
+      <main className="flex h-full w-full grow flex-col overflow-y-auto bg-slate-50 dark:bg-black">
         <header className="flex items-center justify-between p-4">
           <NewBookmark />
-          <UserDropdown avatar={data?.user!.image!} email={data?.user.email!} />
+          <UserDropdown
+            avatar={data?.user!.image!}
+            username={data?.user.username}
+            email={data?.user.email!}
+          />
         </header>
         <BookmarkList currentCollection={currentCollection} />
       </main>

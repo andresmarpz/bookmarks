@@ -1,6 +1,7 @@
 import { Collection } from '@prisma/client'
 
 import { api } from '~/lib/api'
+import { cn } from '~/lib/utils'
 import BookmarkItem from './bookmark-item'
 
 interface Props {
@@ -25,11 +26,11 @@ export default function BookmarkList({ currentCollection }: Props) {
 
   if (isLoading || !data) return <div>Loading..</div>
   return (
-    <ul className="flex flex-col gap-3 p-4">
+    <ul className={cn('flex flex-col gap-3 p-4')}>
       {data.pages
         .flatMap((page) => page.items)
-        .map((bookmark) => (
-          <BookmarkItem key={bookmark.id} bookmark={bookmark} />
+        .map((bookmark, index) => (
+          <BookmarkItem key={bookmark.id} bookmark={bookmark} index={index} />
         ))}
     </ul>
   )
