@@ -2,6 +2,7 @@ import '~/styles/globals.css'
 import { NextComponentType } from 'next'
 import type { AppType } from 'next/app'
 import { Inter as FontSans } from 'next/font/google'
+import { LazyMotion } from 'framer-motion'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
@@ -19,6 +20,9 @@ type ComponentType = NextComponentType & { auth?: boolean }
 const Application: AppType<{
   session: Session | null
 }> = ({ Component, pageProps: { session, ...pageProps } }) => {
+  const domAnimation = () =>
+    import('~/lib/framer/domAnimation').then((res) => res.default)
+
   return (
     <>
       <style jsx global>{`
@@ -32,15 +36,17 @@ const Application: AppType<{
         disableTransitionOnChange
         enableSystem
       >
-        <SessionProvider session={session}>
-          {(Component as ComponentType).auth ? (
-            <Auth>
+        <LazyMotion strict features={domAnimation}>
+          <SessionProvider session={session}>
+            {(Component as ComponentType).auth ? (
+              <Auth>
+                <Component {...pageProps} />
+              </Auth>
+            ) : (
               <Component {...pageProps} />
-            </Auth>
-          ) : (
-            <Component {...pageProps} />
-          )}
-        </SessionProvider>
+            )}
+          </SessionProvider>
+        </LazyMotion>
       </ThemeProvider>
     </>
   )
