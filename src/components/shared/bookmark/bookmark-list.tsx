@@ -1,7 +1,9 @@
+import { useMemo } from 'react'
 import { Collection } from '@prisma/client'
 
 import { api } from '~/lib/api'
 import { cn } from '~/lib/utils'
+import BookmarkItemSkeleton from '~/components/shared/bookmark/bookmark-item-skeleton'
 import BookmarkItem from './bookmark-item'
 
 interface Props {
@@ -24,14 +26,24 @@ export default function BookmarkList({ currentCollection }: Props) {
     }
   )
 
-  if (isLoading || !data) return <div>Loading..</div>
+  const skeletonList = useMemo(() => Array.from({ length: 5 }), [])
+
   return (
     <ul className={cn('flex flex-col gap-3')}>
-      {data.pages
-        .flatMap((page) => page.items)
-        .map((bookmark, index) => (
-          <BookmarkItem key={bookmark.id} bookmark={bookmark} index={index} />
-        ))}
+      {/* {skeletonList.map((_, index) => (
+        <BookmarkItemSkeleton key={index} />
+      ))} */}
+      {isLoading || !data
+        ? skeletonList.map((_, index) => <BookmarkItemSkeleton key={index} />)
+        : data.pages
+            .flatMap((page) => page.items)
+            .map((bookmark, index) => (
+              <BookmarkItem
+                key={bookmark.id}
+                bookmark={bookmark}
+                index={index}
+              />
+            ))}
     </ul>
   )
 }

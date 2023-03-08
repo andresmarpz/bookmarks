@@ -13,7 +13,7 @@ export default function Sidebar() {
   return (
     <aside
       className={cn(
-        'w-72 min-w-[288px] p-3 py-6',
+        'w-72 min-w-[288px] bg-white p-3 py-6 dark:bg-neutral-950',
         'border-r border-r-slate-200 dark:border-r-neutral-800'
       )}
     >
