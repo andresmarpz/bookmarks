@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Pencil, PlusIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 
@@ -5,6 +6,7 @@ import { api } from '~/lib/api'
 import { cn } from '~/lib/utils'
 import { Button } from '~/components/shared/button'
 import InputField from '~/components/shared/form/input-field'
+import Spinner from '~/components/shared/spinner'
 import {
   Dialog,
   DialogContent,
@@ -17,18 +19,24 @@ type FormValues = {
 }
 
 export default function NewCollection() {
-  const { mutate } = api.collection.createCollection.useMutation()
+  const [open, setOpen] = useState(false)
+  const { mutateAsync, isLoading } =
+    api.collection.createCollection.useMutation()
+  const refetchCollections = api.useContext().collection.getCollections.refetch
 
-  const { register, handleSubmit } = useForm()
-
+  const { register, handleSubmit, reset } = useForm<FormValues>()
   const onSubmit = handleSubmit(async (data) => {
-    mutate({
+    await mutateAsync({
       name: data.name
     })
+
+    refetchCollections()
+    setOpen(false)
+    reset()
   })
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button
           className={cn(
@@ -53,7 +61,13 @@ export default function NewCollection() {
             {...register('name', { required: true })}
           />
 
-          <Button type="submit">Create</Button>
+          <Button
+            className="m-auto h-10 w-full max-w-[175px]"
+            disabled={isLoading}
+            type="submit"
+          >
+            {isLoading ? <Spinner /> : 'Create'}
+          </Button>
         </form>
       </DialogContent>
     </Dialog>

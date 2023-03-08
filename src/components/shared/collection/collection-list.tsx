@@ -1,16 +1,20 @@
-import { Collection } from '@prisma/client'
-
 import { api } from '~/lib/api'
+import Spinner from '~/components/shared/spinner'
 import CollectionItem from './collection-item'
 
-interface Props {
-  collections: Collection[]
-}
+export default function CollectionList() {
+  const { data, isLoading } = api.collection.getCollections.useQuery()
 
-export default function CollectionList({ collections }: Props) {
+  if (isLoading || !data) {
+    return (
+      <div className="mt-10 w-full">
+        <Spinner />
+      </div>
+    )
+  }
   return (
-    <ul>
-      {collections.map((collection, index) => (
+    <ul className="mt-3 flex flex-col items-start gap-3">
+      {data.map((collection, index) => (
         <CollectionItem
           key={collection.id}
           collection={collection}

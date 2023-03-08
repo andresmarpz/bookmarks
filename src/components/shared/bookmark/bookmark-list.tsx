@@ -26,7 +26,7 @@ export default function BookmarkList({ currentCollection }: Props) {
 
   if (isLoading || !data) return <div>Loading..</div>
   return (
-    <ul className={cn('flex flex-col gap-3 p-4')}>
+    <ul className={cn('flex flex-col gap-3')}>
       {data.pages
         .flatMap((page) => page.items)
         .map((bookmark, index) => (

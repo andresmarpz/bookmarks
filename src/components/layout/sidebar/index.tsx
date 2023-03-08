@@ -1,30 +1,19 @@
 import { Target } from 'lucide-react'
 import useStore from '~/state/store'
 
-import { api } from '~/lib/api'
 import { cn } from '~/lib/utils'
 import { Button } from '~/components/shared/button'
 import CollectionList from '~/components/shared/collection/collection-list'
 import NewCollection from '~/components/shared/new-collection'
 import ThemeChanger from '../../shared/theme-changer'
-import UserDropdown from './user-dropdown'
 
-interface Props {
-  avatar: string
-}
-
-export default function Sidebar({ avatar }: Props) {
-  const { data, isLoading } = api.collection.getCollections.useQuery()
+export default function Sidebar() {
   const { setCurrentCollection } = useStore()
-
-  if (isLoading || !data) {
-    return <div>Loading..</div>
-  }
 
   return (
     <aside
       className={cn(
-        'min-w-[300px] p-3 py-6 ',
+        'w-72 min-w-[288px] p-3 py-6',
         'border-r border-r-slate-200 dark:border-r-neutral-800'
       )}
     >
@@ -47,7 +36,8 @@ export default function Sidebar({ avatar }: Props) {
         </Button>
         <h2 className="text-sm font-semibold text-neutral-500">Collections</h2>
         <NewCollection />
-        <CollectionList collections={data} />
+
+        <CollectionList />
       </div>
     </aside>
   )
