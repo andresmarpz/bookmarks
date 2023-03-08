@@ -12,7 +12,7 @@ const App = () => {
 
   return (
     <div className="flex h-screen items-stretch">
-      <Sidebar avatar={data?.user!.image!} />
+      <Sidebar />
       <main className="flex h-full w-full grow flex-col overflow-y-auto bg-slate-50 dark:bg-black">
         <header className="flex items-center justify-between p-4">
           <NewBookmark />
@@ -22,7 +22,13 @@ const App = () => {
             email={data?.user.email!}
           />
         </header>
-        <BookmarkList currentCollection={currentCollection} />
+        <hr className="border-neutral-200 dark:border-neutral-800" />
+        <div className="p-4">
+          <h2 className="mb-3 text-lg font-medium">
+            {currentCollection ? currentCollection.name : 'All bookmarks'}
+          </h2>
+          <BookmarkList currentCollection={currentCollection} />
+        </div>
       </main>
     </div>
   )
