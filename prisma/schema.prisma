@@ -1,7 +1,8 @@
 datasource db {
-  provider          = "postgresql"
+  provider          = "mysql"
   url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // Only needed when using a cloud provider that doesn't support the creation of new databases, like Heroku. Learn more: https://pris.ly/migrate-shadow
+  relationMode      = "prisma"
 }
 
 generator client {
@@ -26,6 +27,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -34,6 +36,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model User {
@@ -66,6 +70,8 @@ model Collection {
   updatedAt DateTime   @updatedAt
   userId    String
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model Bookmark {
@@ -81,4 +87,7 @@ model Bookmark {
   updatedAt    DateTime    @updatedAt
   userId       String
   user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([collectionId])
+  @@index([userId])
 }
