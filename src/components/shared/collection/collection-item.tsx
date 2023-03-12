@@ -1,8 +1,8 @@
 import { MouseEvent, useState } from 'react'
-import { Collection } from '@prisma/client'
 import { m } from 'framer-motion'
 import { Hash, Pencil, Trash } from 'lucide-react'
 import useStore from '~/state/store'
+import { Collection } from '~/types'
 
 import { api } from '~/lib/api'
 import { Button } from '~/components/shared/button'

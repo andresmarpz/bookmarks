@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Collection } from '@prisma/client'
+import { Collection } from '~/types'
 
 import { api } from '~/lib/api'
 import { cn } from '~/lib/utils'
@@ -26,7 +26,10 @@ export default function BookmarkList({ currentCollection }: Props) {
     }
   )
 
-  const skeletonList = useMemo(() => Array.from({ length: 5 }), [])
+  const skeletonList = useMemo(
+    () => Array.from({ length: currentCollection?._count.bookmarks ?? 0 }),
+    [currentCollection?._count.bookmarks]
+  )
 
   return (
     <ul className={cn('flex flex-col gap-3')}>

@@ -24,7 +24,7 @@ const App = () => {
         </header>
         <hr className="border-neutral-200 dark:border-neutral-800" />
         <div className="p-4">
-          <h2 className="mb-3 text-lg font-medium">
+          <h2 className="mb-3 text-lg font-medium ">
             {currentCollection ? currentCollection.name : 'All bookmarks'}
           </h2>
           <BookmarkList currentCollection={currentCollection} />
