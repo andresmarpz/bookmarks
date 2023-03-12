@@ -1,8 +1,8 @@
-import { Collection } from '@prisma/client'
 import { create } from 'zustand'
+import { Collection } from '~/types'
 
-interface State {
-  currentCollection: Collection | undefined
+export interface State {
+  currentCollection?: Collection
 }
 
 interface Setters {
