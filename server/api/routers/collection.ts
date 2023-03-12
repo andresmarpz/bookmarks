@@ -36,7 +36,14 @@ export const collectionRouter = createTRPCRouter({
           userId: ctx.session.user.id
         },
         take: 20,
-        cursor: input?.cursor ? { id: input.cursor } : undefined
+        cursor: input?.cursor ? { id: input.cursor } : undefined,
+        include: {
+          _count: {
+            select: {
+              bookmarks: true
+            }
+          }
+        }
       })
       return collections
     }),
