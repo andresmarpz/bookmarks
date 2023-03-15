@@ -30,7 +30,8 @@ export default function UserDropdown({ avatar, username, email }: Props) {
           'flex items-center gap-2 rounded-md p-2',
           'hover:border-gray-400 dark:hover:border-neutral-500',
           'duration-50 transition-all ease-linear',
-          'hover:bg-gray-200 dark:hover:bg-neutral-800'
+          'hover:bg-gray-200 dark:hover:bg-neutral-800',
+          'select-none'
         )}
       >
         <Image

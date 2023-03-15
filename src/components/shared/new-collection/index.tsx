@@ -38,18 +38,10 @@ export default function NewCollection() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button
-          className={cn(
-            'flex w-full items-center justify-center gap-2 rounded-md py-2',
-            'text-gray-50',
-            'bg-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-700',
-            'border border-neutral-800 hover:border-neutral-600 dark:border-neutral-700 dark:hover:border-neutral-600',
-            'transition-colors duration-150 ease-in-out'
-          )}
-        >
-          <PlusIcon className="h-4 w-4" />
+        <Button className="w-full">
+          <PlusIcon className="mr-2 h-4 w-4" />
           <span className="text-sm">New Collection</span>
-        </button>
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>New Collection</DialogTitle>

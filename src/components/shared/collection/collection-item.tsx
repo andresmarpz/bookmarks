@@ -5,6 +5,7 @@ import useStore from '~/state/store'
 import { Collection } from '~/types'
 
 import { api } from '~/lib/api'
+import { cn } from '~/lib/utils'
 import { Button } from '~/components/shared/button'
 import Spinner from '~/components/shared/spinner'
 import {
@@ -49,21 +50,14 @@ export default function CollectionItem({ collection, index }: Props) {
         delay: index * 0.075
       }}
       className="w-full"
-      // 'hover:bg-gray-100 dark:hover:bg-neutral-900',
-      // 'duration-50 transition-all ease-linear',
-      // 'cursor-pointer',
-      // 'rounded-md',
-      // 'border border-gray-200 dark:border-neutral-800',
-      // 'hover:border-gray-300 dark:hover:border-neutral-500',
-      // 'bg-white dark:bg-neutral-950'
       onClick={handleClick}
     >
       <ContextMenu>
         <ContextMenuTrigger asChild>
           <Button
             type="button"
-            variant="outline"
-            className="flex w-full justify-center gap-2 border-none px-8 text-left"
+            variant="ghost"
+            className="flex w-full justify-center gap-2 px-8 text-left"
           >
             <Hash className="mr-2 h-4 w-4" />
             <span className="grow text-base">{collection.name}</span>

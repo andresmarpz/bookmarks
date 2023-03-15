@@ -83,8 +83,10 @@ export default function NewBookmark() {
 
   return (
     <Dialog>
-      <DialogTrigger className={cn('flex items-center gap-2', 'rounded p-2')}>
-        <PlusIcon /> <span>New Bookmark</span>
+      <DialogTrigger asChild>
+        <Button>
+          <PlusIcon className="mr-2 h-4 w-4" /> <span>New Bookmark</span>
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>New Bookmark</DialogTitle>
