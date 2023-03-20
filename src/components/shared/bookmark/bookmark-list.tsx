@@ -1,9 +1,12 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
+import { Bookmark } from '@prisma/client'
+import { InfiniteData } from '@tanstack/react-query'
 import { Collection } from '~/types'
 
-import { api } from '~/lib/api'
+import { RouterInputs, RouterOutputs, api } from '~/lib/api'
 import { cn } from '~/lib/utils'
 import BookmarkItemSkeleton from '~/components/shared/bookmark/bookmark-item-skeleton'
+import NewBookmark from '~/components/shared/new-bookmark'
 import BookmarkItem from './bookmark-item'
 
 interface Props {
@@ -11,19 +14,43 @@ interface Props {
 }
 
 export default function BookmarkList({ currentCollection }: Props) {
-  const { data, isLoading } = api.bookmark.getBookmarks.useInfiniteQuery(
-    {
-      collectionId: currentCollection?.id
-    },
-    {
-      getNextPageParam: (lastPage) => lastPage?.nextCursor,
-      select: (data) => {
+  const context = api.useContext()
+
+  const queryInput: RouterInputs['bookmark']['getBookmarks'] = useMemo(
+    () => ({ collectionId: currentCollection?.id, limit: 20 }),
+    [currentCollection?.id]
+  )
+  const { data, isLoading, fetchNextPage, hasNextPage } =
+    api.bookmark.getBookmarks.useInfiniteQuery(queryInput, {
+      getNextPageParam: (lastPage) => lastPage?.nextCursor
+    })
+
+  const onDeleteBookmark = useCallback(
+    (id: Bookmark['id']) => {
+      context.bookmark.getBookmarks.cancel()
+
+      const previousData =
+        context.bookmark.getBookmarks.getInfiniteData(queryInput)
+      context.bookmark.getBookmarks.setInfiniteData(queryInput, (old) => {
         return {
-          pages: [...data.pages].reverse(),
-          pageParams: [...data.pageParams].reverse()
+          ...old,
+          pages: (old?.pages ?? []).map((page) => ({
+            ...page,
+            items: page.items.filter((bookmark) => bookmark.id !== id)
+          })),
+          pageParams: old?.pageParams.filter((cursor) => cursor !== id) ?? []
         }
-      }
-    }
+      })
+
+      return previousData
+    },
+    [context.bookmark.getBookmarks, queryInput]
+  )
+
+  const onMutationError = useCallback(
+    (previousData?: InfiniteData<RouterOutputs['bookmark']['getBookmarks']>) =>
+      context.bookmark.getBookmarks.setInfiniteData(queryInput, previousData),
+    [context.bookmark.getBookmarks, queryInput]
   )
 
   const skeletonList = useMemo(
@@ -32,21 +59,22 @@ export default function BookmarkList({ currentCollection }: Props) {
   )
 
   return (
-    <ul className={cn('flex flex-col gap-3')}>
-      {/* {skeletonList.map((_, index) => (
-        <BookmarkItemSkeleton key={index} />
-      ))} */}
-      {isLoading || !data
-        ? skeletonList.map((_, index) => <BookmarkItemSkeleton key={index} />)
-        : data.pages
-            .flatMap((page) => page.items)
-            .map((bookmark, index) => (
-              <BookmarkItem
-                key={bookmark.id}
-                bookmark={bookmark}
-                index={index}
-              />
-            ))}
-    </ul>
+    <div className="p-4">
+      <ul className={cn('flex flex-col gap-3')}>
+        {isLoading || !data
+          ? skeletonList.map((_, index) => <BookmarkItemSkeleton key={index} />)
+          : data.pages
+              .flatMap((page) => page.items)
+              .map((bookmark, index) => (
+                <BookmarkItem
+                  key={bookmark.id}
+                  bookmark={bookmark}
+                  index={index}
+                  onDelete={onDeleteBookmark}
+                  onMutationError={onMutationError}
+                />
+              ))}
+      </ul>
+    </div>
   )
 }
