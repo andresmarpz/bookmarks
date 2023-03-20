@@ -54,9 +54,10 @@ export const collectionRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const collection = await ctx.prisma.collection.delete({
+      const collection = await ctx.prisma.collection.deleteMany({
         where: {
-          id: input.id
+          id: input.id,
+          userId: ctx.session.user.id
         }
       })
       return collection
