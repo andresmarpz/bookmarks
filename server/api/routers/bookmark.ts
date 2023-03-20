@@ -36,6 +36,17 @@ export const bookmarkRouter = createTRPCRouter({
       })
       return bookmark
     }),
+  deleteBookmark: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const bookmark = await ctx.prisma.bookmark.deleteMany({
+        where: {
+          id: input.id,
+          userId: ctx.session.user.id
+        }
+      })
+      return bookmark
+    }),
   getBookmarks: protectedProcedure
     .input(
       z.object({
