@@ -51,26 +51,31 @@ export const bookmarkRouter = createTRPCRouter({
     .input(
       z.object({
         collectionId: z.string().nullish(),
+        limit: z.number().min(1).max(50).nullish(),
         cursor: z.string().nullish()
       })
     )
     .query(async ({ input, ctx }) => {
-      const bookmarks = await prisma.bookmark.findMany({
+      const limit = input.limit ?? 20
+      const { cursor } = input
+      const items = await prisma.bookmark.findMany({
+        take: limit + 1,
         where: {
           collectionId: input.collectionId,
           userId: ctx.session.user.id
         },
-        take: 101,
-        skip: input.cursor ? 1 : 0,
-        cursor: input.cursor ? { id: input.cursor } : undefined
+        cursor: input.cursor ? { id: input.cursor } : undefined,
+        orderBy: {
+          createdAt: 'desc'
+        }
       })
-      let nextCursor: typeof input.cursor | undefined = undefined
-      if (bookmarks.length > 100) {
-        const next = bookmarks.pop()
+      let nextCursor: typeof cursor | undefined = undefined
+      if (items.length > limit) {
+        const next = items.pop()
         nextCursor = next!.id
       }
       return {
-        items: bookmarks,
+        items: items,
         nextCursor
       }
     })
