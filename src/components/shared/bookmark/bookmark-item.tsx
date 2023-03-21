@@ -6,7 +6,6 @@ import { Pencil, Trash } from 'lucide-react'
 import { useDeleteBookmark } from '~/server/api/routers/bookmark/use-delete-bookmark'
 
 import { cn } from '~/lib/utils'
-import Spinner from '~/components/shared/spinner'
 import {
   ContextMenu,
   ContextMenuContent,
@@ -20,7 +19,7 @@ interface Props {
 }
 
 export default function BookmarkItem({ bookmark, index }: Props) {
-  const { mutate: deleteMutation, isLoading: isDeleting } = useDeleteBookmark()
+  const { mutate: deleteMutation } = useDeleteBookmark()
 
   const handleDelete = useCallback(
     async (event: MouseEvent) => {
@@ -78,12 +77,10 @@ export default function BookmarkItem({ bookmark, index }: Props) {
           <ContextMenuItem
             onClick={handleDelete}
             className="flex justify-between"
-            disabled={isDeleting}
           >
             <span className="flex grow items-center">
               <Trash className="mr-2 h-4 w-4 text-red-400" /> Delete
             </span>
-            {isDeleting && <Spinner height={16} width={16} />}
           </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
