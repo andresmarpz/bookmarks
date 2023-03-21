@@ -20,13 +20,13 @@ export default function BookmarkItemSkeleton() {
         <div
           className={cn(
             'h-6 w-6 shrink-0 grow-0 basis-6',
-            'animate-pulse rounded-md bg-neutral-800'
+            'animate-pulse rounded-md bg-slate-200 dark:bg-neutral-800'
           )}
         />
         <span className="flex grow flex-col gap-2">
-          <div className="h-4 w-full animate-pulse rounded bg-neutral-800" />
-          <div className="h-9 w-full animate-pulse rounded bg-neutral-800" />
-          <div className="h-4 w-full animate-pulse rounded bg-neutral-800" />
+          <div className="h-4 w-full animate-pulse rounded bg-slate-200 dark:bg-neutral-800" />
+          <div className="h-9 w-full animate-pulse rounded bg-slate-200 dark:bg-neutral-800" />
+          <div className="h-4 w-full animate-pulse rounded bg-slate-200 dark:bg-neutral-800" />
         </span>
       </div>
     </m.li>
