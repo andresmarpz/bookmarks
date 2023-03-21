@@ -1,7 +1,6 @@
 import { bookmarkRouter } from '~/server/api/routers/bookmark'
+import { collectionRouter } from '~/server/api/routers/collection'
 import { createTRPCRouter } from '~/server/api/trpc'
-
-import { collectionRouter } from './routers/collection'
 
 /**
  * This is the primary router for your server.
@@ -9,8 +8,8 @@ import { collectionRouter } from './routers/collection'
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  bookmark: bookmarkRouter,
-  collection: collectionRouter
+	bookmark: bookmarkRouter,
+	collection: collectionRouter
 })
 
 // export type definition of API

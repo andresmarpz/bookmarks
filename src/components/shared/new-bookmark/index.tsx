@@ -1,14 +1,13 @@
-import { forwardRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import mql, { MicrolinkError } from '@microlink/mql'
-import { Bookmark } from '@prisma/client'
-import { InfiniteData } from '@tanstack/react-query'
-import { TRPCClientError } from '@trpc/client'
 import { Edit2, Indent, Link, PlusIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import useCollections from '~/hooks/use-collections'
+import { useCreateBookmark } from '~/server/api/routers/bookmark/use-create-bookmark'
+import useCollections from '~/server/api/routers/collection/use-collections'
 
-import { RouterInputs, RouterOutputs, api } from '~/lib/api'
+import { RouterInputs } from '~/lib/api'
+import mapMicrolinkErrorToMessage from '~/lib/microlink-errors'
 import Spinner from '~/components/shared/spinner'
 import {
   Dialog,
@@ -16,16 +15,10 @@ import {
   DialogTitle,
   DialogTrigger
 } from '~/components/ui/dialog'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue
-} from '~/components/ui/select'
+import { SelectItem, SelectSeparator } from '~/components/ui/select'
 import { Button } from '../button'
 import InputField from '../form/input-field'
+import SelectField from '../form/select-field'
 
 type FormValues = {
   url: string
@@ -34,79 +27,15 @@ type FormValues = {
   collection?: string
 }
 
-const SelectField = forwardRef<
-  HTMLButtonElement,
-  React.ComponentProps<typeof Select>
->(({ children, ...props }, ref) => {
-  return (
-    <Select {...props}>
-      <SelectTrigger ref={ref}>
-        <SelectValue placeholder="Select a collection" />
-      </SelectTrigger>
-      <SelectContent>{children}</SelectContent>
-    </Select>
+export default function NewBookmark() {
+  const { data } = useCollections()
+  const collections = useMemo(
+    () => data?.pages.flatMap((page) => page.items),
+    [data?.pages]
   )
-})
-SelectField.displayName = 'SelectField'
 
-interface Props {
-  queryInput: RouterInputs['bookmark']['getBookmarks']
-  onMutationError: (
-    previousData?: InfiniteData<RouterOutputs['bookmark']['getBookmarks']>
-  ) => void
-  onMutationSettled: () => void
-}
-
-export default function NewBookmark({
-  queryInput,
-  onMutationError,
-  onMutationSettled
-}: Props) {
-  const context = api.useContext()
-
-  const { mutate, isLoading } = api.bookmark.createBookmark.useMutation({
-    onMutate: async (newBookmark) => {
-      context.bookmark.getBookmarks.cancel()
-
-      const previousData =
-        context.bookmark.getBookmarks.getInfiniteData(queryInput)
-      context.bookmark.getBookmarks.setInfiniteData(queryInput, (old) => {
-        if (!old) return old
-
-        const dummyNewBookmark: Bookmark = {
-          ...newBookmark,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          sortIndex: -1,
-          userId: crypto.randomUUID(),
-          id: newBookmark.id ?? crypto.randomUUID(),
-          title: newBookmark.title ?? null,
-          description: newBookmark.description ?? null,
-          favicon: newBookmark.favicon ?? null,
-          collectionId: newBookmark.collectionId ?? null
-        }
-
-        return {
-          ...old,
-          pages: old.pages.map((page, index) =>
-            index + 1 === old.pages.length
-              ? {
-                  ...page,
-                  items: [dummyNewBookmark, ...page.items]
-                }
-              : page
-          )
-        }
-      })
-
-      return previousData
-    },
-    onError: (error, newBookmark, ctx) => onMutationError(ctx),
-    onSettled: () => onMutationSettled()
-  })
+  const { mutate, isLoading } = useCreateBookmark()
   const { handleSubmit, register, setValue, reset } = useForm<FormValues>()
-
-  const { collections } = useCollections()
 
   const [loading, setLoading] = useState(isLoading)
   const [open, setOpen] = useState(false)
@@ -119,25 +48,32 @@ export default function NewBookmark({
         data: { title, description, logo }
       } = await mql(data.url)
 
-      mutate({
-        id: crypto.randomUUID() || undefined,
+      const input: RouterInputs['bookmark']['createBookmark'] = {
         url: data.url,
         title: data.title || title || undefined,
         description: data.description || description || undefined,
         favicon: logo?.url,
         collectionId:
           data.collection === 'undefined' ? undefined : data.collection
+      }
+
+      mutate(input, {
+        onSettled: (newBookmark) => {
+          if (!newBookmark) return
+
+          reset()
+          setOpen(false)
+          toast('Bookmark created successfully', {
+            description: newBookmark.title ?? 'Untitled'
+          })
+        }
       })
-      setOpen(false)
-      reset()
     } catch (error) {
       if (error instanceof MicrolinkError) {
         const microlinkError = error as MicrolinkError
 
-        console.error(microlinkError.message)
+        toast(mapMicrolinkErrorToMessage(microlinkError))
       }
-
-      console.log((error as any).data?.zodError?.fieldErrors)
     } finally {
       setLoading(false)
     }

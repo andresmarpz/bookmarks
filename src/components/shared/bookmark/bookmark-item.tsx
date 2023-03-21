@@ -1,11 +1,10 @@
 import { MouseEvent, useCallback } from 'react'
 import Image from 'next/image'
 import { Bookmark } from '@prisma/client'
-import { InfiniteData } from '@tanstack/react-query'
 import { m } from 'framer-motion'
 import { Pencil, Trash } from 'lucide-react'
+import { useDeleteBookmark } from '~/server/api/routers/bookmark/use-delete-bookmark'
 
-import { RouterOutputs, api } from '~/lib/api'
 import { cn } from '~/lib/utils'
 import Spinner from '~/components/shared/spinner'
 import {
@@ -18,34 +17,16 @@ import {
 interface Props {
   bookmark: Bookmark
   index: number
-  onDelete: (
-    id: string
-  ) => InfiniteData<RouterOutputs['bookmark']['getBookmarks']> | undefined
-  onMutationError: (
-    previousData?: InfiniteData<RouterOutputs['bookmark']['getBookmarks']>
-  ) => void
-  onMutationSettled: () => void
 }
 
-export default function BookmarkItem({
-  bookmark,
-  index,
-  onDelete,
-  onMutationError,
-  onMutationSettled
-}: Props) {
-  const { mutateAsync: deleteMutation, isLoading: isDeleting } =
-    api.bookmark.deleteBookmark.useMutation({
-      onMutate: async (deletedBookmark) => onDelete(deletedBookmark.id),
-      onError: (error, deletedBookmark, ctx) => onMutationError(ctx),
-      onSettled: () => onMutationSettled()
-    })
+export default function BookmarkItem({ bookmark, index }: Props) {
+  const { mutate: deleteMutation, isLoading: isDeleting } = useDeleteBookmark()
 
   const handleDelete = useCallback(
     async (event: MouseEvent) => {
       event.preventDefault()
       event.stopPropagation()
-      await deleteMutation({ id: bookmark.id })
+      deleteMutation({ id: bookmark.id })
     },
     [bookmark.id, deleteMutation]
   )
@@ -56,7 +37,7 @@ export default function BookmarkItem({
       transition={{ duration: 0.2, delay: index * 0.075 }}
       className={cn(
         'h-fit w-full rounded-md shadow',
-        'bg-white dark:bg-neutral-950',
+        'dark:bg-neutral-950 bg-white',
         'border border-gray-200 hover:border-gray-400 dark:border-neutral-800 dark:hover:border-neutral-500',
         'duration-50 transition-all ease-linear'
       )}

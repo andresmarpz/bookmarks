@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { Pencil, PlusIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
+import { useCreateCollection } from '~/server/api/routers/collection/use-create-collection'
 
-import { api } from '~/lib/api'
-import { cn } from '~/lib/utils'
 import { Button } from '~/components/shared/button'
 import InputField from '~/components/shared/form/input-field'
 import Spinner from '~/components/shared/spinner'
@@ -20,19 +19,23 @@ type FormValues = {
 
 export default function NewCollection() {
   const [open, setOpen] = useState(false)
-  const { mutateAsync, isLoading } =
-    api.collection.createCollection.useMutation()
-  const refetchCollections = api.useContext().collection.getCollections.refetch
+
+  const { mutate: createCollection, isLoading } = useCreateCollection()
 
   const { register, handleSubmit, reset } = useForm<FormValues>()
-  const onSubmit = handleSubmit(async (data) => {
-    await mutateAsync({
-      name: data.name
-    })
 
-    refetchCollections()
-    setOpen(false)
-    reset()
+  const onSubmit = handleSubmit((data) => {
+    createCollection(
+      { name: data.name },
+      {
+        onSettled: (newCollection) => {
+          if (!newCollection) return
+
+          setOpen(false)
+          reset()
+        }
+      }
+    )
   })
 
   return (

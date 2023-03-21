@@ -11,7 +11,7 @@ export default function BookmarkItemSkeleton() {
       }}
       className={cn(
         'h-fit w-full rounded-md shadow',
-        'bg-white dark:bg-neutral-950',
+        'dark:bg-neutral-950 bg-white',
         'border border-gray-200 hover:border-gray-400 dark:border-neutral-800 dark:hover:border-neutral-500',
         'duration-50 transition-all ease-linear'
       )}

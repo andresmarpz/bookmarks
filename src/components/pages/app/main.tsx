@@ -10,37 +10,15 @@ import NewBookmark from '~/components/shared/new-bookmark'
 export default function Main() {
   const currentCollection = useStore((state) => state.currentCollection)
 
-  const context = api.useContext()
-
-  const queryInput: RouterInputs['bookmark']['getBookmarks'] = useMemo(
-    () => ({ collectionId: currentCollection?.id, limit: 20 }),
-    [currentCollection?.id]
-  )
-
-  const onMutationError = (
-    previousData?: InfiniteData<RouterOutputs['bookmark']['getBookmarks']>
-  ) => context.bookmark.getBookmarks.setInfiniteData(queryInput, previousData)
-
-  const onMutationSettled = () => context.bookmark.getBookmarks.refetch()
-
   return (
     <div className="p-4">
       <div className="flex items-center justify-between pb-4">
         <h2 className="text-lg font-medium">
           {currentCollection ? currentCollection.name : 'All bookmarks'}
         </h2>
-        <NewBookmark
-          queryInput={queryInput}
-          onMutationError={onMutationError}
-          onMutationSettled={onMutationSettled}
-        />
+        <NewBookmark />
       </div>
-      <BookmarkList
-        count={currentCollection?._count.bookmarks ?? 0}
-        queryInput={queryInput}
-        onMutationError={onMutationError}
-        onMutationSettled={onMutationSettled}
-      />
+      <BookmarkList count={currentCollection?._count.bookmarks ?? 0} />
     </div>
   )
 }
