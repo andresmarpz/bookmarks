@@ -6,6 +6,7 @@ export const bookmarkRouter = createTRPCRouter({
   createBookmark: protectedProcedure
     .input(
       z.object({
+        id: z.string().optional(),
         url: z.string().url(),
         title: z.string().optional(),
         description: z.string().optional(),
@@ -16,6 +17,7 @@ export const bookmarkRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const bookmark = await ctx.prisma.bookmark.create({
         data: {
+          id: input.id,
           url: input.url,
           title: input.title,
           description: input.description,

@@ -24,21 +24,21 @@ interface Props {
   onMutationError: (
     previousData?: InfiniteData<RouterOutputs['bookmark']['getBookmarks']>
   ) => void
+  onMutationSettled: () => void
 }
 
 export default function BookmarkItem({
   bookmark,
   index,
   onDelete,
-  onMutationError
+  onMutationError,
+  onMutationSettled
 }: Props) {
-  const context = api.useContext()
-
   const { mutateAsync: deleteMutation, isLoading: isDeleting } =
     api.bookmark.deleteBookmark.useMutation({
       onMutate: async (deletedBookmark) => onDelete(deletedBookmark.id),
       onError: (error, deletedBookmark, ctx) => onMutationError(ctx),
-      onSettled: () => context.bookmark.getBookmarks.invalidate()
+      onSettled: () => onMutationSettled()
     })
 
   const handleDelete = useCallback(

@@ -1,13 +1,14 @@
 import { forwardRef, useState } from 'react'
 import mql, { MicrolinkError } from '@microlink/mql'
-import { Edit2, Indent, Link, Loader, PlusIcon } from 'lucide-react'
-import { FieldErrors, Resolver, useForm } from 'react-hook-form'
+import { Bookmark } from '@prisma/client'
+import { InfiniteData } from '@tanstack/react-query'
+import { TRPCClientError } from '@trpc/client'
+import { Edit2, Indent, Link, PlusIcon } from 'lucide-react'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import useCollections from '~/hooks/use-collections'
 
-import { api } from '~/lib/api'
-import mapMicrolinkErrorToMessage from '~/lib/microlink-errors'
-import { cn } from '~/lib/utils'
+import { RouterInputs, RouterOutputs, api } from '~/lib/api'
 import Spinner from '~/components/shared/spinner'
 import {
   Dialog,
@@ -48,14 +49,67 @@ const SelectField = forwardRef<
 })
 SelectField.displayName = 'SelectField'
 
-export default function NewBookmark() {
-  const { mutate, isLoading, isError } =
-    api.bookmark.createBookmark.useMutation()
-  const { handleSubmit, register, setValue, setError } = useForm<FormValues>()
+interface Props {
+  queryInput: RouterInputs['bookmark']['getBookmarks']
+  onMutationError: (
+    previousData?: InfiniteData<RouterOutputs['bookmark']['getBookmarks']>
+  ) => void
+  onMutationSettled: () => void
+}
+
+export default function NewBookmark({
+  queryInput,
+  onMutationError,
+  onMutationSettled
+}: Props) {
+  const context = api.useContext()
+
+  const { mutate, isLoading } = api.bookmark.createBookmark.useMutation({
+    onMutate: async (newBookmark) => {
+      context.bookmark.getBookmarks.cancel()
+
+      const previousData =
+        context.bookmark.getBookmarks.getInfiniteData(queryInput)
+      context.bookmark.getBookmarks.setInfiniteData(queryInput, (old) => {
+        if (!old) return old
+
+        const dummyNewBookmark: Bookmark = {
+          ...newBookmark,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          sortIndex: -1,
+          userId: crypto.randomUUID(),
+          id: newBookmark.id ?? crypto.randomUUID(),
+          title: newBookmark.title ?? null,
+          description: newBookmark.description ?? null,
+          favicon: newBookmark.favicon ?? null,
+          collectionId: newBookmark.collectionId ?? null
+        }
+
+        return {
+          ...old,
+          pages: old.pages.map((page, index) =>
+            index + 1 === old.pages.length
+              ? {
+                  ...page,
+                  items: [dummyNewBookmark, ...page.items]
+                }
+              : page
+          )
+        }
+      })
+
+      return previousData
+    },
+    onError: (error, newBookmark, ctx) => onMutationError(ctx),
+    onSettled: () => onMutationSettled()
+  })
+  const { handleSubmit, register, setValue, reset } = useForm<FormValues>()
 
   const { collections } = useCollections()
 
   const [loading, setLoading] = useState(isLoading)
+  const [open, setOpen] = useState(false)
 
   const onSubmit = handleSubmit(async (data) => {
     setLoading(true)
@@ -66,6 +120,7 @@ export default function NewBookmark() {
       } = await mql(data.url)
 
       mutate({
+        id: crypto.randomUUID() || undefined,
         url: data.url,
         title: data.title || title || undefined,
         description: data.description || description || undefined,
@@ -73,16 +128,23 @@ export default function NewBookmark() {
         collectionId:
           data.collection === 'undefined' ? undefined : data.collection
       })
+      setOpen(false)
+      reset()
     } catch (error) {
-      const microlinkError = error as MicrolinkError
-      toast
+      if (error instanceof MicrolinkError) {
+        const microlinkError = error as MicrolinkError
+
+        console.error(microlinkError.message)
+      }
+
+      console.log((error as any).data?.zodError?.fieldErrors)
     } finally {
       setLoading(false)
     }
   })
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
           <PlusIcon className="mr-2 h-4 w-4" /> <span>New Bookmark</span>
