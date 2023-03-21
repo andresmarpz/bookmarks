@@ -16,7 +16,7 @@ export default function Sidebar() {
   return (
     <aside
       className={cn(
-        'dark:bg-neutral-950 w-72 min-w-[288px] bg-white p-3 pt-6',
+        'dark:bg-neutral-950 max-h-screen w-72 min-w-[288px] text-clip bg-white p-3 pt-6',
         'border-r border-r-slate-200 dark:border-r-neutral-800',
         'flex flex-col'
       )}
@@ -29,7 +29,7 @@ export default function Sidebar() {
         </span>
       </div>
 
-      <div className="mt-4 grow">
+      <div className="mt-4 mb-2 flex grow flex-col">
         <Button
           className="mb-4 flex w-full items-center justify-center gap-2"
           variant="outline"
@@ -38,7 +38,9 @@ export default function Sidebar() {
           <Target className="h-4 w-4" />
           All bookmarks
         </Button>
-        <h2 className="text-sm font-semibold text-neutral-500">Collections</h2>
+        <h2 className="mb-1 text-sm font-semibold text-neutral-500">
+          Collections
+        </h2>
         <NewCollection />
 
         <CollectionList />

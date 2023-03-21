@@ -20,7 +20,7 @@ export default function CollectionList() {
   }
 
   return (
-    <ul className="mt-3 flex flex-col items-start gap-3">
+    <ul className="mt-3 flex h-0 grow flex-col items-start gap-3 overflow-y-auto p-1">
       {collections?.map((collection, index) => (
         <CollectionItem
           key={collection.id}
