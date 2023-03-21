@@ -1,13 +1,11 @@
 import { MouseEvent } from 'react'
 import { m } from 'framer-motion'
 import { Hash, Pencil, Trash } from 'lucide-react'
-import { useDeleteCollection } from '~/server/api/routers/collection/use-delete.collection'
+import { useDeleteCollection } from '~/server/api/routers/collection/use-delete-collection'
 import useStore from '~/state/store'
 import { Collection } from '~/types'
 
-import { api } from '~/lib/api'
 import { Button } from '~/components/shared/button'
-import Spinner from '~/components/shared/spinner'
 import {
   ContextMenu,
   ContextMenuContent,
@@ -23,8 +21,7 @@ interface Props {
 export default function CollectionItem({ collection, index }: Props) {
   const { currentCollection, setCurrentCollection } = useStore()
 
-  const { mutate: deleteCollection, isLoading: isDeleting } =
-    useDeleteCollection()
+  const { mutate: deleteCollection } = useDeleteCollection()
 
   const handleClick = () => setCurrentCollection(collection)
 
@@ -67,12 +64,10 @@ export default function CollectionItem({ collection, index }: Props) {
           <ContextMenuItem
             onClick={handleMenuDelete}
             className="flex justify-between"
-            disabled={isDeleting}
           >
             <span className="flex grow items-center">
               <Trash className="mr-2 h-4 w-4 text-red-400" /> Delete
             </span>
-            {isDeleting && <Spinner height={16} width={16} />}
           </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
