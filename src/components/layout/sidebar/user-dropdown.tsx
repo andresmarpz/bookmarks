@@ -27,7 +27,7 @@ export default function UserDropdown({ avatar, username, email }: Props) {
     <DropdownMenu>
       <DropdownMenuTrigger
         className={cn(
-          'flex items-center gap-2 rounded-md p-2',
+          'flex items-center justify-start gap-2 rounded-md p-2',
           'hover:border-gray-400 dark:hover:border-neutral-500',
           'duration-50 transition-all ease-linear',
           'hover:bg-gray-200 dark:hover:bg-neutral-800',
@@ -41,14 +41,12 @@ export default function UserDropdown({ avatar, username, email }: Props) {
           src={avatar!}
           alt="User profile image from GitHub"
         />
-        <span className="flex items-center gap-1">
-          <span className="w-max max-w-[175px] overflow-hidden text-ellipsis whitespace-nowrap text-sm">
-            {username ? username : email}
-          </span>
-          <ChevronDown className="h-4 w-4 text-gray-500 dark:text-neutral-500" />
+        <span className="w-full max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-left text-sm">
+          {username ? username : email}
         </span>
+        <ChevronDown className="h-4 w-4 text-gray-500 dark:text-neutral-500" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="min-w-fit" collisionPadding={16}>
+      <DropdownMenuContent className="w-64 min-w-fit" collisionPadding={16}>
         <DropdownMenuLabel className="font-normal dark:text-neutral-500">
           {email}
         </DropdownMenuLabel>

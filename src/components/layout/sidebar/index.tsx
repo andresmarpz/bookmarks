@@ -1,7 +1,9 @@
 import { Target } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import useStore from '~/state/store'
 
 import { cn } from '~/lib/utils'
+import UserDropdown from '~/components/layout/sidebar/user-dropdown'
 import { Button } from '~/components/shared/button'
 import CollectionList from '~/components/shared/collection/collection-list'
 import NewCollection from '~/components/shared/new-collection'
@@ -9,12 +11,14 @@ import ThemeChanger from '../../shared/theme-changer'
 
 export default function Sidebar() {
   const { setCurrentCollection } = useStore()
+  const { data } = useSession()
 
   return (
     <aside
       className={cn(
-        'w-72 min-w-[288px] bg-white p-3 py-6 dark:bg-neutral-950',
-        'border-r border-r-slate-200 dark:border-r-neutral-800'
+        'dark:bg-neutral-950 w-72 min-w-[288px] bg-white p-3 pt-6',
+        'border-r border-r-slate-200 dark:border-r-neutral-800',
+        'flex flex-col'
       )}
     >
       <div className="flex justify-between">
@@ -25,7 +29,7 @@ export default function Sidebar() {
         </span>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-4 grow">
         <Button
           className="mb-4 flex w-full items-center justify-center gap-2"
           variant="outline"
@@ -39,6 +43,11 @@ export default function Sidebar() {
 
         <CollectionList />
       </div>
+      <UserDropdown
+        avatar={data?.user!.image!}
+        username={data?.user.username}
+        email={data?.user.email!}
+      />
     </aside>
   )
 }
