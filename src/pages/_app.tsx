@@ -7,6 +7,7 @@ import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 
+import 'cal-sans'
 import { api } from '~/lib/api'
 import Auth from '~/components/shared/auth'
 
@@ -24,6 +25,7 @@ const Application: AppType<{
     <>
       <style jsx global>{`
 				:root {
+					--font-title: "Cal Sans";
 					--font-sans: ${fontSans.style.fontFamily};
 				}
 			}`}</style>

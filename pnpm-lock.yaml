@@ -18,6 +18,7 @@ specifiers:
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
   autoprefixer: ^10.4.14
+  cal-sans: ^1.0.1
   class-variance-authority: 0.4.0
   clsx: ^1.2.1
   eslint: 8.36.0
@@ -59,6 +60,7 @@ dependencies:
   '@trpc/next': 10.17.0_odcsobxw7udv3234yskut3r4vy
   '@trpc/react-query': 10.17.0_nln23i7o54o7cjzbabmwtrulee
   '@trpc/server': 10.17.0
+  cal-sans: 1.0.1
   class-variance-authority: 0.4.0_typescript@4.9.5
   clsx: 1.2.1
   framer-motion: 10.6.1_biqbaboplfbrettd7655fr4n2y
@@ -1614,6 +1616,10 @@ packages:
       lowercase-keys: 2.0.0
       normalize-url: 6.1.0
       responselike: 2.0.1
+    dev: false
+
+  /cal-sans/1.0.1:
+    resolution: {integrity: sha512-XwN3/7jez8WmFVcNnNqO2K9lh133KiIcURCyGFnSM+ZmNZ8zIcOTNfr3SpenLAkRceYsq+fQNX/PL4C1rIkEPQ==}
     dev: false
 
   /call-bind/1.0.2:
