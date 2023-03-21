@@ -57,9 +57,9 @@ export default function NewCollection() {
           />
 
           <Button
-            className="m-auto h-10 w-full max-w-[175px]"
-            disabled={isLoading}
             type="submit"
+            className="m-auto h-10 w-full max-w-[175px] py-0"
+            disabled={isLoading}
           >
             {isLoading ? <Spinner /> : 'Create'}
           </Button>
