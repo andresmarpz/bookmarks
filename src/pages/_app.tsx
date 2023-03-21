@@ -1,7 +1,7 @@
 import '~/styles/globals.css'
 import { NextComponentType } from 'next'
 import type { AppType } from 'next/app'
-import { Inter as FontSans } from 'next/font/google'
+import { Merriweather_Sans as FontSans } from 'next/font/google'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'

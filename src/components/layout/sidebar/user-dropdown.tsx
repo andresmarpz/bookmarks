@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronDown, LogOut, Settings } from 'lucide-react'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { signIn, signOut } from 'next-auth/react'
 
 import { cn } from '~/lib/utils'
 import { Button } from '~/components/shared/button'

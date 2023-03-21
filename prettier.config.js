@@ -7,6 +7,7 @@ module.exports = {
   arrowParens: 'always',
   tabWidth: 2,
   printWidth: 80,
+  useTabs: false,
   trailingComma: 'none',
   importOrder: [
     '^(react/(.*)$)|^(react$)',
