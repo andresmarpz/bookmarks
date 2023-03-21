@@ -1,10 +1,11 @@
+import { useBookmarks } from '~/server/api/routers/bookmark/use-bookmarks'
+
 import { api } from '~/lib/api'
-import { useBookmarks } from './use-bookmarks'
 
 export function useCreateBookmark() {
 	const context = api.useContext()
-	const { queryInput } = useBookmarks()
 
+	const { queryInput } = useBookmarks()
 	return api.bookmark.createBookmark.useMutation({
 		onSettled: (newBookmark) =>
 			context.bookmark.getBookmarks.setInfiniteData(queryInput, (old) => {

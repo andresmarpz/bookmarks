@@ -1,11 +1,11 @@
-import { MouseEvent, useState } from 'react'
+import { MouseEvent } from 'react'
 import { m } from 'framer-motion'
 import { Hash, Pencil, Trash } from 'lucide-react'
+import { useDeleteCollection } from '~/server/api/routers/collection/use-delete.collection'
 import useStore from '~/state/store'
 import { Collection } from '~/types'
 
 import { api } from '~/lib/api'
-import { cn } from '~/lib/utils'
 import { Button } from '~/components/shared/button'
 import Spinner from '~/components/shared/spinner'
 import {
@@ -21,22 +21,19 @@ interface Props {
 }
 
 export default function CollectionItem({ collection, index }: Props) {
-  const refetchCollections = api.useContext().collection.getCollections.refetch
-
-  const { mutateAsync: executeDelete, isLoading: isDeleting } =
-    api.collection.deleteCollection.useMutation()
-
   const { currentCollection, setCurrentCollection } = useStore()
+
+  const { mutate: deleteCollection, isLoading: isDeleting } =
+    useDeleteCollection()
 
   const handleClick = () => setCurrentCollection(collection)
 
   const handleMenuEdit = () => {}
-  const handleMenuDelete = async (event: MouseEvent) => {
+  const handleMenuDelete = (event: MouseEvent) => {
     if (currentCollection?.id === collection.id) setCurrentCollection(undefined)
     event.preventDefault()
     event.stopPropagation()
-    await executeDelete({ id: collection.id })
-    refetchCollections()
+    deleteCollection({ id: collection.id })
   }
 
   return (
