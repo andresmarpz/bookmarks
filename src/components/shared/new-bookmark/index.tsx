@@ -57,6 +57,15 @@ export default function NewBookmark() {
           data.collection === 'undefined' ? undefined : data.collection
       }
 
+      // const input: RouterInputs['bookmark']['createBookmark'] = {
+      //   url: data.url,
+      //   title: data.title ?? '',
+      //   description: data.description ?? '',
+      //   favicon: 'https://nextjs.org/favicon.ico',
+      //   collectionId:
+      //     data.collection === 'undefined' ? undefined : data.collection
+      // }
+
       mutate(input, {
         onSettled: (newBookmark) => {
           if (!newBookmark) return

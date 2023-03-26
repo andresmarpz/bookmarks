@@ -1,6 +1,8 @@
 import { z } from 'zod'
 import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc'
 
+import { bookmarksIndex } from '~/lib/algolia/client'
+
 export const bookmarkRouter = createTRPCRouter({
 	createBookmark: protectedProcedure
 		.input(
@@ -33,6 +35,14 @@ export const bookmarkRouter = createTRPCRouter({
 						: undefined
 				}
 			})
+
+			bookmarksIndex
+				.saveObject({
+					...bookmark,
+					objectID: bookmark.id
+				})
+				.wait()
+
 			return bookmark
 		}),
 	deleteBookmark: protectedProcedure
