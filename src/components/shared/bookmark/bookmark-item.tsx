@@ -36,7 +36,7 @@ export default function BookmarkItem({ bookmark, index }: Props) {
       transition={{ duration: 0.2, delay: index * 0.075 }}
       className={cn(
         'h-fit w-full rounded-md shadow',
-        'dark:bg-neutral-950 bg-white',
+        'bg-white dark:bg-neutral-950',
         'border border-gray-200 hover:border-gray-400 dark:border-neutral-800 dark:hover:border-neutral-500',
         'duration-50 transition-all ease-linear'
       )}

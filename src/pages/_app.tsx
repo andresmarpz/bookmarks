@@ -7,7 +7,6 @@ import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 
-import 'cal-sans'
 import { api } from '~/lib/api'
 import Auth from '~/components/shared/auth'
 
