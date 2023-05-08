@@ -9,6 +9,7 @@
   "dependencies": {
     "@clerk/nextjs": "^4.17.1",
     "@radix-ui/react-dropdown-menu": "^2.0.4",
+    "@radix-ui/react-slot": "^1.0.1",
     "@supabase/supabase-js": "^2.21.0",
     "kysely": "^0.24.2",
     "next": "13.4.1",

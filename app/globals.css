@@ -37,7 +37,7 @@
   }
 
   .dark {
-    --background: 224 7% 4%;
+    --background: 224 7% 8%;
     --foreground: 213 3% 91%;
 
     --muted: 223 5% 11%;
@@ -64,7 +64,7 @@
     --destructive: 0 6% 31%;
     --destructive-foreground: 210 4% 98%;
 
-    --ring: 216 5% 17%;
+    --ring: 216 5% 30%;
 
     --radius: 0.5rem;
   }

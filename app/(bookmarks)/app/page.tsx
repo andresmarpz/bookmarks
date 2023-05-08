@@ -1,7 +1,9 @@
+import NewBookmark from '@/components/ui/new-bookmark'
+
 export default async function Page() {
   return (
     <div>
-      <div>app</div>
+      <NewBookmark />
     </div>
   )
 }
