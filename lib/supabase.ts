@@ -1,4 +1,5 @@
 import { cache } from 'react'
+import { Database } from '@/types/supabase'
 import { auth } from '@clerk/nextjs'
 import { createClient } from '@supabase/supabase-js'
 
@@ -12,11 +13,16 @@ import { createClient } from '@supabase/supabase-js'
  * desired fetch function creates race conditions, we are left with this solution only.
  */
 
-const getToken = cache(async () => auth().getToken({ template: 'supabase' }))
+const getToken = cache(async () =>
+  auth().getToken({
+    template:
+      process.env.NODE_ENV === 'production' ? 'supabase-prod' : 'supabase'
+  })
+)
 
 export const supabase = cache(async (args?: RequestInit) => {
   const token = await getToken()
-  return createClient(
+  return createClient<Database>(
     process.env.SUPABASE_URL!,
     process.env.SUPABASE_ANON_KEY!,
     {

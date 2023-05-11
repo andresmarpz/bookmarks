@@ -26,9 +26,9 @@ export default function UserDropdown() {
 
   if (!session.isLoaded || !session.isSignedIn)
     return (
-      <div className="flex gap-3 items-center rounded py-1 px-2 h-8">
-        <Skeleton className="w-5 h-5" />
-        <Skeleton className="w-28 h-[14px]" />
+      <div className="flex gap-3 justify-center items-center rounded sm:py-1 sm:px-2 h-8 w-8 sm:w-40">
+        <Skeleton className="w-8 h-8 sm:w-5 sm:h-5 rounded-full" />
+        <Skeleton className="hidden sm:block w-[124px] h-[14px]" />
       </div>
     )
 
@@ -37,21 +37,19 @@ export default function UserDropdown() {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="py-1 px-2 rounded flex items-center gap-2 h-8"
+          className="fade-in-5 p-0 sm:py-1 sm:px-2 rounded-full sm:rounded flex items-center gap-2 h-8 w-8 sm:w-40"
         >
           <Image
-            className="rounded-full"
-            width={20}
-            height={20}
+            className="w-7 h-7 sm:w-5 sm:h-5 rounded-full"
+            width={28}
+            height={28}
             src={session.user.profileImageUrl}
             alt=""
           />
-          <span className="flex items-center gap-4">
-            <span className="text-sm text-neutral-800 dark:text-neutral-300">
-              {session.user.username}
-            </span>
-            <ChevronsUpDownIcon className="h-[14px] w-[14px] text-neutral-700 dark:text-neutral-400" />
+          <span className="hidden sm:block text-sm text-neutral-800 dark:text-neutral-300 overflow-hidden whitespace-nowrap break-all text-ellipsis max-w-[100px] w-full">
+            {session.user.username}
           </span>
+          <ChevronsUpDownIcon className="hidden sm:block h-[14px] ml-1 text-neutral-700 dark:text-neutral-400" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent collisionPadding={16} className="w-40">
