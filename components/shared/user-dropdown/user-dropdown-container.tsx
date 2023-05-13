@@ -1,6 +1,7 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
-import UserDropdown from '@/components/shared/user-dropdown'
-import { getServerSession } from 'next-auth'
+import { getServerSession } from "next-auth"
+
+import { authOptions } from "@/lib/next-auth"
+import UserDropdown from "@/components/shared/user-dropdown"
 
 export default async function UserDropdownContainer() {
   const session = await getServerSession(authOptions)
