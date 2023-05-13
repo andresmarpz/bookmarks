@@ -10,7 +10,7 @@ const nextConfig = {
     defaultLocale: 'en'
   },
   images: {
-    domains: ['images.clerk.dev']
+    domains: ['avatars.githubusercontent.com']
   }
 }
 
