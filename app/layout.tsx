@@ -1,5 +1,6 @@
 import "./globals.css"
 import { Inter } from "next/font/google"
+import { Analytics } from "@vercel/analytics/react"
 
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import ClientProviders from "@/components/shared/provider"
@@ -24,7 +25,10 @@ export default function RootLayout({
           defaultTheme="system"
           disableTransitionOnChange
         >
-          <ClientProviders>{children}</ClientProviders>
+          <ClientProviders>
+            {children}
+            <Analytics />
+          </ClientProviders>
         </ThemeProvider>
       </body>
     </html>
