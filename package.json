@@ -16,7 +16,7 @@
     "@radix-ui/react-slot": "^1.0.1",
     "@vercel/analytics": "^1.0.1",
     "next": "13.4.2",
-    "next-auth": "0.0.0-pr.6777.c5550344",
+    "next-auth": "^4.22.1",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

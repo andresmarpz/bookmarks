@@ -49,6 +49,4 @@ model User {
   deletedAt     DateTime? @map(name: "deleted_at")
 
   accounts Account[]
-
-  @@map("user")
 }
