@@ -21,7 +21,7 @@ export default function UserDropdown({ image, email, username }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="flex items-center gap-2">
+        <Button variant="ghost" className="flex items-center gap-2">
           <Image
             className="rounded-full"
             src={image}

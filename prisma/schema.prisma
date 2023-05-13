@@ -48,5 +48,38 @@ model User {
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
   deletedAt     DateTime? @map(name: "deleted_at")
 
-  accounts Account[]
+  accounts  Account[]
+  bookmarks Bookmark[]
+  groups    Group[]
+}
+
+model Bookmark {
+  id          String  @id @default(cuid())
+  title       String
+  description String?
+  url         String
+  image       String?
+
+  groupId String
+  group   Group  @relation(fields: [groupId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [uid])
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  @@index([groupId])
+  @@index([userId])
+}
+
+model Group {
+  id     String @id @default(cuid())
+  name   String
+  slug   String
+  userId String
+
+  user User @relation(fields: [userId], references: [uid])
+
+  bookmarks Bookmark[]
 }
