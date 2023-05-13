@@ -17,6 +17,10 @@ export default function Layout({ children }: PropsWithChildren) {
         </span>
         <span className="flex items-center gap-2">
           <ThemeToggle />
+          <Suspense fallback={"loading"}>
+            {/* @ts-expect-error RSC */}
+            <UserDropdownContainer />
+          </Suspense>
         </span>
       </header>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">{children}</div>

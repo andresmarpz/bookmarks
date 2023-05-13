@@ -40,7 +40,7 @@ export const authOptions: NextAuthOptions = {
           id: token.id,
           uid: token.uid,
           username: user?.username,
-        },
+        } as User & { id: number; uid: string },
       }
     },
     jwt: async ({ user, token }) => {
