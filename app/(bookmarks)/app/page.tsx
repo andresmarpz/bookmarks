@@ -1,6 +1,6 @@
 import NewBookmark from "@/components/ui/new-bookmark"
 
-export default async function Page() {
+export default function Page() {
   return (
     <div>
       <NewBookmark />
