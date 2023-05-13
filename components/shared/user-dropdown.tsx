@@ -1,16 +1,16 @@
-'use client'
+"use client"
 
-import Image from 'next/image'
-import { ChevronsUpDownIcon, LogOutIcon } from 'lucide-react'
-import { signOut } from 'next-auth/react'
+import Image from "next/image"
+import { ChevronsUpDownIcon, LogOutIcon } from "lucide-react"
+import { signOut } from "next-auth/react"
 
-import { Button } from '../ui/button'
+import { Button } from "../ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
-} from '../ui/dropdown-menu'
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu"
 
 interface Props {
   image: string
@@ -31,24 +31,24 @@ export default function UserDropdown({ image, email, username }: Props) {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="fade-in-5 p-0 sm:py-1 sm:px-2 rounded-full sm:rounded flex items-center gap-2 h-8 w-8 sm:w-40"
+          className="flex h-8 w-8 items-center gap-2 rounded-full p-0 fade-in-5 sm:w-40 sm:rounded sm:px-2 sm:py-1"
         >
           <Image
-            className="w-7 h-7 sm:w-5 sm:h-5 rounded-full"
+            className="h-7 w-7 rounded-full sm:h-5 sm:w-5"
             width={28}
             height={28}
             src={image}
             alt=""
           />
-          <span className="hidden sm:block text-sm text-neutral-800 dark:text-neutral-300 overflow-hidden whitespace-nowrap break-all text-ellipsis max-w-[100px] w-full">
-            {username || email || 'unknown'}
+          <span className="hidden w-full max-w-[100px] overflow-hidden text-ellipsis whitespace-nowrap break-all text-sm text-neutral-800 dark:text-neutral-300 sm:block">
+            {username || email || "unknown"}
           </span>
-          <ChevronsUpDownIcon className="hidden sm:block h-[14px] ml-1 text-neutral-700 dark:text-neutral-400" />
+          <ChevronsUpDownIcon className="ml-1 hidden h-[14px] text-neutral-700 dark:text-neutral-400 sm:block" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent collisionPadding={16} className="w-40">
         <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
-          <LogOutIcon className="h-[14px] w-[14px] mr-2" /> Log out
+          <LogOutIcon className="mr-2 h-[14px] w-[14px]" /> Log out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
