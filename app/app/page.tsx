@@ -1,14 +1,14 @@
-import { authOptions } from "@/lib/next-auth";
-import { getServerSession } from "next-auth";
-import { signOut } from "next-auth/react";
+import { getServerSession } from "next-auth"
+
+import { authOptions } from "@/lib/next-auth"
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions)
 
   return (
-    <div>
+    <div className="m-2 p-10">
       protected!
       <pre>{JSON.stringify(session, null, 2)}</pre>
     </div>
-  );
+  )
 }
