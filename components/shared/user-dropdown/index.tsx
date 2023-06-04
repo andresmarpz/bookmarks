@@ -21,7 +21,7 @@ export default function UserDropdown({ image, email, username }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="flex items-center gap-2">
+        <Button variant="ghost" className="flex min-w-0 items-center gap-2">
           <Image
             className="rounded-full"
             src={image}
@@ -34,7 +34,7 @@ export default function UserDropdown({ image, email, username }: Props) {
           </span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-48">
+      <DropdownMenuContent className="w-48" collisionPadding={16}>
         <DropdownMenuItem>
           <LogOut className="mr-2 h-4 w-4" />
           Log out

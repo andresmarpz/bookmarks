@@ -77,9 +77,11 @@ model Group {
   id     String @id @default(cuid())
   name   String
   slug   String
-  userId String
 
+  userId String
   user User @relation(fields: [userId], references: [uid])
 
   bookmarks Bookmark[]
+
+  @@index([userId])
 }

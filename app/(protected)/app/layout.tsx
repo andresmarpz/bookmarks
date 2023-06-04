@@ -10,10 +10,8 @@ export default async function DashboardLayout({ children }: PropsWithChildren) {
 
   return (
     <>
-      <header className="flex items-center justify-between py-4">
-        <span>
-          <Navigator />
-        </span>
+      <header className="flex items-center justify-between gap-2 py-4">
+        <Navigator />
         <UserDropdown
           image={session!.user.image!}
           email={session!.user.email ?? undefined}
