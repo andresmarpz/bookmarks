@@ -4,6 +4,11 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/next-auth"
 import Navigator from "@/components/pages/dashboard/header/navigator"
 import UserDropdown from "@/components/shared/user-dropdown"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: 'Dashboard'
+}
 
 export default async function DashboardLayout({ children }: PropsWithChildren) {
   const session = await getServerSession(authOptions)
