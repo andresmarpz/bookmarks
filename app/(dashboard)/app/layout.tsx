@@ -1,13 +1,14 @@
 import { PropsWithChildren } from "react"
+import { Metadata } from "next"
 import { getServerSession } from "next-auth"
 
 import { authOptions } from "@/lib/next-auth"
 import Navigator from "@/components/pages/dashboard/header/navigator"
+import NewBookmark from "@/components/pages/dashboard/new-bookmark"
 import UserDropdown from "@/components/shared/user-dropdown"
-import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: 'Dashboard'
+  title: "Dashboard",
 }
 
 export default async function DashboardLayout({ children }: PropsWithChildren) {
@@ -23,7 +24,10 @@ export default async function DashboardLayout({ children }: PropsWithChildren) {
           username={session!.user.username ?? undefined}
         />
       </header>
-      <main>{children}</main>
+      <main>
+        <NewBookmark />
+        {children}
+      </main>
     </>
   )
 }
