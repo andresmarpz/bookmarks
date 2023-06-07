@@ -26,6 +26,7 @@ export default function ClientSelect({ groups }: Props) {
   const { slug } = params
 
   return (
+    // the url is updated on value change and we want to keep in sync
     <Select
       value={slug}
       onValueChange={(value) => router.push(`/app/${value}`)}
