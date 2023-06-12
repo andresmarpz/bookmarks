@@ -38,7 +38,7 @@ model VerificationToken {
 
 model User {
   id            Int       @id @default(autoincrement())
-  uid           String    @unique @default(cuid())
+  uid           String    @default(cuid())
   name          String
   username      String?   @unique
   email         String    @unique
@@ -51,6 +51,8 @@ model User {
   accounts  Account[]
   bookmarks Bookmark[]
   groups    Group[]
+
+  @@unique([uid])
 }
 
 model Bookmark {
@@ -61,7 +63,8 @@ model Bookmark {
   image       String?
 
   groupId String
-  group   Group  @relation(fields: [groupId], references: [id])
+  groupSlug String
+  group   Group  @relation(fields: [groupId, groupSlug], references: [id, slug])
 
   userId String
   user   User   @relation(fields: [userId], references: [uid])
@@ -69,19 +72,20 @@ model Bookmark {
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-  @@index([groupId])
-  @@index([userId])
+  @@index([groupId, groupSlug, userId])
+  @@unique([id])
 }
 
 model Group {
   id     String @id @default(cuid())
   name   String
-  slug   String
+  slug   String @unique
 
   userId String
   user User @relation(fields: [userId], references: [uid])
 
   bookmarks Bookmark[]
 
-  @@index([userId])
+  @@index([userId, slug])
+  @@unique([id, slug])
 }

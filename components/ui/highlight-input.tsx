@@ -1,3 +1,5 @@
+"use client"
+
 import { forwardRef, useRef, useState } from "react"
 import { Plus } from "lucide-react"
 

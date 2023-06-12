@@ -24,10 +24,7 @@ export default async function DashboardLayout({ children }: PropsWithChildren) {
           username={session!.user.username ?? undefined}
         />
       </header>
-      <main>
-        <NewBookmark />
-        {children}
-      </main>
+      <main>{children}</main>
     </>
   )
 }

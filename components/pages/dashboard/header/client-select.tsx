@@ -61,6 +61,7 @@ export default function ClientSelect({ groups, newGroupAction }: Props) {
       <DropdownMenuContent
         className="max-h-[371px] w-36 overflow-y-auto"
         loop
+        forceMount
         hidden={dialogOpen}
         onCloseAutoFocus={(event) => {
           if (focusRef.current) {
