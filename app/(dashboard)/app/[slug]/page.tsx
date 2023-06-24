@@ -1,7 +1,5 @@
 import { notFound } from "next/navigation"
-import { getServerSession } from "next-auth"
 
-import { authOptions } from "@/lib/next-auth"
 import { prisma } from "@/lib/prisma"
 import NewBookmark from "@/components/pages/dashboard/new-bookmark"
 
