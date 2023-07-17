@@ -1,54 +1,51 @@
-import { revalidatePath } from "next/cache"
-import { getServerSession } from "next-auth"
+"use client"
 
-import { authOptions } from "@/lib/next-auth"
-import { prisma } from "@/lib/prisma"
+import { FormEvent, useTransition } from "react"
+import mql from "@microlink/mql"
+import * as Form from "@radix-ui/react-form"
+
 import { Input } from "@/components/ui/input"
+
+import { createBookmark, CreateBookmarkInput } from "./action"
 
 interface Props {
   slug: string
 }
 
-export default async function NewBookmark({ slug }: Props) {
-  async function newBookmark(data: FormData) {
-    "use server"
+export default function NewBookmark({ slug }: Props) {
+  const [isPending, startTransition] = useTransition()
 
-    const session = await getServerSession(authOptions)
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
 
-    await prisma.bookmark.create({
-      data: {
-        title: (data.get("title") as string) ?? "Untitled",
-        url: data.get("content") as string,
-        description: data.get("description") as string,
-        group: {
-          connect: {
-            slug,
-          },
-        },
-        user: {
-          connect: {
-            uid: session!.user.uid,
-          },
-        },
-      },
+    const data = Object.fromEntries(new FormData(event.currentTarget)) as Pick<
+      CreateBookmarkInput,
+      "url"
+    >
+
+    const {
+      data: { logo, title, description },
+    } = await mql(data.url)
+
+    startTransition(async () => {
+      await createBookmark({
+        title: title ?? undefined,
+        description: description ?? undefined,
+        url: data.url,
+        image: logo?.url ?? undefined,
+        group: slug,
+      })
     })
-
-    revalidatePath(`/app/${slug}`)
   }
+
   return (
-    <form action={newBookmark}>
-      <Input
-        name="content"
-        placeholder="Insert a link, color, or just plain text.."
-        type="text"
-        autoComplete="off"
-      />
-      {/* <HighlightInput
-        autoComplete="off"
-        placeholder="Insert a link, color, or just plain text.."
-        type="text"
-        name="url"
-      /> */}
-    </form>
+    <Form.Root onSubmit={handleSubmit}>
+      <Form.Field name="url">
+        <Form.Label />
+        <Form.Control asChild>
+          <Input required disabled={isPending} />
+        </Form.Control>
+      </Form.Field>
+    </Form.Root>
   )
 }
