@@ -34,7 +34,7 @@ export default function DummyBookmarks() {
   return DUMMIES.map((bm, idx) => (
     <li className="m-auto max-w-3xl" key={bm.url}>
       <a
-        className="flex gap-3 rounded-md border bg-neutral-900/40 p-3 backdrop-blur transition-colors hover:bg-neutral-800/40"
+        className="flex gap-3 rounded-md border bg-neutral-900/40 p-3 shadow-md shadow-neutral-950/30 backdrop-blur transition-colors hover:bg-neutral-800/40"
         href={bm.url}
         target="_blank"
         rel="noreferrer noopener"

@@ -1,34 +1,17 @@
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
-import { Balancer } from "react-wrap-balancer"
 
-import NavigationItem from "@/components/pages/home/header/navigation-item"
+import FooterTechnologies from "@/components/pages/home/footer/footer-technologies"
+import HeaderNavigation from "@/components/pages/home/header/header-navigation"
 import DummyBookmarks from "@/components/pages/home/main/dummy-bookmarks"
-
-const NAVIGATION = [
-  {
-    href: "/features",
-    label: "Features",
-  },
-  {
-    href: "/pricing",
-    label: "Pricing",
-  },
-] as const
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-tl from-black via-zinc-600/20 to-black">
-      <header className="sticky top-0 border-b border-b-neutral-800 bg-black/40 backdrop-blur-sm">
+    <div>
+      <header className="sticky top-0 z-10 border-b border-b-neutral-800 bg-black/40 backdrop-blur-sm">
         <div className="m-auto grid max-w-6xl grid-cols-3 p-4 text-gray-400">
           <span>B</span>
-          <nav className="flex justify-center gap-2 self-center text-sm">
-            {NAVIGATION.map(({ href, label }) => (
-              <NavigationItem key={href} href={href}>
-                {label}
-              </NavigationItem>
-            ))}
-          </nav>
+          <HeaderNavigation />
           <span className="flex justify-end">
             <Link
               href="/app"
@@ -39,16 +22,16 @@ export default function Home() {
           </span>
         </div>
       </header>
-      <main className="m-auto max-w-6xl">
-        <div className="mt-40">
+      <main className="m-auto max-w-6xl bg-gradient-to-tl from-black via-zinc-600/20 to-black pb-28 pt-60">
+        <div>
           <h1 className="bg-gradient-to-t from-gray-600 to-white bg-clip-text text-center font-calSans text-4xl font-bold text-transparent xsm:text-5xl sm:text-7xl lg:text-8xl">
             Bookmarks, easier.
           </h1>
-          <h2 className="mt-2 flex justify-center text-gray-400 xsm:text-lg sm:text-xl">
+          <h2 className="flex justify-center text-gray-400 xsm:text-lg sm:text-xl">
             Built open-source. Simple, clean, fast.
           </h2>
 
-          <div className="mt-8 flex justify-center">
+          <div className="mt-16 flex justify-center">
             <Link
               href="/app"
               className="flex items-center gap-1 rounded-lg bg-neutral-800 px-4 py-1 text-lg text-gray-100 shadow-md shadow-neutral-800 transition-colors hover:bg-neutral-700 hover:text-gray-50"
@@ -58,22 +41,42 @@ export default function Home() {
           </div>
         </div>
 
-        <section className="mt-40">
-          <h3 className="text-center font-calSans text-3xl tracking-wide">
+        <section className="mt-52">
+          <h3 className="text-center font-calSans text-3xl tracking-wide text-gray-300">
             Display with full page metadata.
           </h3>
           <ul className="mt-4 flex flex-col gap-3 px-4 text-gray-200">
             <DummyBookmarks />
           </ul>
         </section>
+
+        <section className="relative z-10 mt-32 py-10">
+          <h5 className="text-center font-calSans text-4xl tracking-wide text-gray-200">
+            Try it out now. Public beta available.
+          </h5>
+        </section>
       </main>
-      <footer className="m-auto mt-24 flex max-w-6xl justify-between px-8 py-16 text-sm text-gray-400">
+      <footer className="m-auto flex max-w-6xl justify-between border-t border-t-neutral-800 bg-neutral-950/40 px-8 pb-20 pt-12 text-sm text-gray-400">
         <span className="flex flex-col gap-1">
           <p>Open-source.</p>
-          <p>Built with Tailwind, Next.js, Prisma, Supabase and Vercel.</p>
+          <p>
+            Built with <FooterTechnologies />
+          </p>
+          <p>
+            Crafted by{" "}
+            <a
+              className="text-gray-300 hover:text-gray-200"
+              href="https://andrs.me"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              Andrés
+            </a>{" "}
+          </p>
         </span>
         <span>
           <a
+            className="text-gray-300 hover:text-gray-200"
             href="https://github.com/andresmarpz/bookmarks"
             target="_blank"
             rel="noreferrer noopener"
