@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { BookmarkIcon } from "lucide-react"
 
 import FooterTechnologies from "@/components/pages/home/footer/footer-technologies"
 import HeaderNavigation from "@/components/pages/home/header/header-navigation"
@@ -12,7 +13,12 @@ export default function MarketingLayout({
     <div>
       <header className="sticky top-0 z-10 border-b border-b-neutral-800 bg-black/40 backdrop-blur-sm">
         <div className="m-auto grid max-w-6xl grid-cols-3 p-4 text-gray-400">
-          <span>B</span>
+          <Link
+            href="/"
+            className="flex h-8 w-8 items-center justify-center rounded"
+          >
+            <BookmarkIcon />
+          </Link>
           <HeaderNavigation />
           <span className="flex justify-end">
             <Link
