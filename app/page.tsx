@@ -22,8 +22,8 @@ export default function Home() {
           </span>
         </div>
       </header>
-      <main className="m-auto max-w-6xl bg-gradient-to-tl from-black via-zinc-600/20 to-black pb-28 pt-60">
-        <div>
+      <main className="bg-gradient-to-tl from-black via-zinc-600/20 to-black pb-28 pt-60">
+        <div className="m-auto max-w-6xl">
           <h1 className="bg-gradient-to-t from-gray-600 to-white bg-clip-text text-center font-calSans text-4xl font-bold text-transparent xsm:text-5xl sm:text-7xl lg:text-8xl">
             Bookmarks, easier.
           </h1>
@@ -56,34 +56,36 @@ export default function Home() {
           </h5>
         </section>
       </main>
-      <footer className="m-auto flex max-w-6xl justify-between border-t border-t-neutral-800 bg-neutral-950/40 px-8 pb-20 pt-12 text-sm text-gray-400">
-        <span className="flex flex-col gap-1">
-          <p>Open-source.</p>
-          <p>
-            Built with <FooterTechnologies />
-          </p>
-          <p>
-            Crafted by{" "}
+      <footer className="border-t border-t-neutral-800 bg-neutral-950/40 px-8 pb-20 pt-12 text-sm text-gray-400">
+        <div className="m-auto flex max-w-6xl justify-between ">
+          <span className="flex flex-col gap-1">
+            <p>Open-source.</p>
+            <p>
+              Built with <FooterTechnologies />
+            </p>
+            <p>
+              Crafted by{" "}
+              <a
+                className="text-gray-300 hover:text-gray-200"
+                href="https://andrs.me"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                Andrés
+              </a>{" "}
+            </p>
+          </span>
+          <span>
             <a
               className="text-gray-300 hover:text-gray-200"
-              href="https://andrs.me"
+              href="https://github.com/andresmarpz/bookmarks"
               target="_blank"
               rel="noreferrer noopener"
             >
-              Andrés
-            </a>{" "}
-          </p>
-        </span>
-        <span>
-          <a
-            className="text-gray-300 hover:text-gray-200"
-            href="https://github.com/andresmarpz/bookmarks"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            Github
-          </a>
-        </span>
+              Github
+            </a>
+          </span>
+        </div>
       </footer>
     </div>
   )
