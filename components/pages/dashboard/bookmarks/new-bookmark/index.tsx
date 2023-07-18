@@ -4,9 +4,11 @@ import { FormEvent, useTransition } from "react"
 import mql from "@microlink/mql"
 import * as Form from "@radix-ui/react-form"
 
+import {
+  createBookmark,
+  CreateBookmarkInput,
+} from "@/lib/actions/bookmarks/create-bookmark"
 import { Input } from "@/components/ui/input"
-
-import { createBookmark, CreateBookmarkInput } from "./action"
 
 interface Props {
   slug: string
@@ -23,11 +25,11 @@ export default function NewBookmark({ slug }: Props) {
       "url"
     >
 
-    const {
-      data: { logo, title, description },
-    } = await mql(data.url)
-
     startTransition(async () => {
+      const {
+        data: { logo, title, description },
+      } = await mql(data.url)
+
       await createBookmark({
         title: title ?? undefined,
         description: description ?? undefined,
@@ -39,11 +41,15 @@ export default function NewBookmark({ slug }: Props) {
   }
 
   return (
-    <Form.Root onSubmit={handleSubmit}>
+    <Form.Root className="my-4" onSubmit={handleSubmit}>
       <Form.Field name="url">
         <Form.Label />
         <Form.Control asChild>
-          <Input required disabled={isPending} />
+          <Input
+            required
+            disabled={isPending}
+            placeholder="Insert a new link.."
+          />
         </Form.Control>
       </Form.Field>
     </Form.Root>
