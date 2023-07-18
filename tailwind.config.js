@@ -1,4 +1,4 @@
-const { fontFamily } = require("tailwindcss/defaultTheme")
+const { fontFamily, screens } = require("tailwindcss/defaultTheme")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -8,6 +8,10 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      xsm: "450px",
+      ...screens,
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -58,6 +62,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        calSans: ["var(--font-cal-sans)", ...fontFamily.sans],
       },
       keyframes: {
         "accordion-down": {
@@ -79,9 +84,10 @@ module.exports = {
         "fade-in": "fade-in",
       },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-radial":
+          "radial-gradient(50% 50% at 50% 50%, var(--tw-gradient-stops))",
       },
     },
   },
