@@ -29,7 +29,7 @@ export default function UserDropdown({ image, email, username }: Props) {
             height={20}
             alt="The avatar of your account"
           />
-          <span className="max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap">
+          <span className="max-w-[150px] truncate">
             {username ?? email ?? "unknown"}
           </span>
         </Button>
