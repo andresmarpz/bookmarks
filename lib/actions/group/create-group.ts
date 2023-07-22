@@ -7,27 +7,23 @@ import { z } from "zod"
 import { authOptions } from "@/lib/next-auth"
 import { prisma } from "@/lib/prisma"
 
-type CreateGroupInput = {
-  name: string
-  slug: string
-}
-export async function createGroup(input: CreateGroupInput) {
-  const session = await getServerSession(authOptions)
+import { actionWithZod } from "../action-with-zod"
 
-  const { name, slug } = z
-    .object({
-      name: z.string().min(1).max(30),
-      slug: z.string().min(1).max(30),
+export const createGroup = actionWithZod(
+  z.object({
+    name: z.string().min(1).max(30),
+    slug: z.string().min(1).max(30),
+  }),
+  async ({ name, slug }) => {
+    const session = await getServerSession(authOptions)
+    await prisma.group.create({
+      data: {
+        name,
+        slug,
+        userId: session!.user.uid,
+      },
     })
-    .parse(input)
 
-  await prisma.group.create({
-    data: {
-      name,
-      slug,
-      userId: session!.user.uid,
-    },
-  })
-
-  revalidatePath("/app")
-}
+    revalidatePath("/app")
+  }
+)
