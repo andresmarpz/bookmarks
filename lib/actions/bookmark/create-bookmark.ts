@@ -7,44 +7,37 @@ import { z } from "zod"
 import { authOptions } from "@/lib/next-auth"
 import { prisma } from "@/lib/prisma"
 
-export type CreateBookmarkInput = {
-  title?: string
-  url: string
-  description?: string
-  image?: string
-  group: string
-}
-export async function createBookmark(input: CreateBookmarkInput) {
-  const session = await getServerSession(authOptions)
+import { actionWithZod } from "../action-with-zod"
 
-  const { title, url, description, image, group } = z
-    .object({
-      title: z.string().optional(),
-      url: z.string().url(),
-      description: z.string().optional(),
-      image: z.string().optional(),
-      group: z.string(),
+export const createBookmark = actionWithZod(
+  z.object({
+    title: z.string().optional(),
+    url: z.string().url(),
+    description: z.string().optional(),
+    image: z.string().optional(),
+    group: z.string(),
+  }),
+  async ({ title, url, description, image, group }) => {
+    const session = await getServerSession(authOptions)
+    await prisma.bookmark.create({
+      data: {
+        title: title ?? "Unknown",
+        url,
+        description,
+        image,
+        group: {
+          connect: {
+            slug: group,
+          },
+        },
+        user: {
+          connect: {
+            uid: session!.user.uid,
+          },
+        },
+      },
     })
-    .parse(input)
 
-  await prisma.bookmark.create({
-    data: {
-      title: title ?? "Unknown",
-      url,
-      description,
-      image,
-      group: {
-        connect: {
-          slug: group,
-        },
-      },
-      user: {
-        connect: {
-          uid: session!.user.uid,
-        },
-      },
-    },
-  })
-
-  revalidatePath(`/app/${group}`)
-}
+    revalidatePath(`/app/${group}`)
+  }
+)
