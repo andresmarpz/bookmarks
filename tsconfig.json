@@ -19,6 +19,9 @@
         "name": "next"
       }
     ],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "alwaysStrict": true,
     "paths": {
       "@/*": ["./*"]
     }
