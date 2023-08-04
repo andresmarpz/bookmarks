@@ -19,6 +19,7 @@
         "name": "next"
       }
     ],
+    "verbatimModuleSyntax": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "alwaysStrict": true,
