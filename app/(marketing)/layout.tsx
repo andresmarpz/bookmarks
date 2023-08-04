@@ -33,7 +33,7 @@ export default function MarketingLayout({
       <main className="bg-gradient-to-tl from-black via-zinc-600/20 to-black ">
         {children}
       </main>
-      <footer className="border-t border-t-neutral-800 bg-neutral-950/40 px-8 pb-20 pt-12 text-sm text-gray-400">
+      <footer className="h-56 border-t border-t-neutral-800 bg-neutral-950/20 px-8 pb-20 pt-12 text-sm text-gray-400">
         <div className="m-auto flex max-w-6xl justify-between ">
           <span className="flex flex-col gap-1">
             <p>Open-source.</p>
