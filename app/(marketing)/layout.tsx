@@ -22,7 +22,7 @@ export default function MarketingLayout({
           <HeaderNavigation />
           <span className="flex justify-end">
             <Link
-              href="/app"
+              href="/dashboard"
               className="flex items-center gap-1 rounded bg-neutral-800 px-4 py-1 text-sm text-gray-100 shadow shadow-neutral-800 transition-colors hover:bg-neutral-700 hover:text-gray-50"
             >
               Dashboard

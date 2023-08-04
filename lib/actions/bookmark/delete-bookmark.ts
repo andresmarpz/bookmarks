@@ -17,6 +17,6 @@ export const deleteBookmark = actionWithZod(
       where: { id },
     })
 
-    revalidatePath("/app/" + group)
+    revalidatePath("/dashboard/" + group)
   }
 )

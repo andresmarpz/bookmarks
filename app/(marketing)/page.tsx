@@ -16,7 +16,7 @@ export default function Home() {
 
         <div className="mt-16 flex justify-center">
           <Link
-            href="/app"
+            href="/dashboard"
             className="flex items-center gap-1 rounded-lg bg-neutral-800 px-4 py-1 text-lg text-gray-100 shadow-md shadow-neutral-800 transition-colors hover:bg-neutral-700 hover:text-gray-50"
           >
             Start now <ChevronRight className="h-4 w-4" />

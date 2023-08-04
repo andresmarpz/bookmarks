@@ -2,12 +2,11 @@
 
 import { FormEvent, useTransition } from "react"
 import mql from "@microlink/mql"
-import * as Form from "@radix-ui/react-form"
 
 import {
   createBookmark,
   CreateBookmarkInput,
-} from "@/lib/actions/bookmarks/create-bookmark"
+} from "@/lib/actions/bookmark/create-bookmark"
 import { Input } from "@/components/ui/input"
 
 interface Props {
@@ -41,17 +40,18 @@ export default function NewBookmark({ slug }: Props) {
   }
 
   return (
-    <Form.Root className="my-4" onSubmit={handleSubmit}>
-      <Form.Field name="url">
-        <Form.Label />
-        <Form.Control asChild>
-          <Input
-            required
-            disabled={isPending}
-            placeholder="Insert a new link.."
-          />
-        </Form.Control>
-      </Form.Field>
-    </Form.Root>
+    // <Form.Root className="my-4" onSubmit={handleSubmit}>
+    //   <Form.Field name="url">
+    //     <Form.Label />
+    //     <Form.Control asChild>
+    //       <Input
+    //         required
+    //         disabled={isPending}
+    //         placeholder="Insert a new link.."
+    //       />
+    //     </Form.Control>
+    //   </Form.Field>
+    // </Form.Root>
+    <form></form>
   )
 }

@@ -2,10 +2,11 @@
 
 import { useTransition } from "react"
 import Image from "next/image"
-import { Bookmark } from "@prisma/client"
+import { prettifyUrl } from "@/utils/formatting/prettify-url"
+import { type Bookmark } from "@prisma/client"
 import { Copy, Pencil, TrashIcon } from "lucide-react"
 
-import { deleteBookmark } from "@/lib/actions/bookmarks/delete-bookmark"
+import { deleteBookmark } from "@/lib/actions/bookmark/delete-bookmark"
 import { cn } from "@/lib/utils"
 import {
   ContextMenu,
@@ -23,7 +24,9 @@ export default function BookmarkItem({ bookmark, onDelete }: Props) {
 
   function handleDelete() {
     onDelete(bookmark)
-    startDeleteTransition(() => deleteBookmark(bookmark.id, bookmark.groupSlug))
+    startDeleteTransition(() =>
+      deleteBookmark({ group: bookmark.groupSlug, id: bookmark.id })
+    )
   }
 
   return (
@@ -35,12 +38,12 @@ export default function BookmarkItem({ bookmark, onDelete }: Props) {
             target="_blank"
             rel="noreferrer noopener"
             className={cn(
-              "flex gap-3 rounded border p-2",
-              "hover:bg-neutral-900/80",
+              "flex gap-3 rounded-md border p-2 ",
+              "border-neutral-800 bg-neutral-950 hover:border-neutral-600 hover:bg-neutral-900/80",
               "transition-colors"
             )}
           >
-            <span>
+            <span className="w-8 min-w-[32px]">
               {bookmark.image ? (
                 <Image
                   className="rounded"
@@ -55,8 +58,10 @@ export default function BookmarkItem({ bookmark, onDelete }: Props) {
               )}
             </span>
             <span>
-              <h5 className="text-gray-100">{bookmark.title}</h5>
-              <p className="text-gray-400">{bookmark.description}</p>
+              <h5 className="text-gray-10">{bookmark.title}</h5>
+              <p className="text-sm text-gray-500">
+                {prettifyUrl(bookmark.url)}
+              </p>
             </span>
           </a>
         </ContextMenuTrigger>

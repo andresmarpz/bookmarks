@@ -1,7 +1,7 @@
 "use client"
 
 import { experimental_useOptimistic as useOptimistic } from "react"
-import { Bookmark } from "@prisma/client"
+import { type Bookmark } from "@prisma/client"
 
 import BookmarkItem from "./bookmark-item"
 
@@ -27,7 +27,7 @@ export default function BookmarkList({ bookmarks }: Props) {
   )
 
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col gap-3">
       {state.map((bookmark) => (
         <BookmarkItem
           key={bookmark.id}

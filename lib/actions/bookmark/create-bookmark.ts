@@ -37,6 +37,6 @@ export const createBookmark = actionWithZod(
       },
     })
 
-    revalidatePath(`/app/${group}`)
+    revalidatePath(`/dashboard/${group}`)
   }
 )
