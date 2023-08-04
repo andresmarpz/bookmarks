@@ -1,7 +1,6 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { Bookmark, Group } from "@prisma/client"
 import { z } from "zod"
 
 import { prisma } from "@/lib/prisma"
