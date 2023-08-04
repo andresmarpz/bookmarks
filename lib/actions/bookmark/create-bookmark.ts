@@ -1,10 +1,9 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { getServerSession } from "next-auth"
 import { z } from "zod"
 
-import { authOptions } from "@/lib/next-auth"
+import { getSession } from "@/lib/auth/get-session"
 import { prisma } from "@/lib/prisma"
 
 import { actionWithZod } from "../action-with-zod"
@@ -18,7 +17,7 @@ export const createBookmark = actionWithZod(
     group: z.string(),
   }),
   async ({ title, url, description, image, group }) => {
-    const session = await getServerSession(authOptions)
+    const session = await getSession()
     await prisma.bookmark.create({
       data: {
         title: title ?? "Unknown",
