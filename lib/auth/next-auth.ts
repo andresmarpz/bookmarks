@@ -42,11 +42,21 @@ export const authOptions: NextAuthOptions = {
         } as User & { id: number; uid: string },
       }
     },
-    jwt: async ({ user, token }) => {
+    jwt: async ({ user, token, trigger }) => {
       if (user) {
         const u = user as User & { uid: string }
         token.id = Number(u.id)
         token.uid = u.uid
+
+        if (trigger === "signUp") {
+          await prisma.group.create({
+            data: {
+              name: "All",
+              slug: "all",
+              userId: u.uid,
+            },
+          })
+        }
       }
       return token
     },
