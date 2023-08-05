@@ -1,10 +1,14 @@
+import { Suspense } from "react"
 import { notFound } from "next/navigation"
 import { PlusIcon, Search } from "lucide-react"
 
 import { prisma } from "@/lib/prisma"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import Spinner from "@/components/ui/Spinner"
 import BookmarkList from "@/components/pages/dashboard/bookmarks/bookmark-list"
+import NewBookmark from "@/components/pages/dashboard/bookmarks/NewBookmark"
+import NewBookmarkServer from "@/components/pages/dashboard/bookmarks/NewBookmark/NewBookmark.server"
 
 export default async function SlugPage({
   params,
@@ -39,13 +43,15 @@ export default async function SlugPage({
               className="pl-10"
             />
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="flex items-center gap-1 rounded-lg border bg-neutral-800 px-4 py-0 text-sm text-gray-100 shadow-md shadow-neutral-800/70 transition-colors hover:bg-neutral-700 hover:text-gray-50"
+          <Suspense
+            fallback={
+              <Button variant="secondary">
+                <Spinner />
+              </Button>
+            }
           >
-            <PlusIcon className="mr-2 h-3 w-3" /> New
-          </Button>
+            <NewBookmarkServer currentGroup={group.id} />
+          </Suspense>
         </div>
       </header>
       <div className="py-4">
