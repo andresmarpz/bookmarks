@@ -12,7 +12,7 @@ const createBookmark = createServerAction()
   .input(createBookmarkSchema)
   .use(withAuth)
   .handler(async ({ title, url, description, image, group }, { session }) => {
-    await bookmarkRepository.createBookmark({
+    await bookmarkRepository.createOne({
       title: title ?? "Unknown",
       url,
       description: description ?? null,
@@ -28,7 +28,7 @@ const deleteBookmark = createServerAction()
   .input(deleteBookmarkSchema)
   .use(withAuth)
   .handler(async ({ id, group }) => {
-    await bookmarkRepository.deleteBookmark({ id })
+    await bookmarkRepository.delete({ id })
 
     revalidatePath(`/dashboard/${group}`)
   })
