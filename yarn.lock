@@ -3494,10 +3494,10 @@ npmlog@^6.0.0:
     gauge "^4.0.3"
     set-blocking "^2.0.0"
 
-nza@^0.1.10:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/nza/-/nza-0.1.10.tgz#0353fa9cc4483c17b4ce0f5f4f0eace282d566ae"
-  integrity sha512-V5Bn0eAJvMlmQ+w/4gcpGaMiklW/pA3FAktK2hso4ATRX8DlZdIaoswy4DugVZ4POOQEs84X5e6L1E4Z5vnCBw==
+nza@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/nza/-/nza-0.1.11.tgz#dd49b5511f29ab2fdbcabed13681d702fa1add0e"
+  integrity sha512-3ctCP8AIWzouMBqrWO95mU9WY4F4muoYsxd3uhbNe8ZKcT6bnupbIHGU3au5Gglp1mIVfqMC0AHuVU3FyE2okw==
 
 oauth@^0.9.15:
   version "0.9.15"
