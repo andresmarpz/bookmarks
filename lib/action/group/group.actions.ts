@@ -14,7 +14,7 @@ export const createGroup = createServerAction()
   .handler(async ({ name, slug }) => {
     const session = await getSession()
 
-    await groupRepository.insertGroup({ name, slug, userId: session!.user.uid })
+    await groupRepository.createOne({ name, slug, userId: session!.user.uid })
 
     revalidatePath("/dashboard")
   })
