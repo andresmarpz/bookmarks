@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/utils/clsx"
 
 import PlanFeatureItem from "./plan-feature-item"
 

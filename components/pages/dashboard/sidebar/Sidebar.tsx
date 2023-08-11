@@ -1,8 +1,8 @@
 import Link from "next/link"
-import { Hash, PlusIcon, Target } from "lucide-react"
+import { Hash, Target } from "lucide-react"
 
 import { getSession } from "@/lib/auth/get-session"
-import { Button } from "@/components/ui/button"
+import NewGroup from "@/components/pages/dashboard/groups/NewGroup"
 import GroupList from "@/components/pages/dashboard/sidebar/groups/GroupList"
 import { SidebarItem } from "@/components/pages/dashboard/sidebar/SidebarItem"
 import UserDropdown from "@/components/pages/dashboard/sidebar/user-dropdown"
@@ -21,7 +21,7 @@ export default async function Sidebar() {
           </Link>
         </section>
         <section className="flex flex-col gap-2">
-          <SidebarItem href="/dashboard/all">
+          <SidebarItem href="/dashboard/group/all">
             <Target className="h-4 w-4" />
             All Bookmarks
           </SidebarItem>
@@ -31,11 +31,9 @@ export default async function Sidebar() {
           </SidebarItem>
         </section>
         <section>
-          <div className="flex justify-between">
+          <div className="mb-3 flex items-center justify-between">
             <h2>Groups</h2>
-            <Button variant="ghost">
-              <PlusIcon className="h-4 w-4" />
-            </Button>
+            <NewGroup />
           </div>
           <GroupList />
         </section>

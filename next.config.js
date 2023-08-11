@@ -6,6 +6,7 @@ const nextConfig = {
   },
   experimental: {
     serverActions: true,
+    optimisticClientCache: true,
   },
 }
 

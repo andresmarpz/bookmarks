@@ -12,6 +12,13 @@ class GroupRepository {
     return group
   }
 
+  public async deleteOne(input: Pick<Group, "id">): Promise<Group> {
+    const group = await prisma.group.delete({
+      where: input,
+    })
+    return group
+  }
+
   public async findOne(input: Pick<Group, "id">): Promise<Group | null> {
     const group = await prisma.group.findUnique({
       where: input,

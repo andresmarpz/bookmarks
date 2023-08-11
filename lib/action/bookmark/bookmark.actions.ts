@@ -10,7 +10,7 @@ import {
 import { withAuth } from "@/lib/action/middleware/with-auth"
 import { bookmarkRepository } from "@/lib/repository/bookmark.repository"
 
-const createBookmark = createServerAction()
+export const createBookmark = createServerAction()
   .input(createBookmarkSchema)
   .use(withAuth)
   .handler(async ({ title, url, description, image, group }, { session }) => {
@@ -26,7 +26,7 @@ const createBookmark = createServerAction()
     revalidatePath(`/dashboard/${group}`)
   })
 
-const deleteBookmark = createServerAction()
+export const deleteBookmark = createServerAction()
   .input(deleteBookmarkSchema)
   .use(withAuth)
   .handler(async ({ id, group }) => {
@@ -34,7 +34,3 @@ const deleteBookmark = createServerAction()
 
     revalidatePath(`/dashboard/${group}`)
   })
-
-const updateBookmark = createServerAction()
-
-export { createBookmark, deleteBookmark, updateBookmark }

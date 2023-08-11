@@ -1,6 +1,6 @@
 "use client"
 
-import { useTransition } from "react"
+import { useState, useTransition } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import mql from "@microlink/mql"
 import type { Group } from "@prisma/client"
@@ -8,8 +8,8 @@ import { PlusIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { createBookmark } from "@/lib/actions/bookmark/create/create-bookmark"
-import { createBookmarkInput } from "@/lib/actions/bookmark/create/create-bookmark.schema"
+import { createBookmark } from "@/lib/action/bookmark/bookmark.actions"
+import { createBookmarkSchema } from "@/lib/action/bookmark/bookmark.schema"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -40,8 +40,9 @@ interface Props {
   currentGroup: Group["id"]
 }
 
-type FormFields = z.infer<typeof createBookmarkInput>
+type FormFields = z.infer<typeof createBookmarkSchema>
 export default function NewBookmark({ groups, currentGroup }: Props) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
 
   const form = useForm<FormFields>({
@@ -49,7 +50,7 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
       group: currentGroup,
     },
     resolver: zodResolver(
-      createBookmarkInput.pick({
+      createBookmarkSchema.pick({
         title: true,
         url: true,
         description: true,
@@ -75,7 +76,7 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
   })
 
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
         <Button
           variant="ghost"
@@ -88,7 +89,7 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
       <DialogContent>
         <DialogTitle>New Bookmark</DialogTitle>
         <Form {...form}>
-          <form onSubmit={onSubmit} className="flex flex-col gap-3">
+          <form onSubmit={onSubmit} className="flex flex-col gap-4">
             <FormField
               control={form.control}
               name="title"
