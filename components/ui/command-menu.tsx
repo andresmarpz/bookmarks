@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { cn } from "@/utils/clsx"
-import { DialogProps } from "@radix-ui/react-dialog"
+import { type DialogProps } from "@radix-ui/react-dialog"
 import { Command as CommandPrimitive } from "cmdk"
 import { Search } from "lucide-react"
 

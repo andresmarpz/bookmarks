@@ -6,12 +6,9 @@ import { Skeleton } from "@/components/ui/skeleton"
 import Spinner from "@/components/ui/Spinner"
 
 export default function Loading() {
-  const skeletons = Array.from({ length: 5 }, (_, i) => i)
-
   return (
     <div>
       <header>
-        {/* <h1 className="font-calSans mb-6 text-3xl">{group.name}</h1> */}
         <Skeleton className="mb-6 h-9 w-64" />
         <div className="flex gap-4">
           <div className="relative grow">

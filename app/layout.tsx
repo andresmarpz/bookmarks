@@ -2,7 +2,7 @@ import Providers from "@/components/shared/provider"
 
 import "./globals.css"
 
-import { Metadata } from "next"
+import { type Metadata } from "next"
 import { Inter } from "next/font/google"
 import LocalFont from "next/font/local"
 import { cn } from "@/utils/clsx"

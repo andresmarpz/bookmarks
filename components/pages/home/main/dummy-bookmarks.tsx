@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 const DUMMIES = [
   {
     url: "https://vercel.com",
@@ -31,7 +33,7 @@ const DUMMIES = [
 ]
 
 export default function DummyBookmarks() {
-  return DUMMIES.map((bm, idx) => (
+  return DUMMIES.map((bm) => (
     <li className="m-auto max-w-3xl" key={bm.url}>
       <a
         className="flex gap-3 rounded-md border bg-neutral-900/40 p-3 shadow-md shadow-neutral-950/30 backdrop-blur transition-colors hover:bg-neutral-800/40"
@@ -39,11 +41,13 @@ export default function DummyBookmarks() {
         target="_blank"
         rel="noreferrer noopener"
       >
-        <img
+        <Image
           className="h-8 w-8 rounded-md bg-neutral-950"
           src={bm.image}
           width={32}
           height={32}
+          unoptimized
+          alt=""
         />
         <span>
           <h5 className="text-gray-100">{bm.title}</h5>

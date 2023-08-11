@@ -3,11 +3,11 @@
 import { useMemo, useState } from "react"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
-import { Group } from "@prisma/client"
+import type { Group } from "@prisma/client"
 import { CheckIcon, ChevronsUpDownIcon, PlusCircleIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 
-import { createGroup } from "@/lib/actions/group/create-group"
+import { createGroup } from "@/lib/action/group/group.actions"
 import { commandScore } from "@/lib/command-score"
 import { Button } from "@/components/ui/button"
 import {

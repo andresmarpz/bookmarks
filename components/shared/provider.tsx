@@ -1,6 +1,6 @@
 "use client"
 
-import { PropsWithChildren } from "react"
+import { type PropsWithChildren } from "react"
 import { SessionProvider } from "next-auth/react"
 import { ThemeProvider } from "next-themes"
 

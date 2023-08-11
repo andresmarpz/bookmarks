@@ -1,4 +1,4 @@
-import { SvgIconProps } from "./svg-icon"
+import { type SvgIconProps } from "./svg-icon"
 
 export default function NextSVG({ width, height }: SvgIconProps) {
   return (
