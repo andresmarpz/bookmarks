@@ -5,8 +5,7 @@ import "./globals.css"
 import { Metadata } from "next"
 import { Inter } from "next/font/google"
 import LocalFont from "next/font/local"
-
-import { cn } from "@/lib/utils"
+import { cn } from "@/utils/clsx"
 
 const inter = Inter({ subsets: ["latin"], weight: "variable" })
 const calSans = LocalFont({
