@@ -1,9 +1,9 @@
 "use client"
 
 import { forwardRef, useRef, useState } from "react"
+import { cn } from "@/utils/clsx"
 import { Plus } from "lucide-react"
 
-import { cn } from "@/lib/utils"
 import { Input } from "@/components/ui/input"
 
 const HighlightInput = forwardRef<
