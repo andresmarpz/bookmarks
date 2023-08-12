@@ -9,7 +9,7 @@ import { cn } from "@/utils/clsx"
 
 const inter = Inter({ subsets: ["latin"], weight: "variable" })
 const calSans = LocalFont({
-  src: "../public/fonts/CalSans-SemiBold.woff2",
+  src: "../../public/fonts/CalSans-SemiBold.woff2",
   variable: "--font-cal-sans",
 })
 
