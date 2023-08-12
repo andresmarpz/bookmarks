@@ -31,8 +31,6 @@ yarn-error.log*
 # vercel
 .vercel
 
-prisma/migrations/*
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts
