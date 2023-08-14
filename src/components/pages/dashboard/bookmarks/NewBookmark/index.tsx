@@ -72,6 +72,8 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
         image: logo?.url ?? undefined,
         group: currentGroup,
       })
+
+      setIsDialogOpen(false)
     })
   })
 
