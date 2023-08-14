@@ -11,7 +11,7 @@ export default async function Sidebar() {
   const session = await getSession()
 
   return (
-    <aside className="flex min-w-[300px] max-w-sm flex-col border-r border-zinc-800 bg-gradient-to-bl from-neutral-950 via-zinc-800/30 to-neutral-950 p-4 py-6">
+    <aside className="flex w-2/12 min-w-[300px] flex-col border-r border-zinc-800 bg-gradient-to-bl from-neutral-950 via-zinc-800/30 to-neutral-950 p-4 py-6">
       <div className="flex grow flex-col gap-4">
         <section>
           <Link href="/">
