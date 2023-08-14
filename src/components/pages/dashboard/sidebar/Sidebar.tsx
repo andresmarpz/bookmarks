@@ -11,8 +11,8 @@ export default async function Sidebar() {
   const session = await getSession()
 
   return (
-    <aside className="flex w-2/12 min-w-[300px] flex-col border-r border-zinc-800 bg-gradient-to-bl from-neutral-950 via-zinc-800/30 to-neutral-950 p-4 py-6">
-      <div className="flex grow flex-col gap-4">
+    <aside className="flex h-full w-2/12 min-w-[300px] flex-col border-r border-zinc-800 bg-gradient-to-bl from-neutral-950 via-zinc-800/30 to-neutral-950 p-4 py-6">
+      <div className="flex flex-col gap-4">
         <section>
           <Link href="/">
             <h1 className="font-calSans text-2xl font-bold tracking-wide">
@@ -35,9 +35,12 @@ export default async function Sidebar() {
             <h2>Groups</h2>
             <NewGroup />
           </div>
-          <GroupList />
         </section>
       </div>
+      <div className="mb-2 grow overflow-y-auto">
+        <GroupList />
+      </div>
+
       <div className="flex justify-center pt-4">
         <UserDropdown
           image={session!.user.image!}
