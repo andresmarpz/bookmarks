@@ -30,7 +30,7 @@ export default async function SlugPage({
   return (
     <div>
       <header>
-        <h1 className="font-calSans mb-6 text-3xl">{group.name}</h1>
+        <h1 className="mb-6 font-calSans text-3xl">{group.name}</h1>
         <div className="flex gap-4">
           <div className="relative grow">
             <span className="absolute left-3 top-1/2 -translate-y-2">
