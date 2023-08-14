@@ -81,3 +81,38 @@
       "calt" 1;
   }
 }
+
+.dashed-grid-paper {
+  /* options */
+  --grid-size: 30px;
+  --grid-strength: 1px;
+  --grid-dash: 5px;
+  --grid-gap: 10px;
+  --grid-color: rgb(66 66 68);
+  --paper-color: rgb(24 24 27);
+
+  background-color: var(--paper-color);
+  background-size:
+    var(--grid-gap) var(--grid-gap),
+    var(--grid-size) var(--grid-size);
+  background-image: linear-gradient(
+      to bottom,
+      transparent var(--grid-dash),
+      var(--paper-color) var(--grid-dash)
+    ),
+    linear-gradient(
+      to right,
+      var(--grid-color) var(--grid-strength),
+      transparent var(--grid-strength)
+    ),
+    linear-gradient(
+      to right,
+      transparent var(--grid-dash),
+      var(--paper-color) var(--grid-dash)
+    ),
+    linear-gradient(
+      to bottom,
+      var(--grid-color) var(--grid-strength),
+      transparent var(--grid-strength)
+    );
+}

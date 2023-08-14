@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useTransition } from "react"
+import { useState, useTransition, type PropsWithChildren } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { PlusIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -27,7 +27,7 @@ import { Input } from "@/components/ui/input"
 import Spinner from "@/components/ui/Spinner"
 
 type FormFields = z.infer<typeof createGroupSchema>
-export default function NewGroup() {
+export default function NewGroup({ children }: PropsWithChildren) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
 
@@ -49,9 +49,13 @@ export default function NewGroup() {
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="sm">
-          <PlusIcon className="h-4 w-4" />
-        </Button>
+        {children ? (
+          children
+        ) : (
+          <Button variant="ghost" size="sm">
+            <PlusIcon className="h-4 w-4" />
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>New Group</DialogTitle>
