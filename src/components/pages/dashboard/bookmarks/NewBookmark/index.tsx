@@ -47,14 +47,15 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
 
   const form = useForm<FormFields>({
     defaultValues: {
-      group: currentGroup,
+      groupId: currentGroup,
+      groupSlug: groups.find((group) => group.id === currentGroup)?.slug,
     },
     resolver: zodResolver(
       createBookmarkSchema.pick({
         title: true,
-        url: true,
         description: true,
-        group: true,
+        url: true,
+        groupId: true,
       })
     ),
   })
@@ -70,7 +71,8 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
         description: description ?? undefined,
         url: data.url,
         image: logo?.url ?? undefined,
-        group: currentGroup,
+        groupId: data.groupId,
+        groupSlug: groups.find((group) => group.id === data.groupId)?.slug!,
       })
 
       setIsDialogOpen(false)
@@ -122,7 +124,7 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
 
             <FormField
               control={form.control}
-              name="group"
+              name="groupId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Group</FormLabel>

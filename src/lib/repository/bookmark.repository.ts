@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma"
 
 type CreateBookmarkInput = Pick<
   Bookmark,
-  "title" | "url" | "description" | "image" | "groupId"
+  "title" | "url" | "description" | "image" | "groupId" | "groupSlug"
 > &
   Pick<User, "uid">
 
@@ -16,10 +16,18 @@ class BookmarkRepository {
         url: input.url,
         description: input.description,
         image: input.image,
+        groupId: input.groupId,
+        groupSlug: input.groupSlug,
         group: {
-          connect: {
-            id: input.groupId,
-          },
+          connect: [
+            {
+              id: input.groupId,
+            },
+            {
+              slug: "all",
+              userId: input.uid,
+            },
+          ],
         },
         user: {
           connect: {

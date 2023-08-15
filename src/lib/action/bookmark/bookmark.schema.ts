@@ -7,10 +7,11 @@ export const createBookmarkSchema = z.object({
   }),
   description: z.string().optional(),
   image: z.optional(z.string().url()),
-  group: z.string(),
+  groupId: z.string(),
+  groupSlug: z.string(),
 })
 
 export const deleteBookmarkSchema = z.object({
   id: z.string(),
-  group: z.string(),
+  groupSlug: z.string(),
 })

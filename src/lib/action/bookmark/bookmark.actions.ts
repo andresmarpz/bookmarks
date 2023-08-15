@@ -13,24 +13,30 @@ import { bookmarkRepository } from "@/lib/repository/bookmark.repository"
 export const createBookmark = createServerAction()
   .input(createBookmarkSchema)
   .use(withAuth)
-  .handler(async ({ title, url, description, image, group }, { session }) => {
-    await bookmarkRepository.createOne({
-      title: title ?? "Unknown",
-      url,
-      description: description ?? null,
-      image: image ?? null,
-      groupId: group,
-      uid: session!.user.uid,
-    })
+  .handler(
+    async (
+      { title, url, description, image, groupId, groupSlug },
+      { session }
+    ) => {
+      await bookmarkRepository.createOne({
+        title: title ?? "Unknown",
+        url,
+        description: description ?? null,
+        image: image ?? null,
+        groupId,
+        groupSlug,
+        uid: session!.user.uid,
+      })
 
-    revalidatePath(`/dashboard/${group}`)
-  })
+      revalidatePath(`/dashboard/${groupSlug}`)
+    }
+  )
 
 export const deleteBookmark = createServerAction()
   .input(deleteBookmarkSchema)
   .use(withAuth)
-  .handler(async ({ id, group }) => {
+  .handler(async ({ id, groupSlug }) => {
     await bookmarkRepository.delete({ id })
 
-    revalidatePath(`/dashboard/${group}`)
+    revalidatePath(`/dashboard/${groupSlug}`)
   })
