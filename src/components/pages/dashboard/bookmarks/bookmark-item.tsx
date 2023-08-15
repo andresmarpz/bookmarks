@@ -25,7 +25,7 @@ export default function BookmarkItem({ bookmark, onDelete }: Props) {
   function handleDelete() {
     onDelete(bookmark)
     startDeleteTransition(() =>
-      deleteBookmark({ group: bookmark.groupSlug, id: bookmark.id })
+      deleteBookmark({ groupSlug: bookmark.groupSlug, id: bookmark.id })
     )
   }
 
