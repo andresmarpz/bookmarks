@@ -2,6 +2,7 @@ import { Suspense } from "react"
 import { notFound } from "next/navigation"
 import { Search } from "lucide-react"
 
+import { getSession } from "@/lib/auth/get-session"
 import { prisma } from "@/lib/prisma"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -15,10 +16,12 @@ export default async function SlugPage({
   params: { slug: string }
 }) {
   const { slug } = params
+  const session = await getSession()
 
   const group = await prisma.group.findFirst({
     where: {
       slug,
+      userId: session.user.uid,
     },
     include: {
       bookmarks: true,
@@ -30,7 +33,7 @@ export default async function SlugPage({
   return (
     <div>
       <header>
-        <h1 className="mb-6 font-calSans text-3xl">{group.name}</h1>
+        <h1 className="font-calSans mb-6 text-3xl">{group.name}</h1>
         <div className="flex gap-4">
           <div className="relative grow">
             <span className="absolute left-3 top-1/2 -translate-y-2">
