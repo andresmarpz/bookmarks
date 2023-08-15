@@ -62,9 +62,9 @@ model Bookmark {
   url         String
   image       String?
 
-  groupId String
+  groupId   String
   groupSlug String
-  group   Group  @relation(fields: [groupId, groupSlug], references: [id, slug])
+  group     Group[]
 
   userId String
   user   User   @relation(fields: [userId], references: [uid])
@@ -73,19 +73,18 @@ model Bookmark {
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
   @@index([groupId, groupSlug, userId])
-  @@unique([id])
 }
 
 model Group {
-  id     String @id @default(cuid())
-  name   String
-  slug   String @unique
+  id   String @id @default(cuid())
+  name String
+  slug String @unique
 
   userId String
-  user User @relation(fields: [userId], references: [uid])
+  user   User   @relation(fields: [userId], references: [uid])
 
   bookmarks Bookmark[]
 
-  @@index([userId, slug])
   @@unique([id, slug])
+  @@index([userId, slug])
 }
