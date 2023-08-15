@@ -6,7 +6,9 @@ import NewGroup from "@/components/pages/dashboard/groups/NewGroup"
 import GroupItem from "@/components/pages/dashboard/sidebar/groups/GroupItem"
 
 export default async function GroupList() {
-  const groups = await getGroups()
+  const groups = await getGroups().then((groups) =>
+    groups.filter((group) => group.slug !== "all")
+  )
 
   return groups.length ? (
     <ul className="flex flex-col gap-1">
