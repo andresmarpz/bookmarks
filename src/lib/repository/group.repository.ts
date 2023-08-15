@@ -30,9 +30,6 @@ class GroupRepository {
     const groups = await prisma.group.findMany({
       where: {
         userId: input.userId,
-        slug: {
-          not: "all",
-        },
       },
     })
     return groups
