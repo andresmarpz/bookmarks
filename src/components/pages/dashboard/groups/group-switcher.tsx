@@ -83,7 +83,6 @@ export default function GroupSwitcher({ groups }: Props) {
       ),
     [groups]
   )
-  console.log(groupMap)
 
   return (
     <Dialog open={showNewGroupDialog} onOpenChange={setShowNewGroupDialog}>
@@ -96,7 +95,7 @@ export default function GroupSwitcher({ groups }: Props) {
             aria-label="Select a group"
             className="w-[200px] justify-between"
           >
-            {currentGroup?.name ?? slug === "all" ? "All" : "Undefined"}
+            {currentGroup?.name ?? "Go to group.."}
             <ChevronsUpDownIcon className="h-3 w-3 text-neutral-500" />
           </Button>
         </PopoverTrigger>
@@ -120,7 +119,7 @@ export default function GroupSwitcher({ groups }: Props) {
                   <CommandItem
                     onSelect={() => {
                       setOpen(false)
-                      router.push(`/app/${group.slug}`)
+                      router.push(`/dashboard/group/${group.slug}`)
                     }}
                     className="text-sm"
                     key={group.id}
@@ -128,7 +127,7 @@ export default function GroupSwitcher({ groups }: Props) {
                   >
                     <Link
                       className="pointer-events-none flex w-full items-center justify-between"
-                      href={group.slug}
+                      href={`/dashboard/group/group.slug`}
                     >
                       {group.name}
                       {slug === group.slug ? (

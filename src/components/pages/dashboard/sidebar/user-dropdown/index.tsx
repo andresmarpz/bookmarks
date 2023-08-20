@@ -1,9 +1,8 @@
-"use client"
-
 import Image from "next/image"
 import Link from "next/link"
 import { ChevronsUpDownIcon, LogOut } from "lucide-react"
 
+import { getSession } from "@/lib/auth/get-session"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -13,31 +12,37 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Skeleton } from "@/components/ui/skeleton"
 
-interface Props {
-  image: string
-  name?: string
-  email?: string
-  username?: string
+export function LoadingUserDropdown() {
+  return <Skeleton className="h-10 w-full max-w-[200px]" />
 }
 
-export default function UserDropdown({ image, name, email, username }: Props) {
+export default async function UserDropdown() {
+  const { user } = await getSession()
+  const { name, username, email, image } = user
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="secondary" className="flex items-center gap-2">
+        <Button
+          variant="secondary"
+          className="flex w-full max-w-[200px] items-center justify-around gap-2"
+        >
           <Image
             className="rounded-full"
-            src={image}
+            src={image ?? "/assets/default-avatar.png"}
             width={24}
             height={24}
             alt="The avatar of your account"
           />
           <span className="flex flex-col justify-center">
-            <span className="text-bold text-left text-xs leading-snug">
+            <span className="text-bold max-w-[100px] truncate text-left text-xs leading-snug">
               {username ?? name}
             </span>
-            <small className="leading-tight text-gray-500">{email}</small>
+            <small className="max-w-[100px] truncate leading-tight text-gray-500">
+              {email}
+            </small>
           </span>
           <span>
             <ChevronsUpDownIcon className="h-3 w-3 text-gray-500" />

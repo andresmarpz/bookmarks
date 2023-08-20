@@ -1,15 +1,13 @@
-import { getSession } from "@/lib/auth/get-session"
-import { prisma } from "@/lib/prisma"
+import { getGroups } from "@/lib/query/group.queries"
+import { Skeleton } from "@/components/ui/skeleton"
 import GroupSwitcher from "@/components/pages/dashboard/groups/group-switcher"
 
-export default async function GroupSwitcherServer() {
-  const session = await getSession()
+export function LoadingGroupSwitcher() {
+  return <Skeleton className="h-10 w-[200px]" />
+}
 
-  const groups = await prisma.group.findMany({
-    where: {
-      userId: session!.user.uid,
-    },
-  })
+export default async function GroupSwitcherServer() {
+  const groups = await getGroups()
 
   return <GroupSwitcher groups={groups} />
 }
