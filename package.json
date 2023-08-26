@@ -7,9 +7,10 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "eslint:autofix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
+    "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "prettier": "prettier --check \"**/*.{css,js,json,jsx,ts,tsx}\" --cache",
-    "prettier:fix": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\" --cache"
+    "prettier:fix": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\" --cache",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.2.0",
