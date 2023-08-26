@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
-    "prettier": "prettier --check \"**/*.{css,js,json,jsx,ts,tsx}\" --cache",
-    "prettier:fix": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\" --cache",
+    "format": "prettier --check \"**/*.{css,js,json,jsx,ts,tsx}\" --cache",
+    "format:fix": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\" --cache",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
