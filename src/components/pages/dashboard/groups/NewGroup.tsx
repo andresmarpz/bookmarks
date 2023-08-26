@@ -8,13 +8,9 @@ import type { z } from "zod"
 
 import { createGroup } from "@/lib/action/group/group.actions"
 import { createGroupSchema } from "@/lib/action/group/group.schema"
+import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import {
   Form,
   FormControl,
@@ -24,7 +20,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import Spinner from "@/components/ui/Spinner"
 
 type FormFields = z.infer<typeof createGroupSchema>
 export default function NewGroup({ children }: PropsWithChildren) {
@@ -89,12 +84,7 @@ export default function NewGroup({ children }: PropsWithChildren) {
               )}
             />
 
-            <Button
-              type="submit"
-              size="sm"
-              variant="default"
-              disabled={isPending}
-            >
+            <Button type="submit" size="sm" variant="default" disabled={isPending}>
               {!isPending ? "Create" : <Spinner />}
             </Button>
           </form>

@@ -19,12 +19,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command-menu"
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import {
   Form,
   FormControl,
@@ -35,11 +30,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
 interface Props {
   groups: Group[]
@@ -74,13 +65,10 @@ export default function GroupSwitcher({ groups }: Props) {
    */
   const groupMap = useMemo(
     () =>
-      groups.reduce(
-        (prev, { slug, name, id }) => {
-          prev[id] = { slug, name }
-          return prev
-        },
-        {} as { [K: Group["id"]]: { name: string; slug: string } }
-      ),
+      groups.reduce((prev, { slug, name, id }) => {
+        prev[id] = { slug, name }
+        return prev
+      }, {} as { [K: Group["id"]]: { name: string; slug: string } }),
     [groups]
   )
 
@@ -106,9 +94,7 @@ export default function GroupSwitcher({ groups }: Props) {
               if (value.startsWith("visible")) return 1
               const name = groupMap[value].name
               const slug = groupMap[value].slug
-              return (
-                (commandScore(name, search) + commandScore(slug, search)) / 2
-              )
+              return (commandScore(name, search) + commandScore(slug, search)) / 2
             }}
           >
             <CommandList>
@@ -130,9 +116,7 @@ export default function GroupSwitcher({ groups }: Props) {
                       href={`/dashboard/group/group.slug`}
                     >
                       {group.name}
-                      {slug === group.slug ? (
-                        <CheckIcon className="h-4 w-4" />
-                      ) : null}
+                      {slug === group.slug ? <CheckIcon className="h-4 w-4" /> : null}
                     </Link>
                   </CommandItem>
                 ))}

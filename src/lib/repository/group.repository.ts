@@ -3,9 +3,7 @@ import type { Group } from "@prisma/client"
 import { prisma } from "@/lib/prisma"
 
 class GroupRepository {
-  public async createOne(
-    input: Pick<Group, "name" | "slug" | "userId">
-  ): Promise<Group> {
+  public async createOne(input: Pick<Group, "name" | "slug" | "userId">): Promise<Group> {
     const group = await prisma.group.create({
       data: input,
     })

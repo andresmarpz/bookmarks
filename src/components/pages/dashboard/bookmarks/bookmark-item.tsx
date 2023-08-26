@@ -59,9 +59,7 @@ export default function BookmarkItem({ bookmark, onDelete }: Props) {
             </span>
             <span>
               <h5 className="text-gray-10">{bookmark.title}</h5>
-              <p className="text-sm text-gray-500">
-                {prettifyUrl(bookmark.url)}
-              </p>
+              <p className="text-sm text-gray-500">{prettifyUrl(bookmark.url)}</p>
             </span>
           </a>
         </ContextMenuTrigger>

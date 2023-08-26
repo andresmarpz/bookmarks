@@ -1,7 +1,6 @@
 import Providers from "@/components/shared/provider"
 
 import "./globals.css"
-
 import { type Metadata } from "next"
 import { Inter } from "next/font/google"
 import LocalFont from "next/font/local"
@@ -21,11 +20,7 @@ export const metadata: Metadata = {
   description: "A simple bookmark manager.",
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.className, calSans.variable, "bg-black")}>

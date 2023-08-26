@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { signIn, signOut } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react"
 
 export default function Controls() {
   return (
@@ -8,5 +8,5 @@ export default function Controls() {
       <button onClick={() => signOut()}>Sign out</button>
       <button onClick={() => signIn()}>Sign in</button>
     </div>
-  );
+  )
 }

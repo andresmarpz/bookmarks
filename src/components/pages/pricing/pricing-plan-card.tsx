@@ -9,12 +9,7 @@ interface Props {
   features: { label: string; checked?: boolean }[]
 }
 
-export default function PricingPlanCard({
-  plan,
-  price,
-  description,
-  features,
-}: Props) {
+export default function PricingPlanCard({ plan, price, description, features }: Props) {
   return (
     <li className="flex max-w-sm flex-col justify-between rounded-2xl border border-neutral-800 bg-black px-5 py-4 shadow-xl shadow-black/50 backdrop-blur">
       <div>
@@ -35,10 +30,7 @@ export default function PricingPlanCard({
 
         <dl className="flex flex-col gap-4">
           {features.map((feature, idx) => (
-            <PlanFeatureItem
-              key={plan + idx + "item"}
-              checked={feature.checked}
-            >
+            <PlanFeatureItem key={plan + idx + "item"} checked={feature.checked}>
               {feature.label}
             </PlanFeatureItem>
           ))}

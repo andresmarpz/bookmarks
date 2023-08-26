@@ -1,8 +1,4 @@
-import React, {
-  forwardRef,
-  type HTMLAttributes,
-  type ReactElement,
-} from "react"
+import React, { forwardRef, type HTMLAttributes, type ReactElement } from "react"
 import { Slot } from "@radix-ui/react-slot"
 
 type SlideMenuItemProps = HTMLAttributes<HTMLButtonElement> & {
@@ -23,14 +19,13 @@ export const SlideMenuItem = forwardRef<HTMLButtonElement, SlideMenuItemProps>(
 )
 SlideMenuItem.displayName = "SlideMenuItem"
 
-export const SlideMenu = forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->(({ children, ...props }, ref) => {
-  return (
-    <div ref={ref} {...props}>
-      {children}
-    </div>
-  )
-})
+export const SlideMenu = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ children, ...props }, ref) => {
+    return (
+      <div ref={ref} {...props}>
+        {children}
+      </div>
+    )
+  }
+)
 SlideMenu.displayName = "SlideMenu"

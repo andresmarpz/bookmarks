@@ -3,8 +3,7 @@ import Image from "next/image"
 const DUMMIES = [
   {
     url: "https://vercel.com",
-    image:
-      "https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png",
+    image: "https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png",
     title: "Vercel: Develop. Preview. Ship. For the best frontend teams",
     description:
       "Vercel’s frontend cloud gives developers the frameworks, workflows, and infrastructure to build a faster, more personalized Web.",

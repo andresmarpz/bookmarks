@@ -29,8 +29,7 @@ export default function GroupItem({ group }: Props) {
         id: group.id,
       })
 
-      if (pathname.startsWith(`/dashboard/group/${group.slug}`))
-        router.push("/dashboard")
+      if (pathname.startsWith(`/dashboard/group/${group.slug}`)) router.push("/dashboard")
     })
   }
 

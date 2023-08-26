@@ -4,18 +4,14 @@ import { Search } from "lucide-react"
 
 import { getSession } from "@/lib/auth/get-session"
 import { prisma } from "@/lib/prisma"
+import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import Spinner from "@/components/ui/Spinner"
-import BookmarkList from "@/components/pages/dashboard/bookmarks/bookmark-list"
-import NewBookmarkServer from "@/components/pages/dashboard/bookmarks/NewBookmark/NewBookmark.server"
 import DashboardPage from "@/components/pages/dashboard/DashboardPage"
+import NewBookmarkServer from "@/components/pages/dashboard/bookmarks/NewBookmark/NewBookmark.server"
+import BookmarkList from "@/components/pages/dashboard/bookmarks/bookmark-list"
 
-export default async function SlugPage({
-  params,
-}: {
-  params: { slug: string }
-}) {
+export default async function SlugPage({ params }: { params: { slug: string } }) {
   const { slug } = params
   const session = await getSession()
 

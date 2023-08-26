@@ -14,10 +14,7 @@ export const createBookmark = createServerAction()
   .input(createBookmarkSchema)
   .use(withAuth)
   .handler(
-    async (
-      { title, url, description, image, groupId, groupSlug },
-      { session }
-    ) => {
+    async ({ title, url, description, image, groupId, groupSlug }, { session }) => {
       await bookmarkRepository.createOne({
         title: title ?? "Unknown",
         url,

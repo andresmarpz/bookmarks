@@ -1,10 +1,6 @@
 import { type CSSProperties } from "react"
 
-const Spinner = (props: {
-  css?: CSSProperties
-  width?: number
-  height?: number
-}) => {
+const Spinner = (props: { css?: CSSProperties; width?: number; height?: number }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -22,15 +18,7 @@ const Spinner = (props: {
       preserveAspectRatio="xMidYMid"
     >
       <g transform="rotate(0 50 50)">
-        <rect
-          x="47.5"
-          y="23.5"
-          rx="0"
-          ry="0"
-          width="5"
-          height="11"
-          fill="currentColor"
-        >
+        <rect x="47.5" y="23.5" rx="0" ry="0" width="5" height="11" fill="currentColor">
           <animate
             attributeName="opacity"
             values="1;0"
@@ -42,15 +30,7 @@ const Spinner = (props: {
         </rect>
       </g>
       <g transform="rotate(30 50 50)">
-        <rect
-          x="47.5"
-          y="23.5"
-          rx="0"
-          ry="0"
-          width="5"
-          height="11"
-          fill="currentColor"
-        >
+        <rect x="47.5" y="23.5" rx="0" ry="0" width="5" height="11" fill="currentColor">
           <animate
             attributeName="opacity"
             values="1;0"
@@ -62,15 +42,7 @@ const Spinner = (props: {
         </rect>
       </g>
       <g transform="rotate(60 50 50)">
-        <rect
-          x="47.5"
-          y="23.5"
-          rx="0"
-          ry="0"
-          width="5"
-          height="11"
-          fill="currentColor"
-        >
+        <rect x="47.5" y="23.5" rx="0" ry="0" width="5" height="11" fill="currentColor">
           <animate
             attributeName="opacity"
             values="1;0"
@@ -82,15 +54,7 @@ const Spinner = (props: {
         </rect>
       </g>
       <g transform="rotate(90 50 50)">
-        <rect
-          x="47.5"
-          y="23.5"
-          rx="0"
-          ry="0"
-          width="5"
-          height="11"
-          fill="currentColor"
-        >
+        <rect x="47.5" y="23.5" rx="0" ry="0" width="5" height="11" fill="currentColor">
           <animate
             attributeName="opacity"
             values="1;0"
@@ -102,15 +66,7 @@ const Spinner = (props: {
         </rect>
       </g>
       <g transform="rotate(120 50 50)">
-        <rect
-          x="47.5"
-          y="23.5"
-          rx="0"
-          ry="0"
-          width="5"
-          height="11"
-          fill="currentColor"
-        >
+        <rect x="47.5" y="23.5" rx="0" ry="0" width="5" height="11" fill="currentColor">
           <animate
             attributeName="opacity"
             values="1;0"
@@ -122,15 +78,7 @@ const Spinner = (props: {
         </rect>
       </g>
       <g transform="rotate(150 50 50)">
-        <rect
-          x="47.5"
-          y="23.5"
-          rx="0"
-          ry="0"
-          width="5"
-          height="11"
-          fill="currentColor"
-        >
+        <rect x="47.5" y="23.5" rx="0" ry="0" width="5" height="11" fill="currentColor">
           <animate
             attributeName="opacity"
             values="1;0"
@@ -142,15 +90,7 @@ const Spinner = (props: {
         </rect>
       </g>
       <g transform="rotate(180 50 50)">
-        <rect
-          x="47.5"
-          y="23.5"
-          rx="0"
-          ry="0"
-          width="5"
-          height="11"
-          fill="currentColor"
-        >
+        <rect x="47.5" y="23.5" rx="0" ry="0" width="5" height="11" fill="currentColor">
           <animate
             attributeName="opacity"
             values="1;0"
@@ -162,15 +102,7 @@ const Spinner = (props: {
         </rect>
       </g>
       <g transform="rotate(210 50 50)">
-        <rect
-          x="47.5"
-          y="23.5"
-          rx="0"
-          ry="0"
-          width="5"
-          height="11"
-          fill="currentColor"
-        >
+        <rect x="47.5" y="23.5" rx="0" ry="0" width="5" height="11" fill="currentColor">
           <animate
             attributeName="opacity"
             values="1;0"
@@ -182,15 +114,7 @@ const Spinner = (props: {
         </rect>
       </g>
       <g transform="rotate(240 50 50)">
-        <rect
-          x="47.5"
-          y="23.5"
-          rx="0"
-          ry="0"
-          width="5"
-          height="11"
-          fill="currentColor"
-        >
+        <rect x="47.5" y="23.5" rx="0" ry="0" width="5" height="11" fill="currentColor">
           <animate
             attributeName="opacity"
             values="1;0"
@@ -202,15 +126,7 @@ const Spinner = (props: {
         </rect>
       </g>
       <g transform="rotate(270 50 50)">
-        <rect
-          x="47.5"
-          y="23.5"
-          rx="0"
-          ry="0"
-          width="5"
-          height="11"
-          fill="currentColor"
-        >
+        <rect x="47.5" y="23.5" rx="0" ry="0" width="5" height="11" fill="currentColor">
           <animate
             attributeName="opacity"
             values="1;0"
@@ -222,15 +138,7 @@ const Spinner = (props: {
         </rect>
       </g>
       <g transform="rotate(300 50 50)">
-        <rect
-          x="47.5"
-          y="23.5"
-          rx="0"
-          ry="0"
-          width="5"
-          height="11"
-          fill="currentColor"
-        >
+        <rect x="47.5" y="23.5" rx="0" ry="0" width="5" height="11" fill="currentColor">
           <animate
             attributeName="opacity"
             values="1;0"
@@ -242,15 +150,7 @@ const Spinner = (props: {
         </rect>
       </g>
       <g transform="rotate(330 50 50)">
-        <rect
-          x="47.5"
-          y="23.5"
-          rx="0"
-          ry="0"
-          width="5"
-          height="11"
-          fill="currentColor"
-        >
+        <rect x="47.5" y="23.5" rx="0" ry="0" width="5" height="11" fill="currentColor">
           <animate
             attributeName="opacity"
             values="1;0"

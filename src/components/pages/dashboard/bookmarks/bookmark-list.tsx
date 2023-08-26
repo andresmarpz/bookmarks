@@ -21,10 +21,7 @@ function reducer(state: Bookmark[], action: Action) {
 }
 
 export default function BookmarkList({ bookmarks }: Props) {
-  const [state, dispatch] = useOptimistic<Bookmark[], Action>(
-    bookmarks,
-    reducer
-  )
+  const [state, dispatch] = useOptimistic<Bookmark[], Action>(bookmarks, reducer)
 
   return (
     <ul className="flex flex-col gap-3">
@@ -32,9 +29,7 @@ export default function BookmarkList({ bookmarks }: Props) {
         <BookmarkItem
           key={bookmark.id}
           bookmark={bookmark}
-          onDelete={(bookmark) =>
-            dispatch({ type: "delete", payload: bookmark })
-          }
+          onDelete={(bookmark) => dispatch({ type: "delete", payload: bookmark })}
         />
       ))}
     </ul>

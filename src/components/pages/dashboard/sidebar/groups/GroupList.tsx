@@ -19,9 +19,7 @@ export default async function GroupList() {
   ) : (
     <div className="border-neutral-80 relative overflow-hidden rounded-xl border-2 bg-zinc-900">
       <div className="relative z-10 p-6 pb-10 pt-16 antialiased">
-        <h5 className="mb-1 text-lg font-medium text-gray-200">
-          Create a Group
-        </h5>
+        <h5 className="mb-1 text-lg font-medium text-gray-200">Create a Group</h5>
 
         <p className="mb-6 text-sm leading-5 text-gray-400">
           Create your first Group to start collecting your internet discoveries.

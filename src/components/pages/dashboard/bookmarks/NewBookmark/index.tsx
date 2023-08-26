@@ -10,13 +10,9 @@ import { z } from "zod"
 
 import { createBookmark } from "@/lib/action/bookmark/bookmark.actions"
 import { createBookmarkSchema } from "@/lib/action/bookmark/bookmark.schema"
+import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import {
   Form,
   FormControl,
@@ -33,7 +29,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import Spinner from "@/components/ui/Spinner"
 
 interface Props {
   groups: Group[]
@@ -128,10 +123,7 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Group</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select a group.." />
@@ -150,12 +142,7 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
               )}
             />
 
-            <Button
-              type="submit"
-              size="sm"
-              variant="default"
-              disabled={isPending}
-            >
+            <Button type="submit" size="sm" variant="default" disabled={isPending}>
               {!isPending ? "Create" : <Spinner />}
             </Button>
           </form>

@@ -1,9 +1,9 @@
 import { Search } from "lucide-react"
 
+import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
-import Spinner from "@/components/ui/Spinner"
 
 export default function Loading() {
   return (
@@ -22,10 +22,7 @@ export default function Loading() {
               className="pl-10"
             />
           </div>
-          <Button
-            variant="secondary"
-            className="flex items-center justify-center py-0"
-          >
+          <Button variant="secondary" className="flex items-center justify-center py-0">
             <Spinner />
           </Button>
         </div>

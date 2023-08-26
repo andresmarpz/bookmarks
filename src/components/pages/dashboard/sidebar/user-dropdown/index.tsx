@@ -50,11 +50,7 @@ export default async function UserDropdown() {
           </span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        className="w-48"
-        collisionPadding={16}
-        sideOffset={8}
-      >
+      <DropdownMenuContent className="w-48" collisionPadding={16} sideOffset={8}>
         {!username && (
           <DropdownMenuLabel className="flex flex-col ">
             {username && <span className="text-bold">{username}</span>}
