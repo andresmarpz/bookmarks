@@ -21,6 +21,7 @@ export function LoadingUserDropdown() {
 export default async function UserDropdown() {
   const { user } = await getSession()
   const { name, username, email, image } = user
+  console.log(username)
 
   return (
     <DropdownMenu>

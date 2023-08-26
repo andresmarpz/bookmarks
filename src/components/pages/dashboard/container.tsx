@@ -8,7 +8,7 @@ const Container = forwardRef<
   const Element = as || "div"
   return (
     <Element
-      className={cn("m-auto w-full max-w-6xl", className)}
+      className={cn("m-auto w-full max-w-6xl py-4", className)}
       {...props}
       ref={forwardedRef}
     >
