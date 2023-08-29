@@ -38,7 +38,7 @@ export default function BookmarkItem({ bookmark, onDelete }: Props) {
             target="_blank"
             rel="noreferrer noopener"
             className={cn(
-              "flex gap-3 rounded-md border p-2 ",
+              "flex min-h-[64px] gap-3 rounded-md border p-2",
               "border-neutral-800 bg-neutral-950 hover:border-neutral-600 hover:bg-neutral-900/80",
               "transition-colors"
             )}
