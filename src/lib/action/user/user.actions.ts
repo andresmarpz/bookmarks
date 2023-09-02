@@ -4,7 +4,10 @@ import { revalidatePath } from "next/cache"
 import { createServerAction } from "nza"
 
 import { withAuth } from "@/lib/action/middleware/with-auth"
-import { updateUserUsernameSchema } from "@/lib/action/user/user.schema"
+import {
+  updateUserNameSchema,
+  updateUserUsernameSchema,
+} from "@/lib/action/user/user.schema"
 import { prisma } from "@/lib/prisma"
 
 export const updateUserUsername = createServerAction()
@@ -17,6 +20,22 @@ export const updateUserUsername = createServerAction()
       },
       data: {
         username,
+      },
+    })
+
+    revalidatePath("/dashboard/settings")
+  })
+
+export const updateUserName = createServerAction()
+  .input(updateUserNameSchema)
+  .use(withAuth)
+  .handler(async ({ name }, locals) => {
+    await prisma.user.update({
+      where: {
+        id: locals.session.user!.id,
+      },
+      data: {
+        name,
       },
     })
 

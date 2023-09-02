@@ -1,7 +1,7 @@
 import { getSession } from "@/lib/auth/get-session"
 import { getUser } from "@/lib/query/user.queries"
 import DashboardPage from "@/components/pages/dashboard/DashboardPage"
-import SettingsForm from "@/components/pages/dashboard/settings/SetingsForm"
+import SettingsForm from "@/components/pages/dashboard/settings/SettingsForm"
 
 export default async function SettingsPage() {
   const session = await getSession()
