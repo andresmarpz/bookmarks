@@ -7,3 +7,5 @@ export const updateUserUsernameSchema = z.object({
     .max(20)
     .regex(/^[a-zA-Z0-9_]+$/),
 })
+
+export type UpdateUserUsernameInput = z.infer<typeof updateUserUsernameSchema>
