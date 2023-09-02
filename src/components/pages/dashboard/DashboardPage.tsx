@@ -11,7 +11,9 @@ export default function DashboardPage({ title, children }: Props) {
       <PageTitle>
         {title ? <h1 className="text-xl">{title}</h1> : <Skeleton className="h-7 w-40" />}
       </PageTitle>
-      <Container as="main">{children}</Container>
+      <Container as="main" className="px-4">
+        {children}
+      </Container>
     </Fragment>
   )
 }

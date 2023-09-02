@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ChevronsUpDownIcon, LogOut } from "lucide-react"
 
 import { getSession } from "@/lib/auth/get-session"
+import { getUser } from "@/lib/query/user.queries"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -19,9 +20,9 @@ export function LoadingUserDropdown() {
 }
 
 export default async function UserDropdown() {
-  const { user } = await getSession()
-  const { name, username, email, image } = user
-  console.log(username)
+  const session = await getSession()
+  const user = await getUser(session?.user?.id)
+  const { name, username, email, image } = user!
 
   return (
     <DropdownMenu>
@@ -51,14 +52,12 @@ export default async function UserDropdown() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-48" collisionPadding={16} sideOffset={8}>
-        {!username && (
-          <DropdownMenuLabel className="flex flex-col ">
-            {username && <span className="text-bold">{username}</span>}
-            <span className="w-[200px] truncate text-sm font-normal text-gray-400">
-              {email}
-            </span>
-          </DropdownMenuLabel>
-        )}
+        <DropdownMenuLabel className="flex flex-col">
+          {username && <span className="text-bold">{username}</span>}
+          <span className="w-[200px] truncate text-sm font-normal text-gray-400">
+            {email}
+          </span>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link className="cursor-pointer" href="/dashboard">

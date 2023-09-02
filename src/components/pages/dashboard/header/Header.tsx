@@ -11,7 +11,7 @@ import UserDropdown, {
 export default function Header() {
   return (
     <header className="border-b border-b-neutral-700">
-      <div className="m-auto max-w-6xl justify-between pt-8">
+      <div className="m-auto max-w-6xl justify-between px-4 pt-8">
         <div className="flex items-center justify-between">
           <Suspense fallback={<LoadingGroupSwitcher />}>
             <GroupSwitcherServer />
