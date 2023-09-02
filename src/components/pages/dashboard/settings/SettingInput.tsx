@@ -51,7 +51,7 @@ export default function SettingInput<T extends FieldValues>({
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{name}</FormLabel>
+              <FormLabel className="text-xl">{name}</FormLabel>
               {description && <FormDescription>{description}</FormDescription>}
               <FormControl>
                 <Input {...field} />
