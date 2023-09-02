@@ -11,10 +11,7 @@ export default function LoadingGroup() {
   const skeletons = useMemo(
     () =>
       Array.from({ length: 6 }, (_, i) => i).map((i) => (
-        <Skeleton
-          key={"sk-bm-" + i}
-          className="h-16 w-full animate-in fade-in-90 slide-in-from-top-2"
-        />
+        <Skeleton key={"sk-bm-" + i} className="h-16 w-full animate-in fade-in-90" />
       )),
     []
   )
