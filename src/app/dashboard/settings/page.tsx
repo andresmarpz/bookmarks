@@ -1,15 +1,21 @@
+import { Suspense } from "react"
+
 import { getSession } from "@/lib/auth/get-session"
 import { getUser } from "@/lib/query/user.queries"
 import DashboardPage from "@/components/pages/dashboard/DashboardPage"
-import SettingsForm from "@/components/pages/dashboard/settings/SettingsForm"
+import SettingsForm, {
+  LoadingSettingsForm,
+} from "@/components/pages/dashboard/settings/SettingsForm"
 
 export default async function SettingsPage() {
   const session = await getSession()
-  const user = await getUser(session?.user.id)
+  const user = await getUser(session?.user?.id)
 
   return (
     <DashboardPage title="Settings">
-      <SettingsForm user={user!} />
+      <Suspense fallback={<LoadingSettingsForm />}>
+        <SettingsForm user={user!} />
+      </Suspense>
     </DashboardPage>
   )
 }
