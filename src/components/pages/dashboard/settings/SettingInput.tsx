@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface Props<Data> {
   name: string
@@ -24,6 +25,14 @@ interface Props<Data> {
   defaultValue: any
   resolver: AnyZodObject
   action: (data: Data) => Promise<any>
+}
+
+export function LoadingSettingInput() {
+  return (
+    <div className="rounded-md border bg-black p-5">
+      <Skeleton className="h-6 w-1/2" />
+    </div>
+  )
 }
 
 export default function SettingInput<T extends FieldValues>({
