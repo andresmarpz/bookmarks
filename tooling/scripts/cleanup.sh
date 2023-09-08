@@ -7,7 +7,7 @@
 rm -rf ../../.next
 rm -rf ../../node_modules
 
-# Clear yarn cache
+# Clear yarn cache           
 yarn cache clean
 
 # Install dependencies again
