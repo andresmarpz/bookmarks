@@ -10,7 +10,8 @@
     "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "format": "prettier --check \"**/*.{css,js,json,jsx,ts,tsx}\" --cache",
     "format:fix": "prettier --write \"**/*.{css,js,json,jsx,ts,tsx}\" --cache",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "script:cleanup": "chmod +x ./tooling/scripts/cleanup.sh && ./tooling/scripts/cleanup.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.2.0",
