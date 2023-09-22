@@ -1,6 +1,5 @@
 "use client"
 
-import { redirect } from "next/navigation"
 import type { User } from "@prisma/client"
 
 import { updateUserName, updateUserUsername } from "@/lib/action/user/user.actions"
@@ -15,7 +14,7 @@ import SettingInput, {
 } from "@/components/pages/dashboard/settings/SettingInput"
 
 export function LoadingSettingsForm() {
-  const skeletons = Array.from({ length: 3 }, (_, i) => (
+  const skeletons = Array.from({ length: 2 }, (_, i) => (
     <LoadingSettingInput key={"sk-si-" + i} />
   ))
 
@@ -27,8 +26,6 @@ interface Props {
 }
 
 export default function SettingsForm({ user }: Props) {
-  if (!user) redirect("/login")
-
   return (
     <div className="mt-2 flex flex-col gap-6">
       <SettingInput<UpdateUserUsernameInput>

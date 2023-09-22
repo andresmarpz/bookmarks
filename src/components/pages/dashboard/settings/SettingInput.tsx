@@ -30,7 +30,12 @@ interface Props<Data> {
 export function LoadingSettingInput() {
   return (
     <div className="rounded-md border bg-black p-5">
-      <Skeleton className="h-6 w-1/2" />
+      <Skeleton className="h-7 w-1/2" />
+
+      <Skeleton className="mt-4 h-5 w-1/3" />
+      <Skeleton className="mt-2 h-8 w-full" />
+
+      <Skeleton className="float-right my-4 h-10 w-24" />
     </div>
   )
 }
