@@ -2,7 +2,7 @@ name: "Install"
 description: "Sets up Node.js and runs install"
 
 runs:
-  using: ubuntu-latest
+  using: composite
   steps:
     - uses: actions/setup-node@v3
       with:
