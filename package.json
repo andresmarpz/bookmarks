@@ -1,6 +1,5 @@
 {
-  "name": "bookmarks-test",
-  "version": "0.1.0",
+  "name": "bookmarks",
   "private": true,
   "scripts": {
     "dev": "next dev",
