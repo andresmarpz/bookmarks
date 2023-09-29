@@ -8,20 +8,28 @@ runs:
       with:
         node-version: 18
 
-    - name: Install yarn
+    - name: Install pnpm
       shell: bash
-      run: npm i -g yarn
+      run: npm i -g pnpm
+
+    - uses: pnpm/action-setup@v2
+      name: Install pnpm
+      with:
+        version: 8
+        run_install: false
+
+    - name: Get pnpm store directory
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
     - uses: actions/cache@v3
-      name: yarn-cache
-      id: yarn-cache
+      name: Setup pnpm cache
       with:
-        path: |
-          **/node_modules
-          ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        path: ${{ env.STORE_PATH }}
+        key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
         restore-keys: |
-          ${{ runner.os }}-yarn
+          ${{ runner.os }}-pnpm-store-
 
     - name: Cache TypeScript TSBuild Info Files
       uses: actions/cache@v3
@@ -31,7 +39,5 @@ runs:
         key: ${{ runner.os }}-cache-typescript-tsbuildinfo-${{ github.sha }}
         restore-keys: ${{ runner.os }}-cache-typescript-tsbuildinfo-
 
-    - name: yarn
-      shell: bash
-      if: steps.yarn-cache.outputs.cache-hit != 'true'
-      run: yarn install --frozen-lockfile --prefer-offline
+    - name: Install dependencies
+      run: pnpm install
