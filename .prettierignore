@@ -5,6 +5,7 @@ package-lock.json
 public
 CHANGELOG.md
 .yarn
+.pnpm
 dist
 node_modules
 .next
