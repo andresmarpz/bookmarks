@@ -40,4 +40,5 @@ runs:
         restore-keys: ${{ runner.os }}-cache-typescript-tsbuildinfo-
 
     - name: Install dependencies
+      shell: bash
       run: pnpm install
