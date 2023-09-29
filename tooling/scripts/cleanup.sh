@@ -7,8 +7,8 @@
 rm -rf .next
 rm -rf node_modules
 
-# Clear yarn cache           
-yarn cache clean
+# Clear pnpm cache           
+pnpm store prune
 
 # Install dependencies again
-yarn install
+pnpm install
