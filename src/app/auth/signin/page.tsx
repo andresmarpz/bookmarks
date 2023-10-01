@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import AuthForm from "@/components/pages/auth/auth-form"
 
-export default function LoginPage() {
+export default async function LoginPage() {
   return (
     <main className="w-full max-w-sm p-5">
       <h1 className="text-xl">Sign In</h1>

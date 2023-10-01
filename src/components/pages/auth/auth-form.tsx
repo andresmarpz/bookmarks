@@ -1,9 +1,13 @@
 "use client"
 
 import { useTransition } from "react"
-import { signIn } from "next-auth/react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useForm } from "react-hook-form"
 
+import { signInWithPassword } from "@/lib/auth/sign-in-with-password"
+import { supabaseRCC } from "@/lib/supabase"
+import { useSession } from "@/hooks/auth/use-session"
+import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -17,11 +21,30 @@ import { Input } from "@/components/ui/input"
 import GithubSVG from "@/components/shared/svg/github.svg"
 
 export default function AuthForm() {
-  const form = useForm()
+  const router = useRouter()
+  const searchParams = useSearchParams()
 
-  const [isGithubLoading, startGithubLoading] = useTransition()
+  const form = useForm<{
+    email: string
+    password: string
+  }>()
 
-  const onSubmit = form.handleSubmit((data) => {})
+  const [isEmailLoading, startEmailTransition] = useTransition()
+  const [isGithubLoading, startGithubTransition] = useTransition()
+
+  const onSubmit = form.handleSubmit((data) => {
+    const { email, password } = data
+    try {
+      startEmailTransition(async () => {
+        await signInWithPassword({ email, password })
+
+        const returnTo = searchParams.get("returnTo")
+        router.push(returnTo ? returnTo : "/dashboard")
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  })
 
   return (
     <Form {...form}>
@@ -41,8 +64,22 @@ export default function AuthForm() {
             )}
           />
 
-          <Button type="submit" size="sm" variant="default">
-            Sign in with email
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit" size="sm" variant="default" disabled={isEmailLoading}>
+            {isEmailLoading ? <Spinner /> : "Sign In"}
           </Button>
         </div>
 
@@ -52,14 +89,14 @@ export default function AuthForm() {
           <hr className="grow border-t border-neutral-600" />
         </div>
 
-        <Button
+        {/* <Button
           variant="secondary"
           className="flex w-full items-center justify-center gap-2"
           onClick={() => signIn("github")}
         >
           <GithubSVG width={16} height={16} />
           GitHub
-        </Button>
+        </Button> */}
       </form>
     </Form>
   )
