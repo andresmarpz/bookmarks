@@ -8,7 +8,6 @@ import { z } from "zod"
 
 import { signInWithGithub } from "@/lib/auth/sign-in-with-github"
 import { signInWithPassword } from "@/lib/auth/sign-in-with-password"
-import { supabaseCCC } from "@/lib/supabase.client"
 import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
 import {
