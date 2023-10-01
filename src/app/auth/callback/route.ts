@@ -15,5 +15,11 @@ export async function GET(request: NextRequest) {
   }
 
   // URL to redirect to after sign in process completes
-  return NextResponse.redirect(requestUrl.origin)
+  const returnTo = requestUrl.searchParams.get("returnTo")
+  const redirectUrl = request.nextUrl.clone()
+  redirectUrl.pathname = returnTo || "/dashboard"
+  redirectUrl.searchParams.delete("code")
+  redirectUrl.searchParams.delete("returnTo")
+
+  return NextResponse.redirect(redirectUrl)
 }
