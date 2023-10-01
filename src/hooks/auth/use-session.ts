@@ -1,7 +1,7 @@
 import { usePathname, useRouter } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
 
-import { supabaseRCC } from "@/lib/supabase"
+import { supabaseCCC } from "@/lib/supabase.client"
 
 interface Options {
   redirect?: boolean
@@ -12,7 +12,7 @@ export function useSession({ redirect = true }: Options = { redirect: true }) {
   const pathname = usePathname()
 
   return useQuery(["user/session"], async () => {
-    const query = await supabaseRCC.auth.getSession()
+    const query = await supabaseCCC.auth.getSession()
 
     if ((query.error || !query.data.session) && redirect) {
       router.push("/auth/signin?returnTo=" + pathname)
