@@ -5,7 +5,16 @@ import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs"
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
   const supabase = createMiddlewareClient({ req, res })
-  await supabase.auth.getSession()
+  const sessionQuery = await supabase.auth.getSession()
+
+  if (sessionQuery.error || !sessionQuery.data.session) {
+    const url = req.nextUrl.clone()
+    url.pathname = "/auth/signin"
+    url.searchParams.set("returnTo", req.nextUrl.pathname)
+
+    return NextResponse.redirect(url)
+  }
+
   return res
 }
 
