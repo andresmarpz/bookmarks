@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form"
 
 import { signInWithPassword } from "@/lib/auth/sign-in-with-password"
 import { supabaseRCC } from "@/lib/supabase"
-import { useSession } from "@/hooks/auth/use-session"
 import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
 import {
@@ -23,6 +22,7 @@ import GithubSVG from "@/components/shared/svg/github.svg"
 export default function AuthForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const returnTo = searchParams.get("returnTo") ?? "/dashboard"
 
   const form = useForm<{
     email: string
@@ -38,13 +38,23 @@ export default function AuthForm() {
       startEmailTransition(async () => {
         await signInWithPassword({ email, password })
 
-        const returnTo = searchParams.get("returnTo")
-        router.push(returnTo ? returnTo : "/dashboard")
+        router.push(returnTo)
       })
     } catch (err) {
       console.error(err)
     }
   })
+
+  const handleGithubSignIn = () => {
+    startGithubTransition(async () => {
+      await supabaseRCC.auth.signInWithOAuth({
+        provider: "github",
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback?returnTo=${returnTo}`,
+        },
+      })
+    })
+  }
 
   return (
     <Form {...form}>
@@ -78,7 +88,13 @@ export default function AuthForm() {
             )}
           />
 
-          <Button type="submit" size="sm" variant="default" disabled={isEmailLoading}>
+          <Button
+            className="mt-4"
+            type="submit"
+            size="sm"
+            variant="default"
+            disabled={isEmailLoading}
+          >
             {isEmailLoading ? <Spinner /> : "Sign In"}
           </Button>
         </div>
@@ -89,14 +105,22 @@ export default function AuthForm() {
           <hr className="grow border-t border-neutral-600" />
         </div>
 
-        {/* <Button
+        <Button
+          type="button"
           variant="secondary"
           className="flex w-full items-center justify-center gap-2"
-          onClick={() => signIn("github")}
+          onClick={handleGithubSignIn}
+          disabled={isGithubLoading}
         >
-          <GithubSVG width={16} height={16} />
-          GitHub
-        </Button> */}
+          {isGithubLoading ? (
+            <Spinner />
+          ) : (
+            <>
+              <GithubSVG width={16} height={16} />
+              GitHub
+            </>
+          )}
+        </Button>
       </form>
     </Form>
   )
