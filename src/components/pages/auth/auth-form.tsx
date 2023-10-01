@@ -2,10 +2,13 @@
 
 import { useTransition } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { z } from "zod"
 
+import { signInWithGithub } from "@/lib/auth/sign-in-with-github"
 import { signInWithPassword } from "@/lib/auth/sign-in-with-password"
-import { supabaseRCC } from "@/lib/supabase"
+import { supabaseCCC } from "@/lib/supabase.client"
 import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
 import {
@@ -27,7 +30,19 @@ export default function AuthForm() {
   const form = useForm<{
     email: string
     password: string
-  }>()
+  }>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+
+    resolver: zodResolver(
+      z.object({
+        email: z.string().email(),
+        password: z.string().min(8),
+      })
+    ),
+  })
 
   const [isEmailLoading, startEmailTransition] = useTransition()
   const [isGithubLoading, startGithubTransition] = useTransition()
@@ -47,12 +62,13 @@ export default function AuthForm() {
 
   const handleGithubSignIn = () => {
     startGithubTransition(async () => {
-      await supabaseRCC.auth.signInWithOAuth({
-        provider: "github",
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback?returnTo=${returnTo}`,
-        },
-      })
+      try {
+        await signInWithGithub({
+          redirectTo: returnTo,
+        })
+      } catch (err) {
+        console.error(err)
+      }
     })
   }
 
