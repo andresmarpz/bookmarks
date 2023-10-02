@@ -1,7 +1,8 @@
-import { baseEntity } from "@/db/base.entity"
-import { groups } from "@/db/schema/group.entity"
 import { relations } from "drizzle-orm"
 import { pgTable, text } from "drizzle-orm/pg-core"
+
+import { baseEntity } from "../base.entity"
+import { groups } from "./group.entity"
 
 export const users = pgTable("users", {
   ...baseEntity,
