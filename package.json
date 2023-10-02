@@ -5,6 +5,7 @@
     "dev": "next dev",
     "build": "prisma generate && next build",
     "start": "next start",
+    "drizzle:migrate": "drizzle-kit generate:pg",
     "lint": "next lint",
     "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "format": "prettier --check \"**/*.{css,js,json,jsx,ts,tsx}\" --cache",
