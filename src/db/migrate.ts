@@ -1,14 +1,11 @@
-import { configDotenv } from "dotenv"
 import { drizzle } from "drizzle-orm/postgres-js"
 import { migrate } from "drizzle-orm/postgres-js/migrator"
 import fs from "fs"
 import postgres from "postgres"
 
-configDotenv({
-  path: ".env.local",
-})
+import { env } from "@/config/env"
 
-const migrationClient = postgres(process.env.DATABASE_URL!, { max: 1 })
+const migrationClient = postgres(env.server.DATABASE_URL, { max: 1 })
 const db = drizzle(migrationClient)
 
 async function runMigrations() {

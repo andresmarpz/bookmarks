@@ -9,8 +9,8 @@ export const users = pgTable(
   {
     ...baseEntity,
     username: text("username").unique(),
-    email: text("email"),
-    provider: text("provider", { enum: ["password", "github"] }),
+    email: text("email").notNull(),
+    provider: text("provider", { enum: ["password", "github"] }).notNull(),
   },
   (user) => ({
     uniqueProviderEmail: unique().on(user.provider, user.email),
