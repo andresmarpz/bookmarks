@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "dfc81563-1d58-4c8c-869b-ef7a6e59733f",
-  "prevId": "60ecb69f-d012-4081-aec9-d6d9eb1f67d9",
+  "id": "2d9c6b59-9f38-4faa-879f-354ac5b38cc6",
+  "prevId": "dfc81563-1d58-4c8c-869b-ef7a6e59733f",
   "tables": {
     "bookmarks": {
       "name": "bookmarks",
@@ -150,6 +150,12 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "username": {
           "name": "username",
