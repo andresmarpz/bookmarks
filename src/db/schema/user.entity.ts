@@ -1,5 +1,5 @@
 import { relations, type InferInsertModel, type InferSelectModel } from "drizzle-orm"
-import { pgTable, text, unique } from "drizzle-orm/pg-core"
+import { index, pgTable, text, unique } from "drizzle-orm/pg-core"
 
 import { baseEntity } from "../base.entity"
 import { groups } from "./group.entity"
@@ -15,6 +15,8 @@ export const users = pgTable(
   (user) => ({
     uniqueProviderEmail: unique().on(user.provider, user.email),
     uniqueIdEmail: unique().on(user.id, user.email),
+
+    usernameIndex: index().on(user.username),
   })
 )
 
