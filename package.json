@@ -6,7 +6,7 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "drizzle:migration:gen": "drizzle-kit generate:pg",
-    "drizzle:migration:run": "ts-node -r dotenv/config src/db/migrate.ts",
+    "drizzle:migration:run": "ts-node -r dotenv/config -r tsconfig-paths/register src/db/migrate.ts",
     "lint": "next lint",
     "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "format": "prettier --check \"**/*.{css,js,json,jsx,ts,tsx}\" --cache",
@@ -63,6 +63,7 @@
     "tailwindcss": "^3.3.3",
     "tailwindcss-animate": "^1.0.7",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.2.2"
   }
 }
