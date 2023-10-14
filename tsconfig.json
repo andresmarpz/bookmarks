@@ -1,4 +1,10 @@
 {
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS",
+      "verbatimModuleSyntax": false
+    }
+  },
   "compilerOptions": {
     "target": "ESNext",
     "lib": ["dom", "dom.iterable", "esnext"],
