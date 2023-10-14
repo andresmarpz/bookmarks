@@ -1,5 +1,5 @@
-import { relations } from "drizzle-orm"
-import { pgTable, text, unique } from "drizzle-orm/pg-core"
+import { relations, type InferInsertModel, type InferSelectModel } from "drizzle-orm"
+import { pgTable, text, unique, uuid } from "drizzle-orm/pg-core"
 
 import { baseEntity } from "../base.entity"
 import { bookmarks } from "./bookmark.entity"
@@ -11,7 +11,7 @@ export const groups = pgTable(
     ...baseEntity,
     name: text("name").notNull(),
     slug: text("slug").notNull(),
-    userId: text("userId").notNull(),
+    userId: uuid("userId").notNull(),
   },
   (group) => ({
     uniqueSlugPerUser: unique().on(group.slug, group.userId),
@@ -25,3 +25,6 @@ export const groupsRelations = relations(groups, ({ one, many }) => ({
   }),
   bookmarks: many(bookmarks),
 }))
+
+export type Group = InferSelectModel<typeof groups>
+export type GroupInsert = InferInsertModel<typeof groups>

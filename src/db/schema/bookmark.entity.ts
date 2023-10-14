@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm"
+import { relations, type InferInsertModel, type InferSelectModel } from "drizzle-orm"
 import { pgTable, text, uuid } from "drizzle-orm/pg-core"
 
 import { baseEntity } from "../base.entity"
@@ -26,3 +26,6 @@ export const bookmarksRelations = relations(bookmarks, ({ one }) => ({
     references: [groups.id],
   }),
 }))
+
+export type Bookmark = InferSelectModel<typeof bookmarks>
+export type BookmarkInsert = InferInsertModel<typeof bookmarks>
