@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "f741aa79-fdb3-4bf8-b804-62f189a6c8ee",
+  "id": "60ecb69f-d012-4081-aec9-d6d9eb1f67d9",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "bookmarks": {
@@ -108,7 +108,7 @@
         },
         "userId": {
           "name": "userId",
-          "type": "text",
+          "type": "uuid",
           "primaryKey": false,
           "notNull": true
         }
@@ -151,23 +151,53 @@
           "notNull": true,
           "default": "now()"
         },
-        "sub": {
-          "name": "sub",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
         "username": {
           "name": "username",
           "type": "text",
           "primaryKey": false,
           "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "users_username_unique": {
+          "name": "users_username_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "username"
+          ]
+        },
+        "users_provider_email_unique": {
+          "name": "users_provider_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "provider",
+            "email"
+          ]
+        },
+        "users_id_email_unique": {
+          "name": "users_id_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id",
+            "email"
+          ]
+        }
+      }
     }
   },
   "enums": {},
