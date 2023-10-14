@@ -1,11 +1,14 @@
 import type { Config } from "drizzle-kit"
 
+import { env } from "./src/config/env"
+
 export default {
   schema: "src/db/schema/*",
   out: "drizzle",
   driver: "pg",
+  verbose: true,
   strict: true,
   dbCredentials: {
-    connectionString: process.env.DATABASE_URL!,
+    connectionString: env.server.DATABASE_URL,
   },
 } satisfies Config
