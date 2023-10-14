@@ -1,6 +1,5 @@
-import type { User } from "@prisma/client"
+import type { User } from "@/db/schema/user.entity"
 
 import { userRepository } from "@/lib/repository/user.repository"
 
-export const getUser = async (id: User["id"]): Promise<User | null> =>
-  await userRepository.findOne({ id })
+export const getUser = async (id: User["id"]) => await userRepository.findOneById({ id })
