@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm"
+import { relations, type InferInsertModel, type InferSelectModel } from "drizzle-orm"
 import { pgTable, text, unique } from "drizzle-orm/pg-core"
 
 import { baseEntity } from "../base.entity"
@@ -21,3 +21,6 @@ export const users = pgTable(
 export const usersRelations = relations(users, ({ many }) => ({
   groups: many(groups),
 }))
+
+export type User = InferSelectModel<typeof users>
+export type UserInsert = InferInsertModel<typeof users>
