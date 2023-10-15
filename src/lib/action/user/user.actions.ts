@@ -24,6 +24,7 @@ export const createUserWithPassword = createServerAction()
     if (byEmail) {
       return {
         error: {
+          field: "email",
           message: "Email already exists.",
         },
       }
@@ -32,6 +33,7 @@ export const createUserWithPassword = createServerAction()
     if (byUsername) {
       return {
         error: {
+          field: "username",
           message: "Username already exists.",
         },
       }
@@ -56,6 +58,10 @@ export const createUserWithPassword = createServerAction()
     } catch (error) {
       console.log(error)
     }
+
+    return {
+      data,
+    }
   })
 
 export const createUserWithGithub = createServerAction()
@@ -75,8 +81,8 @@ export const createUserWithGithub = createServerAction()
 export const updateUserUsername = createServerAction()
   .input(updateUserUsernameSchema)
   .use(withAuth)
-  .handler(async ({ username }, locals) => {
-    await userRepository.updateOne(locals.session.data.session?.user.id!, { username })
+  .handler(async ({ username }, { session }) => {
+    await userRepository.updateOne(session.user.id, { username })
 
     revalidatePath("/dashboard/settings")
   })
@@ -84,8 +90,8 @@ export const updateUserUsername = createServerAction()
 export const updateUserName = createServerAction()
   .input(updateUserNameSchema)
   .use(withAuth)
-  .handler(async ({ name }, locals) => {
-    await userRepository.updateOne(locals.session.data.session?.user.id!, { name })
+  .handler(async ({ name }, { session }) => {
+    await userRepository.updateOne(session.user.id, { name })
 
     revalidatePath("/dashboard/settings")
   })

@@ -7,16 +7,24 @@ class UserRepository {
     return await db.insert(users).values(user).returning()
   }
 
-  public async findOneById({ id }: Pick<User, "id">) {
+  public async updateOne(id: User["id"], user: Partial<UserInsert>) {
+    return await db.update(users).set(user).where(eq(users.id, id)).returning()
+  }
+
+  public async findOneById(id: User["id"]) {
     return await db.select().from(users).where(eq(users.id, id)).limit(1).execute()
   }
 
-  public async verifyIfExists({ email }: Pick<User, "email">) {
+  public async findByEmail({ email, provider }: Pick<User, "email" | "provider">) {
     return await db
       .select()
       .from(users)
-      .where(and(eq(users.email, email), eq(users.provider, "password")))
+      .where(and(eq(users.email, email), eq(users.provider, provider)))
       .execute()
+  }
+
+  public async findByUsername({ username }: Pick<User, "username">) {
+    return await db.select().from(users).where(eq(users.username, username!)).execute()
   }
 }
 

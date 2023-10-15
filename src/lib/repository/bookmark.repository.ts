@@ -1,77 +1,38 @@
-import type { Bookmark, User } from "@prisma/client"
-
-import { prisma } from "@/lib/prisma"
-
-type CreateBookmarkInput = Pick<
-  Bookmark,
-  "title" | "url" | "description" | "image" | "groupId" | "groupSlug"
-> &
-  Pick<User, "uid">
+import { db } from "@/db/drizzle"
+import {
+  bookmarks,
+  type Bookmark,
+  type BookmarkInsert,
+} from "@/db/schema/bookmark.entity"
+import { eq, inArray } from "drizzle-orm"
 
 class BookmarkRepository {
-  public async createOne(input: CreateBookmarkInput): Promise<Bookmark> {
-    return await prisma.bookmark.create({
-      data: {
-        title: input.title,
-        url: input.url,
-        description: input.description,
-        image: input.image,
-        groupId: input.groupId,
-        groupSlug: input.groupSlug,
-        group: {
-          connect: [
-            {
-              id: input.groupId,
-            },
-            {
-              slug: "all",
-              userId: input.uid,
-            },
-          ],
-        },
-        user: {
-          connect: {
-            uid: input.uid,
-          },
-        },
-      },
-    })
+  public async insertOne(input: BookmarkInsert) {
+    return db.insert(bookmarks).values(input).returning()
   }
 
-  public async delete(input: Pick<Bookmark, "id">): Promise<Bookmark> {
-    return await prisma.bookmark.delete({
-      where: input,
-    })
+  public async deleteOne(id: Bookmark["id"]) {
+    return await db.delete(bookmarks).where(eq(bookmarks.id, id)).returning()
   }
 
-  public async updateOne(input: Partial<Bookmark>): Promise<Bookmark> {
-    console.log(input)
-    return await prisma.bookmark.update({
-      where: {
-        id: input.id,
-      },
-      data: {
-        title: input.title,
-        url: input.url,
-        description: input.description,
-        image: input.image,
+  public async updateOne(id: Bookmark["id"], input: Partial<Bookmark>) {
+    return await db.update(bookmarks).set(input).where(eq(bookmarks.id, id)).returning()
+  }
 
-        group: {
-          connect: {
-            slug: input.groupSlug,
-          },
-        },
-      },
-    })
+  public async updateMany(where: Bookmark["id"][], input: Partial<Bookmark>) {
+    return await db
+      .update(bookmarks)
+      .set(input)
+      .where(inArray(bookmarks.id, where))
+      .returning()
   }
 
   public async findMany(input: Pick<Bookmark, "groupId">): Promise<Bookmark[]> {
-    return await prisma.bookmark.findMany({
-      where: input,
-      orderBy: {
-        createdAt: "desc",
-      },
-    })
+    return await db
+      .select()
+      .from(bookmarks)
+      .where(eq(bookmarks.groupId, input.groupId))
+      .orderBy(bookmarks.createdAt)
   }
 }
 
