@@ -10,6 +10,7 @@ export const users = pgTable(
     ...baseEntity,
     name: text("name"),
     username: text("username").unique(),
+    avatar: text("avatar"),
     email: text("email").notNull(),
     provider: text("provider", { enum: ["password", "github"] }).notNull(),
   },
