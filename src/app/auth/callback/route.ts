@@ -4,7 +4,6 @@ import type { NextRequest } from "next/server"
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 
 import { createUserWithGithub } from "@/lib/action/user/user.actions"
-import { getUser } from "@/lib/query/user.queries"
 
 export const dynamic = "force-dynamic"
 
@@ -16,20 +15,21 @@ export async function GET(request: NextRequest) {
   if (code) {
     const supabase = createRouteHandlerClient({ cookies })
     const query = await supabase.auth.exchangeCodeForSession(code)
-    if (query.data.user?.id && query.data.user?.email) {
-      const users = await getUser(query.data.user.id)
-      if (!users.length) {
-        const { email, id } = query.data.user
-        try {
-          await createUserWithGithub({
-            email,
-            id,
-          })
+    if (
+      query.data.user?.id &&
+      query.data.user?.email &&
+      !query.data.user.user_metadata?.on_database
+    ) {
+      const { email, id } = query.data.user
+      try {
+        await createUserWithGithub({
+          email,
+          id,
+        })
 
-          redirect = "/auth/onboarding"
-        } catch (err) {
-          return NextResponse.redirect("/auth/signin")
-        }
+        redirect = "/auth/onboarding"
+      } catch (err) {
+        return NextResponse.redirect("/auth/signin")
       }
     }
   }
