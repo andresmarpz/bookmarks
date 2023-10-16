@@ -72,9 +72,10 @@ export const createUserWithGithub = createServerAction()
       id: params.id,
       email: params.email,
       provider: "github",
+      avatar: "/assets/default-avatar.jpg",
     })
 
-    if (!insert) {
+    if (!insert || !insert.length) {
       throw new Error("Failed to create user.")
     }
   })
@@ -84,6 +85,12 @@ export const updateUserUsername = createServerAction()
   .use(withAuth)
   .handler(async ({ username }, { session }) => {
     await userRepository.updateOne(session.user.id, { username })
+    const supabase = createServerActionClient({ cookies })
+    await supabase.auth.updateUser({
+      data: {
+        username,
+      },
+    })
 
     revalidatePath("/dashboard/settings")
   })
