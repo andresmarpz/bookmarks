@@ -6,7 +6,7 @@ import GroupSwitcherServer, {
 } from "@/components/pages/dashboard/groups/group-switcher.server"
 import UserDropdown, {
   LoadingUserDropdown,
-} from "@/components/pages/dashboard/sidebar/user-dropdown"
+} from "@/components/pages/dashboard/header/user-dropdown"
 
 export default function Header() {
   return (
