@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ChevronsUpDownIcon, LogOut } from "lucide-react"
+import { ChevronsUpDownIcon } from "lucide-react"
 
 import { getSession } from "@/lib/auth/get-session"
 import { getUser } from "@/lib/query/user.queries"
@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Skeleton } from "@/components/ui/skeleton"
+import SignOutItem from "@/components/pages/dashboard/header/user-dropdown/sign-out.item"
 
 export function LoadingUserDropdown() {
   return <Skeleton className="h-10 w-full max-w-[200px]" />
@@ -21,30 +22,25 @@ export function LoadingUserDropdown() {
 
 export default async function UserDropdown() {
   const session = await getSession()
-  const user = await getUser(session?.user?.id)
-  const { name, username, email, image } = user!
+
+  const [{ name, email, username, avatar }] = await getUser(session.user.id)
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="secondary"
-          className="flex w-full max-w-[200px] items-center justify-around gap-2"
+          className="flex max-w-[200px] items-center justify-around gap-2"
         >
           <Image
             className="rounded-full"
-            src={image ?? "/assets/default-avatar.png"}
+            src={avatar ?? "/assets/default-avatar.jpg"}
             width={24}
             height={24}
             alt="The avatar of your account"
           />
-          <span className="flex flex-col justify-center">
-            <span className="text-bold max-w-[100px] truncate text-left text-xs leading-snug">
-              {username ?? name}
-            </span>
-            <small className="max-w-[100px] truncate leading-tight text-gray-500">
-              {email}
-            </small>
+          <span className="text-bold max-w-[100px] truncate px-2 text-left text-xs leading-snug">
+            {username ?? name}
           </span>
           <span>
             <ChevronsUpDownIcon className="h-3 w-3 text-gray-500" />
@@ -53,8 +49,7 @@ export default async function UserDropdown() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-48" collisionPadding={16} sideOffset={8}>
         <DropdownMenuLabel className="flex flex-col">
-          {username && <span className="text-bold">{username}</span>}
-          <span className="w-[200px] truncate text-sm font-normal text-gray-400">
+          <span className="max-w-[176px] truncate text-sm font-normal text-gray-400">
             {email}
           </span>
         </DropdownMenuLabel>
@@ -70,10 +65,7 @@ export default async function UserDropdown() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <LogOut className="mr-2 h-4 w-4" />
-          Log out
-        </DropdownMenuItem>
+        <SignOutItem />
       </DropdownMenuContent>
     </DropdownMenu>
   )
