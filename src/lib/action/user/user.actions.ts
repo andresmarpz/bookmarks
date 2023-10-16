@@ -54,6 +54,7 @@ export const createUserWithPassword = createServerAction()
         email: email,
         provider: "password",
         username: username,
+        avatar: "/assets/default-avatar.jpg",
       })
     } catch (error) {
       console.log(error)
