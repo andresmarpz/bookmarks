@@ -7,5 +7,5 @@ export const getGroup = async (id: Group["id"]) => await groupRepository.findOne
 
 export const getGroups = async () => {
   const session = await getSession()
-  return await groupRepository.findMany(session.session?.user.id!)
+  return await groupRepository.findMany(session.user.id)
 }
