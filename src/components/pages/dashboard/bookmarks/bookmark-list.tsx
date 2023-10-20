@@ -1,7 +1,7 @@
 "use client"
 
 import { experimental_useOptimistic as useOptimistic } from "react"
-import { type Bookmark } from "@prisma/client"
+import type { Bookmark } from "@/db/schema/bookmark.entity"
 
 import BookmarkItem from "./bookmark-item"
 

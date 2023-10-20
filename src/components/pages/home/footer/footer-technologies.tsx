@@ -11,8 +11,8 @@ const TECHNOLOGIES = [
     label: "Next.js",
   },
   {
-    href: "https://prisma.io",
-    label: "Prisma",
+    href: "https://orm.drizzle.team",
+    label: "Drizzle",
   },
   {
     href: "https://supabase.com",

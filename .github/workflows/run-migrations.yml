@@ -15,6 +15,6 @@ jobs:
         uses: ./tooling/github-actions/install
 
       - name: Apply all pending migrations to the database
-        run: npx prisma migrate deploy
+        run: pnpm drizzle:migration:run
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}

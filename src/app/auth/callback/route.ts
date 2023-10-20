@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
   redirectUrl.pathname = returnTo || "/dashboard"
   redirectUrl.searchParams.delete("code")
   redirectUrl.searchParams.delete("returnTo")
+  redirectUrl.searchParams.delete("provider")
 
   if (code) {
     const supabase = createRouteHandlerClient({ cookies })
@@ -41,5 +42,7 @@ export async function GET(request: NextRequest) {
         return NextResponse.redirect(redirectUrl)
       }
     }
+
+    return NextResponse.redirect(redirectUrl)
   }
 }

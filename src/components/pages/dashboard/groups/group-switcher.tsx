@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
-import type { Group } from "@prisma/client"
+import type { Group } from "@/db/schema/group.entity"
 import { CheckIcon, ChevronsUpDownIcon, PlusCircleIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 

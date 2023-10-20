@@ -3,7 +3,7 @@
 import { useEffect, type PropsWithChildren } from "react"
 
 import { queryClient } from "@/lib/react-query.client"
-import { supabaseCCC } from "@/lib/supabase.client"
+import { supabaseClientComponent } from "@/lib/supabase.client"
 import { useSession } from "@/hooks/auth/use-session"
 
 export default function SessionProvider({ children }: PropsWithChildren) {
@@ -12,7 +12,7 @@ export default function SessionProvider({ children }: PropsWithChildren) {
   useEffect(() => {
     const {
       data: { subscription },
-    } = supabaseCCC.auth.onAuthStateChange((_event, session) => {
+    } = supabaseClientComponent.auth.onAuthStateChange((_event, session) => {
       queryClient.setQueryData(["user/session"], () => session)
       refetch()
     })

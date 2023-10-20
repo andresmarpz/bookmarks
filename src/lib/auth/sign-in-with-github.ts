@@ -1,6 +1,6 @@
 import type { SignInWithOAuthCredentials } from "@supabase/supabase-js"
 
-import { supabaseCCC } from "@/lib/supabase.client"
+import { supabaseClientComponent } from "@/lib/supabase.client"
 
 export async function signInWithGithub({
   redirectTo,
@@ -9,7 +9,7 @@ export async function signInWithGithub({
   url.searchParams.append("returnTo", redirectTo ?? "/dashboard")
   url.searchParams.append("provider", "github")
 
-  const { error } = await supabaseCCC.auth.signInWithOAuth({
+  const { error } = await supabaseClientComponent.auth.signInWithOAuth({
     provider: "github",
     options: {
       redirectTo: url.toString(),

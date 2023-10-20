@@ -1,4 +1,4 @@
-import type { Group } from "@prisma/client"
+import type { Group } from "@/db/schema/group.entity"
 
 import { getGroups } from "@/lib/query/group.queries"
 import NewBookmark from "@/components/pages/dashboard/bookmarks/NewBookmark"

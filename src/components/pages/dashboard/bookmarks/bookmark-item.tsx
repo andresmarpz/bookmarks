@@ -2,9 +2,9 @@
 
 import { useTransition } from "react"
 import Image from "next/image"
+import type { Bookmark } from "@/db/schema/bookmark.entity"
 import { cn } from "@/utils/clsx"
 import { prettifyUrl } from "@/utils/formatting/prettify-url"
-import { type Bookmark } from "@prisma/client"
 import { Copy, Pencil, TrashIcon } from "lucide-react"
 
 import { deleteBookmark } from "@/lib/action/bookmark/bookmark.actions"

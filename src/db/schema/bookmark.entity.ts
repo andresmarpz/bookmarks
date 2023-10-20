@@ -14,6 +14,7 @@ export const bookmarks = pgTable("bookmarks", {
 
   userId: uuid("userId").notNull(),
   groupId: uuid("groupId").notNull(),
+  groupSlug: text("groupSlug").notNull(),
 })
 
 export const bookmarksRelations = relations(bookmarks, ({ one }) => ({
@@ -24,6 +25,10 @@ export const bookmarksRelations = relations(bookmarks, ({ one }) => ({
   group: one(groups, {
     fields: [bookmarks.groupId],
     references: [groups.id],
+  }),
+  groupSlug: one(groups, {
+    fields: [bookmarks.groupSlug],
+    references: [groups.slug],
   }),
 }))
 

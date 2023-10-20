@@ -1,6 +1,6 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import { cookies } from "next/headers"
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs"
 import { createServerAction } from "nza"
@@ -78,6 +78,13 @@ export const createUserWithGithub = createServerAction()
     if (!insert || !insert.length) {
       throw new Error("Failed to create user.")
     }
+
+    const supabase = createServerActionClient({ cookies })
+    await supabase.auth.updateUser({
+      data: {
+        on_database: true,
+      },
+    })
   })
 
 export const updateUserUsername = createServerAction()
@@ -92,7 +99,8 @@ export const updateUserUsername = createServerAction()
       },
     })
 
-    revalidatePath("/dashboard/settings")
+    // revalidatePath("/dashboard/settings")
+    revalidateTag("getUser")
   })
 
 export const updateUserName = createServerAction()

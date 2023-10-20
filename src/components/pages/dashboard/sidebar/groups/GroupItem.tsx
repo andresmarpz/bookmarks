@@ -2,7 +2,7 @@
 
 import { useTransition } from "react"
 import { usePathname, useRouter } from "next/navigation"
-import type { Group } from "@prisma/client"
+import type { Group } from "@/db/schema/group.entity"
 import { Trash } from "lucide-react"
 
 import { deleteGroup } from "@/lib/action/group/group.actions"

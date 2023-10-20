@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useTransition } from "react"
+import type { Group } from "@/db/schema/group.entity"
 import { zodResolver } from "@hookform/resolvers/zod"
 import mql from "@microlink/mql"
-import type { Group } from "@prisma/client"
 import { PlusIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"

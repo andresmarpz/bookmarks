@@ -9,12 +9,12 @@ import SettingsForm, {
 
 export default async function SettingsPage() {
   const session = await getSession()
-  const user = await getUser(session?.user?.id)
+  const [user] = await getUser(session?.user?.id)
 
   return (
     <DashboardPage title="Settings">
       <Suspense fallback={<LoadingSettingsForm />}>
-        <SettingsForm user={user!} />
+        <SettingsForm user={user} />
       </Suspense>
     </DashboardPage>
   )

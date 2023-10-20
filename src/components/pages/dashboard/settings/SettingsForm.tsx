@@ -1,6 +1,6 @@
 "use client"
 
-import type { User } from "@prisma/client"
+import type { User } from "@/db/schema/user.entity"
 
 import { updateUserName, updateUserUsername } from "@/lib/action/user/user.actions"
 import {
