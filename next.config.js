@@ -5,7 +5,6 @@ const nextConfig = {
     domains: ["avatars.githubusercontent.com"],
   },
   experimental: {
-    serverActions: true,
     optimisticClientCache: true,
     fallbackNodePolyfills: false,
   },
