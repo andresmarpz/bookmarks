@@ -21,6 +21,7 @@ export const createBookmark = createServerAction()
         description: description ?? null,
         image: image ?? null,
         groupId,
+        groupSlug,
         userId: session.user.id,
       })
 

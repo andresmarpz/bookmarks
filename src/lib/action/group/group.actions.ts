@@ -1,6 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 import { createServerAction } from "nza"
 
 import { createGroupSchema, deleteGroupSchema } from "@/lib/action/group/group.schema"
@@ -13,7 +14,6 @@ export const createGroup = createServerAction()
   .handler(async ({ name, slug }, { session }) => {
     await groupRepository.createOne({ name, slug, userId: session.user.id })
 
-    console.log(name, slug)
     revalidatePath("/dashboard")
   })
 
@@ -23,5 +23,5 @@ export const deleteGroup = createServerAction()
   .handler(async ({ id }) => {
     await groupRepository.deleteOne(id)
 
-    revalidatePath("/dashboard")
+    redirect("/dashboard")
   })
