@@ -8,6 +8,7 @@ import { prettifyUrl } from "@/utils/formatting/prettify-url"
 import { Copy, Pencil, TrashIcon } from "lucide-react"
 
 import { deleteBookmark } from "@/lib/action/bookmark/bookmark.actions"
+import Spinner from "@/components/ui/Spinner"
 import {
   ContextMenu,
   ContextMenuContent,
@@ -17,13 +18,12 @@ import {
 
 interface Props {
   bookmark: Bookmark
-  onDelete: (bookmark: Bookmark) => void
 }
-export default function BookmarkItem({ bookmark, onDelete }: Props) {
+export default function BookmarkItem({ bookmark }: Props) {
   const [isDeleting, startDeleteTransition] = useTransition()
 
-  function handleDelete() {
-    onDelete(bookmark)
+  function handleDelete(event: React.MouseEvent) {
+    event.preventDefault()
     startDeleteTransition(() =>
       deleteBookmark({ groupSlug: bookmark.groupSlug, id: bookmark.id })
     )
@@ -74,11 +74,16 @@ export default function BookmarkItem({ bookmark, onDelete }: Props) {
             <Copy className="h-3 w-3" /> Copy
           </ContextMenuItem>
           <ContextMenuItem
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 text-red-400 focus:text-red-300"
             onClick={handleDelete}
             disabled={isDeleting}
           >
-            <TrashIcon className="h-3 w-3" /> Delete
+            {isDeleting ? (
+              <Spinner width={12} height={12} />
+            ) : (
+              <TrashIcon className="h-3 w-3" />
+            )}{" "}
+            Delete
           </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
