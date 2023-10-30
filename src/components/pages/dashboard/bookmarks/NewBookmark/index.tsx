@@ -44,6 +44,8 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
     defaultValues: {
       groupId: currentGroup,
       groupSlug: groups.find((group) => group.id === currentGroup)?.slug,
+      title: "",
+      url: "",
     },
     resolver: zodResolver(
       createBookmarkSchema.pick({
@@ -62,7 +64,7 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
       } = await mql(data.url)
 
       await createBookmark({
-        title: title ?? undefined,
+        title: data.title || title || undefined,
         description: description ?? undefined,
         url: data.url,
         image: logo?.url ?? undefined,
