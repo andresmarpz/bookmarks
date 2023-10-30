@@ -28,6 +28,10 @@ export default function NewGroup({ children }: PropsWithChildren) {
 
   const form = useForm<FormFields>({
     resolver: zodResolver(createGroupSchema),
+    defaultValues: {
+      name: "",
+      slug: "",
+    },
   })
 
   const onSubmit = form.handleSubmit(({ name, slug }) => {
