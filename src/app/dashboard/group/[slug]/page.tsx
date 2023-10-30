@@ -24,10 +24,10 @@ export default async function SlugPage({ params }: { params: { slug: string } })
   // })
   const query = await getGroupBySlug(slug)
 
-  if (!query) return notFound()
+  if (!query.group) return notFound()
 
   return (
-    <DashboardPage title={"asd"}>
+    <DashboardPage title={query.group?.name}>
       <div className="my-8">
         <header>
           <div className="flex gap-4">
