@@ -6,22 +6,13 @@ import { getGroupBySlug } from "@/lib/query/group.queries"
 import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import DashboardPage from "@/components/pages/dashboard/DashboardPage"
-import NewBookmarkServer from "@/components/pages/dashboard/bookmarks/NewBookmark/NewBookmark.server"
 import BookmarkList from "@/components/pages/dashboard/bookmarks/bookmark-list"
+import NewBookmarkServer from "@/components/pages/dashboard/bookmarks/new-bookmark.rsc"
+import DashboardPage from "@/components/pages/dashboard/dashboard-page"
 
 export default async function SlugPage({ params }: { params: { slug: string } }) {
   const { slug } = params
 
-  // const group = await .group.findFirst({
-  //   where: {
-  //     slug,
-  //     userId: session.user.uid,
-  //   },
-  //   include: {
-  //     bookmarks: true,
-  //   },
-  // })
   const query = await getGroupBySlug(slug)
 
   if (!query.group) return notFound()

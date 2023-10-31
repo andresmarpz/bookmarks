@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Skeleton } from "@/components/ui/skeleton"
-import SignOutItem from "@/components/pages/dashboard/header/user-dropdown/sign-out.item"
+import SignOutItem from "@/components/pages/dashboard/header/sign-out.item"
 
 export function LoadingUserDropdown() {
   return <Skeleton className="h-10 w-full max-w-[200px]" />

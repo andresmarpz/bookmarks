@@ -1,8 +1,8 @@
 import { Fragment, type PropsWithChildren } from "react"
 
 import { Skeleton } from "@/components/ui/skeleton"
-import PageTitle from "@/components/pages/dashboard/PageTitle"
 import Container from "@/components/pages/dashboard/container"
+import PageTitle from "@/components/pages/dashboard/page-title"
 
 type Props = PropsWithChildren<{ title?: string }>
 export default function DashboardPage({ title, children }: Props) {

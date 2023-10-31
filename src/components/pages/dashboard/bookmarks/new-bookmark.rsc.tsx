@@ -1,7 +1,7 @@
 import type { Group } from "@/db/schema/group.entity"
 
 import { getGroups } from "@/lib/query/group.queries"
-import NewBookmark from "@/components/pages/dashboard/bookmarks/NewBookmark"
+import NewBookmark from "@/components/pages/dashboard/bookmarks/new-bookmark"
 
 interface Props {
   currentGroup: Group["id"]

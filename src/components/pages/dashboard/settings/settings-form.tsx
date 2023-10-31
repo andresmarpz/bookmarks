@@ -11,7 +11,7 @@ import {
 } from "@/lib/action/user/user.schema"
 import SettingInput, {
   LoadingSettingInput,
-} from "@/components/pages/dashboard/settings/SettingInput"
+} from "@/components/pages/dashboard/settings/setting-input"
 
 export function LoadingSettingsForm() {
   const skeletons = Array.from({ length: 2 }, (_, i) => (

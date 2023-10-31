@@ -2,8 +2,8 @@ import { Plus } from "lucide-react"
 
 import { getGroups } from "@/lib/query/group.queries"
 import { Button } from "@/components/ui/button"
-import NewGroup from "@/components/pages/dashboard/groups/NewGroup"
-import GroupItem from "@/components/pages/dashboard/sidebar/groups/GroupItem"
+import NewGroup from "@/components/pages/dashboard/groups/new-group"
+import GroupItem from "@/components/pages/dashboard/sidebar/groups/group-item"
 
 export default async function GroupList() {
   const groups = await getGroups().then((groups) =>

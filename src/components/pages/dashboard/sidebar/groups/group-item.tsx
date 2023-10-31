@@ -12,7 +12,7 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
-import { SidebarItem } from "@/components/pages/dashboard/sidebar/SidebarItem"
+import { SidebarItem } from "@/components/pages/dashboard/sidebar/sidebar-item"
 
 interface Props {
   group: Group

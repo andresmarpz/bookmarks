@@ -1,7 +1,7 @@
 import { type PropsWithChildren } from "react"
 import { type Metadata } from "next"
 
-import Header from "@/components/pages/dashboard/header/Header"
+import Header from "@/components/pages/dashboard/header/header"
 
 export const metadata: Metadata = {
   title: "Dashboard",
