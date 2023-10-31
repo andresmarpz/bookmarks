@@ -39,12 +39,14 @@ export default async function SlugPage({ params }: { params: { slug: string } })
                 </Button>
               }
             >
-              <NewBookmarkServer currentGroup={query.group?.id} />
+              <NewBookmarkServer currentGroup={query.group?.slug} />
             </Suspense>
           </div>
         </header>
         <div className="py-4">
-          <BookmarkList bookmarks={query.bookmarks} />
+          <BookmarkList bookmarks={query.bookmarks}>
+            <NewBookmarkServer currentGroup={query.group?.slug} />
+          </BookmarkList>
         </div>
       </div>
     </DashboardPage>

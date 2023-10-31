@@ -2,22 +2,23 @@ import { Plus } from "lucide-react"
 
 import { getGroups } from "@/lib/query/group.queries"
 import { Button } from "@/components/ui/button"
+import GroupItem from "@/components/pages/dashboard/groups/group-item"
 import NewGroup from "@/components/pages/dashboard/groups/new-group"
-import GroupItem from "@/components/pages/dashboard/sidebar/groups/group-item"
 
 export default async function GroupList() {
   const groups = await getGroups().then((groups) =>
     groups.filter((group) => group.slug !== "all")
   )
 
-  return groups.length ? (
-    <ul className="flex flex-col gap-1">
-      {groups.map((group) => (
-        <GroupItem key={"sb" + group.id} group={group} />
-      ))}
-    </ul>
-  ) : (
-    <div className="border-neutral-80 relative overflow-hidden rounded-xl border-2 bg-zinc-900">
+  // return groups.length ? (
+  //   <ul className="flex flex-col gap-1">
+  //     {groups.map((group) => (
+  //       <GroupItem key={"sb" + group.id} group={group} />
+  //     ))}
+  //   </ul>
+  // ) : (
+  return (
+    <div className="border-neutral-80 relative overflow-hidden rounded-xl border-2 bg-zinc-900 shadow-sm">
       <div className="relative z-10 p-6 pb-10 pt-16 antialiased">
         <h5 className="mb-1 text-lg font-medium text-gray-200">Create a Group</h5>
 

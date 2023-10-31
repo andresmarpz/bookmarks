@@ -178,12 +178,13 @@ export default function GroupSwitcher({ groups }: Props) {
                 </DialogTrigger>
                 <AlertDialogTrigger asChild>
                   <CommandItem
-                    className="text-red-400 aria-selected:text-red-300"
+                    className="text-red-400 aria-disabled:opacity-60 aria-selected:text-red-300"
                     value="visible-deletegroup"
                     onSelect={() => {
                       setOpen(false)
                       setShowDeleteGroupDialog(true)
                     }}
+                    disabled={!currentGroup}
                   >
                     <Trash className="mr-2 h-4 w-4" />
                     Delete {currentGroup?.name ?? "Group"}

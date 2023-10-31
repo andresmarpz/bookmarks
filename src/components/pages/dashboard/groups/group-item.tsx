@@ -1,6 +1,7 @@
 "use client"
 
 import { useTransition } from "react"
+import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import type { Group } from "@/db/schema/group.entity"
 import { Trash } from "lucide-react"
@@ -12,7 +13,6 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
-import { SidebarItem } from "@/components/pages/dashboard/sidebar/sidebar-item"
 
 interface Props {
   group: Group
@@ -36,7 +36,7 @@ export default function GroupItem({ group }: Props) {
   return (
     <ContextMenu>
       <ContextMenuTrigger>
-        <SidebarItem href={`/dashboard/group/${group.slug}`}>
+        <Link href={`/dashboard/group/${group.slug}`}>
           <svg
             viewBox="0 0 40 40"
             fill="none"
@@ -101,7 +101,7 @@ export default function GroupItem({ group }: Props) {
             </defs>
           </svg>
           {group.name}
-        </SidebarItem>
+        </Link>
       </ContextMenuTrigger>
       <ContextMenuContent>
         <ContextMenuItem onClick={handleDelete} disabled={isDeleting}>

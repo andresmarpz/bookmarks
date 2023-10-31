@@ -38,28 +38,36 @@ export default function BookmarkItem({ bookmark }: Props) {
             target="_blank"
             rel="noreferrer noopener"
             className={cn(
-              "flex min-h-[64px] gap-3 rounded-md border p-2",
+              "flex justify-between rounded-md border p-3",
               "border-neutral-800 bg-neutral-950 hover:border-neutral-600 hover:bg-neutral-900/80",
               "transition-colors"
             )}
           >
-            <span className="w-8 min-w-[32px]">
-              {bookmark.image ? (
-                <Image
-                  className="rounded"
-                  unoptimized
-                  src={bookmark.image}
-                  alt=""
-                  width={24}
-                  height={24}
-                />
-              ) : (
-                <div className="h-8 w-8 rounded bg-gray-800" />
-              )}
-            </span>
-            <span>
-              <h5 className="text-gray-10">{bookmark.title}</h5>
+            <span className="flex items-center gap-3">
+              <span className="flex items-center gap-2">
+                <span className="w-6 min-w-[24px]">
+                  {bookmark.image ? (
+                    <Image
+                      className="rounded"
+                      unoptimized
+                      src={bookmark.image}
+                      alt=""
+                      width={22}
+                      height={22}
+                    />
+                  ) : (
+                    <div className="h-8 w-8 rounded bg-gray-800" />
+                  )}
+                </span>
+                <h5 className="text-gray-10">{bookmark.title}</h5>
+              </span>
               <p className="text-sm text-gray-500">{prettifyUrl(bookmark.url)}</p>
+            </span>
+            <span className="text-sm text-gray-200">
+              {bookmark.createdAt.toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              })}
             </span>
           </a>
         </ContextMenuTrigger>

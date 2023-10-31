@@ -4,7 +4,7 @@ import { getGroups } from "@/lib/query/group.queries"
 import NewBookmark from "@/components/pages/dashboard/bookmarks/new-bookmark"
 
 interface Props {
-  currentGroup: Group["id"]
+  currentGroup: Group["slug"]
 }
 
 export default async function NewBookmarkServer({ currentGroup }: Props) {

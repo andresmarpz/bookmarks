@@ -32,7 +32,7 @@ import {
 
 interface Props {
   groups: Group[]
-  currentGroup: Group["id"]
+  currentGroup: Group["slug"]
 }
 
 type FormFields = z.infer<typeof createBookmarkSchema>

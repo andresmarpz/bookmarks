@@ -28,12 +28,13 @@ export default function Header() {
           >
             Overview
           </Link>
-          <Link
-            href="/dashboard/analytics"
-            className="rounded-md bg-transparent px-3 py-1 text-sm transition-colors hover:bg-zinc-700"
+          <div
+            // href="/dashboard/analytics"
+            className="cursor-not-allowed rounded-md bg-transparent px-3 py-1 text-sm text-gray-500 transition-colors"
+            aria-disabled="true"
           >
             Analytics
-          </Link>
+          </div>
           <Link
             href="/dashboard/settings"
             className="rounded-md bg-transparent px-3 py-1 text-sm transition-colors hover:bg-zinc-700"
