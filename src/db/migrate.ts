@@ -5,7 +5,7 @@ import postgres from "postgres"
 
 import { env } from "@/config/env"
 
-const migrationClient = postgres(env.server.DATABASE_URL, { max: 1 })
+const migrationClient = postgres(env.server?.DATABASE_URL!, { max: 1 })
 const db = drizzle(migrationClient)
 
 async function runMigrations() {
