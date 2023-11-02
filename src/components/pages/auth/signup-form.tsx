@@ -131,7 +131,7 @@ export default function SignUpForm() {
             variant="default"
             disabled={isEmailLoading}
           >
-            {isEmailLoading ? <Spinner /> : "Sign In"}
+            {isEmailLoading ? <Spinner /> : "Sign Up"}
           </Button>
         </div>
 
