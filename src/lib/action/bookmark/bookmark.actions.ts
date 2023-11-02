@@ -15,14 +15,14 @@ export const createBookmark = createServerAction()
   .use(withAuth)
   .handler(
     async ({ title, url, description, image, groupId, groupSlug }, { session }) => {
-      await bookmarkRepository.createOne({
+      await bookmarkRepository.insertOne({
         title: title ?? "Unknown",
         url,
         description: description ?? null,
         image: image ?? null,
         groupId,
         groupSlug,
-        uid: session!.user.uid,
+        userId: session.user.id,
       })
 
       revalidatePath(`/dashboard/${groupSlug}`)
@@ -33,7 +33,7 @@ export const deleteBookmark = createServerAction()
   .input(deleteBookmarkSchema)
   .use(withAuth)
   .handler(async ({ id, groupSlug }) => {
-    await bookmarkRepository.delete({ id })
+    await bookmarkRepository.deleteOne(id)
 
     revalidatePath(`/dashboard/${groupSlug}`)
   })

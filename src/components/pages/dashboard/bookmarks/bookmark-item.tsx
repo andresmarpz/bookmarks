@@ -2,12 +2,13 @@
 
 import { useTransition } from "react"
 import Image from "next/image"
+import type { Bookmark } from "@/db/schema/bookmark.entity"
 import { cn } from "@/utils/clsx"
 import { prettifyUrl } from "@/utils/formatting/prettify-url"
-import { type Bookmark } from "@prisma/client"
 import { Copy, Pencil, TrashIcon } from "lucide-react"
 
 import { deleteBookmark } from "@/lib/action/bookmark/bookmark.actions"
+import Spinner from "@/components/ui/Spinner"
 import {
   ContextMenu,
   ContextMenuContent,
@@ -17,13 +18,12 @@ import {
 
 interface Props {
   bookmark: Bookmark
-  onDelete: (bookmark: Bookmark) => void
 }
-export default function BookmarkItem({ bookmark, onDelete }: Props) {
+export default function BookmarkItem({ bookmark }: Props) {
   const [isDeleting, startDeleteTransition] = useTransition()
 
-  function handleDelete() {
-    onDelete(bookmark)
+  function handleDelete(event: React.MouseEvent) {
+    event.preventDefault()
     startDeleteTransition(() =>
       deleteBookmark({ groupSlug: bookmark.groupSlug, id: bookmark.id })
     )
@@ -38,28 +38,36 @@ export default function BookmarkItem({ bookmark, onDelete }: Props) {
             target="_blank"
             rel="noreferrer noopener"
             className={cn(
-              "flex min-h-[64px] gap-3 rounded-md border p-2",
+              "flex justify-between rounded-md border p-3",
               "border-neutral-800 bg-neutral-950 hover:border-neutral-600 hover:bg-neutral-900/80",
               "transition-colors"
             )}
           >
-            <span className="w-8 min-w-[32px]">
-              {bookmark.image ? (
-                <Image
-                  className="rounded"
-                  unoptimized
-                  src={bookmark.image}
-                  alt=""
-                  width={24}
-                  height={24}
-                />
-              ) : (
-                <div className="h-8 w-8 rounded bg-gray-800" />
-              )}
-            </span>
-            <span>
-              <h5 className="text-gray-10">{bookmark.title}</h5>
+            <span className="flex items-center gap-3">
+              <span className="flex items-center gap-2">
+                <span className="w-6 min-w-[20px]">
+                  {bookmark.image ? (
+                    <Image
+                      className="rounded"
+                      unoptimized
+                      src={bookmark.image}
+                      alt=""
+                      width={20}
+                      height={20}
+                    />
+                  ) : (
+                    <div className="h-8 w-8 rounded bg-gray-800" />
+                  )}
+                </span>
+                <h5 className="text-gray-10 text-sm">{bookmark.title}</h5>
+              </span>
               <p className="text-sm text-gray-500">{prettifyUrl(bookmark.url)}</p>
+            </span>
+            <span className="text-sm text-gray-400">
+              {bookmark.createdAt.toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              })}
             </span>
           </a>
         </ContextMenuTrigger>
@@ -74,11 +82,16 @@ export default function BookmarkItem({ bookmark, onDelete }: Props) {
             <Copy className="h-3 w-3" /> Copy
           </ContextMenuItem>
           <ContextMenuItem
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 text-red-400 focus:text-red-300"
             onClick={handleDelete}
             disabled={isDeleting}
           >
-            <TrashIcon className="h-3 w-3" /> Delete
+            {isDeleting ? (
+              <Spinner width={12} height={12} />
+            ) : (
+              <TrashIcon className="h-3 w-3" />
+            )}{" "}
+            Delete
           </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>

@@ -1,14 +1,30 @@
-import type { User } from "@prisma/client"
-
-import { prisma } from "@/lib/prisma"
+import { db } from "@/db/drizzle"
+import { users, type User, type UserInsert } from "@/db/schema/user.entity"
+import { and, eq } from "drizzle-orm"
 
 class UserRepository {
-  public async findOne({ id }: Pick<User, "id">): Promise<User | null> {
-    return await prisma.user.findUnique({
-      where: {
-        id,
-      },
-    })
+  public async insertOne(user: UserInsert) {
+    return await db.insert(users).values(user).returning()
+  }
+
+  public async updateOne(id: User["id"], user: Partial<UserInsert>) {
+    return await db.update(users).set(user).where(eq(users.id, id)).returning()
+  }
+
+  public async findOneById(id: User["id"]) {
+    return await db.select().from(users).where(eq(users.id, id)).limit(1).execute()
+  }
+
+  public async findByEmail({ email, provider }: Pick<User, "email" | "provider">) {
+    return await db
+      .select()
+      .from(users)
+      .where(and(eq(users.email, email), eq(users.provider, provider)))
+      .execute()
+  }
+
+  public async findByUsername({ username }: Pick<User, "username">) {
+    return await db.select().from(users).where(eq(users.username, username!)).execute()
   }
 }
 

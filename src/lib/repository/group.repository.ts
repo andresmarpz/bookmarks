@@ -1,36 +1,46 @@
-import type { Group } from "@prisma/client"
-
-import { prisma } from "@/lib/prisma"
+import { db } from "@/db/drizzle"
+import { bookmarks, type Bookmark } from "@/db/schema/bookmark.entity"
+import { groups, type Group, type GroupInsert } from "@/db/schema/group.entity"
+import { and, eq } from "drizzle-orm"
 
 class GroupRepository {
-  public async createOne(input: Pick<Group, "name" | "slug" | "userId">): Promise<Group> {
-    const group = await prisma.group.create({
-      data: input,
-    })
-    return group
+  public async createOne(input: GroupInsert) {
+    return await db.insert(groups).values(input).returning()
   }
 
-  public async deleteOne(input: Pick<Group, "id">): Promise<Group> {
-    const group = await prisma.group.delete({
-      where: input,
-    })
-    return group
+  public async deleteOne(id: Group["id"]) {
+    return await db.delete(groups).where(eq(groups.id, id)).returning()
   }
 
-  public async findOne(input: Pick<Group, "id">): Promise<Group | null> {
-    const group = await prisma.group.findUnique({
-      where: input,
-    })
-    return group
+  public async findOne(id: Group["id"]) {
+    return await db.select().from(groups).where(eq(groups.id, id))
   }
 
-  public async findMany(input: Pick<Group, "userId">): Promise<Group[]> {
-    const groups = await prisma.group.findMany({
-      where: {
-        userId: input.userId,
-      },
-    })
-    return groups
+  public async findOneBySlug(slug: Group["slug"], userId: Group["userId"]) {
+    return await db
+      .select({
+        group: groups,
+        bookmarks: bookmarks,
+      })
+      .from(groups)
+      .where(and(eq(groups.slug, slug), eq(groups.userId, userId)))
+      .leftJoin(bookmarks, eq(bookmarks.groupId, groups.id))
+      .then((result) =>
+        result.reduce(
+          (acc, row) => {
+            if (row.bookmarks) {
+              acc.bookmarks.push(row.bookmarks)
+            }
+            acc.group = row.group
+            return acc
+          },
+          { bookmarks: [] as Bookmark[], group: null as Group | null }
+        )
+      )
+  }
+
+  public async findMany(userId: Group["userId"]): Promise<Group[]> {
+    return await db.select().from(groups).where(eq(groups.userId, userId))
   }
 }
 

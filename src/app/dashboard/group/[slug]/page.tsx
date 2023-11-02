@@ -2,33 +2,28 @@ import { Suspense } from "react"
 import { notFound } from "next/navigation"
 import { Search } from "lucide-react"
 
-import { getSession } from "@/lib/auth/get-session"
-import { prisma } from "@/lib/prisma"
+import { getGroupBySlug } from "@/lib/query/group.queries"
 import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import DashboardPage from "@/components/pages/dashboard/DashboardPage"
-import NewBookmarkServer from "@/components/pages/dashboard/bookmarks/NewBookmark/NewBookmark.server"
 import BookmarkList from "@/components/pages/dashboard/bookmarks/bookmark-list"
+import NewBookmarkServer from "@/components/pages/dashboard/bookmarks/new-bookmark.rsc"
+import DashboardPage from "@/components/pages/dashboard/dashboard-page"
 
 export default async function SlugPage({ params }: { params: { slug: string } }) {
   const { slug } = params
-  const session = await getSession()
 
-  const group = await prisma.group.findFirst({
-    where: {
-      slug,
-      userId: session.user.uid,
-    },
-    include: {
-      bookmarks: true,
-    },
-  })
+  const query = await getGroupBySlug(slug)
 
-  if (!group) return notFound()
+  if (!query.group) return notFound()
+
+  const currentGroup = {
+    slug: query.group.slug,
+    id: query.group.id,
+  }
 
   return (
-    <DashboardPage title={group.name}>
+    <DashboardPage title={query.group?.name}>
       <div className="my-8">
         <header>
           <div className="flex gap-4">
@@ -49,12 +44,14 @@ export default async function SlugPage({ params }: { params: { slug: string } })
                 </Button>
               }
             >
-              <NewBookmarkServer currentGroup={group.id} />
+              <NewBookmarkServer currentGroup={currentGroup} />
             </Suspense>
           </div>
         </header>
-        <div className="py-4">
-          <BookmarkList bookmarks={group.bookmarks} />
+        <div className="mt-10">
+          <BookmarkList bookmarks={query.bookmarks}>
+            <NewBookmarkServer currentGroup={currentGroup} />
+          </BookmarkList>
         </div>
       </div>
     </DashboardPage>

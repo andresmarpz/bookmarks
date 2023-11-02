@@ -1,10 +1,13 @@
 import { cache } from "react"
-import { getServerSession, type Session } from "next-auth"
+import { cookies } from "next/headers"
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import type { Session } from "@supabase/supabase-js"
 
-import { authOptions } from "@/lib/auth/next-auth"
+export const getSession = cache(async () => {
+  const supabase = createServerComponentClient({ cookies })
+  return supabase.auth.getSession().then((query) => {
+    if (query.error) throw query.error
 
-// assert that session exists since this is only used
-// in the dashboard, which previously required authentication
-export const getSession = cache(() => {
-  return getServerSession(authOptions)
-}) as () => Promise<Session>
+    return query.data.session as Session
+  })
+})

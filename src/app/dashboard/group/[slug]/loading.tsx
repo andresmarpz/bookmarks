@@ -5,7 +5,7 @@ import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
-import DashboardPage from "@/components/pages/dashboard/DashboardPage"
+import DashboardPage from "@/components/pages/dashboard/dashboard-page"
 
 export default function LoadingGroup() {
   const skeletons = useMemo(

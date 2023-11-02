@@ -1,0 +1,41 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1697299783477,
+      "tag": "0000_absent_talisman",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1697308885785,
+      "tag": "0002_needy_spiral",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1697309397853,
+      "tag": "0002_lively_stick",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1697407768211,
+      "tag": "0003_dizzy_vance_astro",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1697820486556,
+      "tag": "0004_huge_molten_man",
+      "breakpoints": true
+    }
+  ]
+}
