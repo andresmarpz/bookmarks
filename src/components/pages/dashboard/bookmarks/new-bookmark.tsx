@@ -73,6 +73,7 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
         groupSlug: data.groupSlug,
       })
 
+      form.reset()
       setIsDialogOpen(false)
     })
   })
