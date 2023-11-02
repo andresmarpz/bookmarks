@@ -43,6 +43,13 @@ function parseEnvironment() {
       }
       return true
     })
+    .transform((value) => {
+      return {
+        ...value,
+        // remove trailing slash for consistency when using it
+        NEXT_PUBLIC_URL: value.NEXT_PUBLIC_URL.replace(/\/$/, ""),
+      }
+    })
     .parse(env)
 
   // If we're on the server, parse the server environment variables

@@ -2,9 +2,11 @@
 
 import { useTransition } from "react"
 import { useSearchParams } from "next/navigation"
+import { CheckCircle } from "lucide-react"
 
 import { signInWithGithub } from "@/lib/auth/sign-in-with-github"
 import Spinner from "@/components/ui/Spinner"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import SignInForm from "@/components/pages/auth/signin-form"
 import SignUpForm from "@/components/pages/auth/signup-form"
@@ -16,7 +18,9 @@ interface Props {
 
 export default function AuthForm({ type }: Props) {
   const searchParams = useSearchParams()
+
   const returnTo = searchParams.get("returnTo") ?? "/dashboard"
+  const confirmEmail = searchParams.get("confirmEmail")
 
   const [isGithubLoading, startGithubTransition] = useTransition()
 
@@ -33,6 +37,13 @@ export default function AuthForm({ type }: Props) {
 
   return (
     <div>
+      {type === "signin" && confirmEmail && (
+        <Alert variant="default" className="my-4">
+          <CheckCircle className="h-4 w-4 " />
+          <AlertTitle>Your email has been confirmed!</AlertTitle>
+          <AlertDescription>Please log in with your credentials.</AlertDescription>
+        </Alert>
+      )}
       {type === "signin" ? <SignInForm /> : <SignUpForm />}
       <Button
         type="button"

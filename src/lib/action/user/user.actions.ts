@@ -5,6 +5,7 @@ import { cookies } from "next/headers"
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs"
 import { createServerAction } from "nza"
 
+import { env } from "@/config/env"
 import { withAuth } from "@/lib/action/middleware/with-auth"
 import {
   createUserWithGithubSchema,
@@ -42,6 +43,9 @@ export const createUserWithPassword = createServerAction()
     const { data, error } = await createServerActionClient({ cookies }).auth.signUp({
       email: email,
       password: password,
+      options: {
+        emailRedirectTo: `${env.client.NEXT_PUBLIC_URL}/auth/signin?confirmEmail=true`,
+      },
     })
     if (error)
       return {
