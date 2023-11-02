@@ -16,23 +16,25 @@ const serverSchema = z.object({
 
 function parseEnvironment() {
   const env = process.env
-  const server = serverSchema.parse(env)
-  const client = clientSchema
-    .refine((data) => {
-      for (const key in data) {
-        if (!key.startsWith("NEXT_PUBLIC_")) {
-          throw new Error(
-            `Invalid client environment variable, needs 'NEXT_PUBLIC_' prefix: ${key}`
-          )
-        }
-      }
-      return true
-    })
-    .parse(env)
 
-  return {
-    server,
-    client,
+  if (window !== undefined) {
+    const client = clientSchema
+      .refine((data) => {
+        for (const key in data) {
+          if (!key.startsWith("NEXT_PUBLIC_")) {
+            throw new Error(
+              `Invalid client environment variable, needs 'NEXT_PUBLIC_' prefix: ${key}`
+            )
+          }
+        }
+        return true
+      })
+      .parse(env)
+
+    return { client }
+  } else {
+    const server = serverSchema.parse(env)
+    return { server }
   }
 }
 
