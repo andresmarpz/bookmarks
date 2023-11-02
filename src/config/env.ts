@@ -17,7 +17,7 @@ const serverSchema = z.object({
 function parseEnvironment() {
   const env = process.env
 
-  if (window !== undefined) {
+  if (global.window !== undefined) {
     const client = clientSchema
       .refine((data) => {
         for (const key in data) {
