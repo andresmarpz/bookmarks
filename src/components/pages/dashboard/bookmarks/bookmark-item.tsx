@@ -45,25 +45,25 @@ export default function BookmarkItem({ bookmark }: Props) {
           >
             <span className="flex items-center gap-3">
               <span className="flex items-center gap-2">
-                <span className="w-6 min-w-[24px]">
+                <span className="w-6 min-w-[20px]">
                   {bookmark.image ? (
                     <Image
                       className="rounded"
                       unoptimized
                       src={bookmark.image}
                       alt=""
-                      width={22}
-                      height={22}
+                      width={20}
+                      height={20}
                     />
                   ) : (
                     <div className="h-8 w-8 rounded bg-gray-800" />
                   )}
                 </span>
-                <h5 className="text-gray-10">{bookmark.title}</h5>
+                <h5 className="text-gray-10 text-sm">{bookmark.title}</h5>
               </span>
               <p className="text-sm text-gray-500">{prettifyUrl(bookmark.url)}</p>
             </span>
-            <span className="text-sm text-gray-200">
+            <span className="text-sm text-gray-400">
               {bookmark.createdAt.toLocaleDateString("en-US", {
                 month: "short",
                 day: "numeric",

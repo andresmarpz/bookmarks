@@ -26,35 +26,36 @@ import {
   Select,
   SelectContent,
   SelectItem,
+  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
 
 interface Props {
   groups: Group[]
-  currentGroup: Group["slug"]
+  currentGroup: Pick<Group, "slug" | "id">
 }
 
-type FormFields = z.infer<typeof createBookmarkSchema>
+const formSchema = createBookmarkSchema.pick({
+  title: true,
+  description: true,
+  url: true,
+  groupSlug: true,
+})
+type FormFields = z.infer<typeof formSchema>
+
 export default function NewBookmark({ groups, currentGroup }: Props) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
 
   const form = useForm<FormFields>({
     defaultValues: {
-      groupId: currentGroup,
-      groupSlug: groups.find((group) => group.id === currentGroup)?.slug,
+      groupSlug: currentGroup.slug,
       title: "",
       url: "",
+      description: "",
     },
-    resolver: zodResolver(
-      createBookmarkSchema.pick({
-        title: true,
-        description: true,
-        url: true,
-        groupId: true,
-      })
-    ),
+    resolver: zodResolver(formSchema),
   })
 
   const onSubmit = form.handleSubmit(async (data) => {
@@ -65,11 +66,11 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
 
       await createBookmark({
         title: data.title || title || undefined,
-        description: description ?? undefined,
+        description: data.description || description || undefined,
         url: data.url,
         image: logo?.url ?? undefined,
-        groupId: data.groupId,
-        groupSlug: groups.find((group) => group.id === data.groupId)?.slug!,
+        groupId: groups.find((group) => group.slug === data.groupSlug)?.id!,
+        groupSlug: data.groupSlug,
       })
 
       setIsDialogOpen(false)
@@ -88,67 +89,89 @@ export default function NewBookmark({ groups, currentGroup }: Props) {
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogTitle>New Bookmark</DialogTitle>
-        <Form {...form}>
-          <form onSubmit={onSubmit} className="flex flex-col gap-4">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Title</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="url"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>URL</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="groupId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Group</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+        <Select>
+          <DialogTitle>New Bookmark</DialogTitle>
+          <Form {...form}>
+            <form onSubmit={onSubmit} className="flex flex-col gap-4">
+              <FormField
+                control={form.control}
+                name="title"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a group.." />
-                      </SelectTrigger>
+                      <Input {...field} />
                     </FormControl>
-                    <SelectContent>
-                      {groups.map((group) => (
-                        <SelectItem key={"sl" + group.id} value={group.id}>
-                          {group.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <Button type="submit" size="sm" variant="default" disabled={isPending}>
-              {!isPending ? "Create" : <Spinner />}
-            </Button>
-          </form>
-        </Form>
+              <FormField
+                control={form.control}
+                name="url"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>URL</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="groupSlug"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Group</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      required
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a group.." />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="all">All</SelectItem>
+                        <SelectSeparator />
+                        {groups.map((group) => (
+                          <SelectItem key={"sl" + group.slug} value={group.slug}>
+                            {group.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <Button type="submit" size="sm" variant="default" disabled={isPending}>
+                {!isPending ? "Create" : <Spinner />}
+              </Button>
+            </form>
+          </Form>
+        </Select>
       </DialogContent>
     </Dialog>
   )

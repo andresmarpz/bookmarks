@@ -17,6 +17,11 @@ export default async function SlugPage({ params }: { params: { slug: string } })
 
   if (!query.group) return notFound()
 
+  const currentGroup = {
+    slug: query.group.slug,
+    id: query.group.id,
+  }
+
   return (
     <DashboardPage title={query.group?.name}>
       <div className="my-8">
@@ -39,13 +44,13 @@ export default async function SlugPage({ params }: { params: { slug: string } })
                 </Button>
               }
             >
-              <NewBookmarkServer currentGroup={query.group?.slug} />
+              <NewBookmarkServer currentGroup={currentGroup} />
             </Suspense>
           </div>
         </header>
-        <div className="py-4">
+        <div className="mt-10">
           <BookmarkList bookmarks={query.bookmarks}>
-            <NewBookmarkServer currentGroup={query.group?.slug} />
+            <NewBookmarkServer currentGroup={currentGroup} />
           </BookmarkList>
         </div>
       </div>
