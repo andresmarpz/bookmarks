@@ -15,22 +15,23 @@ const serverSchema = z.object({
   DATABASE_URL: z.string().nonempty(),
 })
 
+type Env = {
+  client: z.infer<typeof clientSchema>
+  server?: z.infer<typeof serverSchema>
+}
+
 function parseEnvironment() {
-  type Env = {
-    client: z.infer<typeof clientSchema>
-    server?: z.infer<typeof serverSchema>
-  }
+  const env = process.env
 
   // If running outside of Vercel (e.g. Github Actions), parsing or throwing at
-  // the action "run time" is the same thing
+  // the action "run time" is the same thing. We dont need to hard validate all envs
+  // since we'll most likely only use a few from the server
   if (!process.env.VERCEL) {
     return {
-      client: clientSchema.safeParse(process.env),
-      server: serverSchema.safeParse(process.env),
+      client: clientSchema.partial().parse(env),
+      server: serverSchema.partial().parse(env),
     } as unknown as Env
   }
-
-  const env = process.env
 
   const client = clientSchema
     .refine((data) => {
