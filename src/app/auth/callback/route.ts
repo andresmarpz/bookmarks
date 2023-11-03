@@ -1,9 +1,8 @@
-import { cookies } from "next/headers"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 
 import { createUserWithGithub } from "@/lib/action/user/user.actions"
+import { createRouteHandlerSupabase } from "@/lib/supabase/create-route-handler.supabase"
 
 export const dynamic = "force-dynamic"
 
@@ -20,7 +19,7 @@ export async function GET(request: NextRequest) {
   redirectUrl.searchParams.delete("provider")
 
   if (code) {
-    const supabase = createRouteHandlerClient({ cookies })
+    const supabase = createRouteHandlerSupabase()
     const query = await supabase.auth.exchangeCodeForSession(code)
     if (
       query.data.user?.id &&

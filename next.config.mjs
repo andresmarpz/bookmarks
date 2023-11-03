@@ -1,3 +1,5 @@
+import "./src/config/env.mjs"
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
