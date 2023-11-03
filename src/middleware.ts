@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
   const supabase = createMiddlewareClient({ req, res })
   const sessionQuery = await supabase.auth.getSession()
-  const loggedIn = sessionQuery.error || !sessionQuery.data.session
+  const loggedIn = !sessionQuery.error && sessionQuery.data.session
 
   const url = req.nextUrl.clone()
 
