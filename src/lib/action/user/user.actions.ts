@@ -3,7 +3,7 @@
 import { revalidatePath, revalidateTag } from "next/cache"
 import { createServerAction } from "nza"
 
-import { env } from "@/config/env"
+import { env } from "@/config/env.mjs"
 import { withAuth } from "@/lib/action/middleware/with-auth"
 import {
   createUserWithGithubSchema,
@@ -43,7 +43,7 @@ export const createUserWithPassword = createServerAction()
       email: email,
       password: password,
       options: {
-        emailRedirectTo: `${env.client.NEXT_PUBLIC_URL}/auth/signin?confirmEmail=true`,
+        emailRedirectTo: `${env.NEXT_PUBLIC_URL}/auth/signin?confirmEmail=true`,
       },
     })
     if (error)

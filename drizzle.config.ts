@@ -9,6 +9,6 @@ export default {
   verbose: true,
   strict: true,
   dbCredentials: {
-    connectionString: env.server?.DATABASE_URL!,
+    connectionString: env.DATABASE_URL,
   },
 } satisfies Config
