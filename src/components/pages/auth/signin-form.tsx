@@ -49,6 +49,8 @@ export default function SignInForm() {
       startEmailTransition(async () => {
         try {
           await signInWithPassword({ email, password })
+
+          router.push(returnTo)
         } catch (err: unknown) {
           if (err instanceof AuthApiError) {
             form.setError("root", {
@@ -56,8 +58,6 @@ export default function SignInForm() {
             })
           }
         }
-
-        router.push(returnTo)
       })
     } catch (err) {
       console.error(err)
