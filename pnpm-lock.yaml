@@ -49,7 +49,7 @@ dependencies:
     version: 2.37.0
   '@t3-oss/env-nextjs':
     specifier: ^0.7.1
-    version: 0.7.1(typescript@5.2.2)(zod@3.22.2)
+    version: 0.7.1(typescript@5.2.2)(zod@3.22.3)
   '@tanstack/react-query':
     specifier: ^4.35.3
     version: 4.35.3(react-dom@18.2.0)(react@18.2.0)
@@ -73,7 +73,7 @@ dependencies:
     version: 0.2.1(next@14.0.0)(react-dom@18.2.0)(react@18.2.0)
   nza:
     specifier: ^0.1.14
-    version: 0.1.14(zod@3.22.2)
+    version: 0.1.14(zod@3.22.3)
   postgres:
     specifier: ^3.3.5
     version: 3.3.5
@@ -90,8 +90,8 @@ dependencies:
     specifier: ^1.1.0
     version: 1.1.0(react@18.2.0)
   zod:
-    specifier: ^3.22.2
-    version: 3.22.2
+    specifier: ^3.22.3
+    version: 3.22.3
 
 devDependencies:
   '@ianvs/prettier-plugin-sort-imports':
@@ -1891,7 +1891,7 @@ packages:
       defer-to-connect: 2.0.1
     dev: false
 
-  /@t3-oss/env-core@0.7.1(typescript@5.2.2)(zod@3.22.2):
+  /@t3-oss/env-core@0.7.1(typescript@5.2.2)(zod@3.22.3):
     resolution: {integrity: sha512-3+SQt39OlmSaRLqYVFv8uRm1BpFepM5TIiMytRqO9cjH+wB77o6BIJdeyM5h5U4qLBMEzOJWCY4MBaU/rLwbYw==}
     peerDependencies:
       typescript: '>=4.7.2'
@@ -1901,10 +1901,10 @@ packages:
         optional: true
     dependencies:
       typescript: 5.2.2
-      zod: 3.22.2
+      zod: 3.22.3
     dev: false
 
-  /@t3-oss/env-nextjs@0.7.1(typescript@5.2.2)(zod@3.22.2):
+  /@t3-oss/env-nextjs@0.7.1(typescript@5.2.2)(zod@3.22.3):
     resolution: {integrity: sha512-tQDbNLGCOvKGi+JoGuJ/CJInJI7/kLWJqtgGppAKS7ZFLdVOqZYR/uRjxlXOWPnxmUKF8VswOAsq7fXUpNZDhA==}
     peerDependencies:
       typescript: '>=4.7.2'
@@ -1913,9 +1913,9 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@t3-oss/env-core': 0.7.1(typescript@5.2.2)(zod@3.22.2)
+      '@t3-oss/env-core': 0.7.1(typescript@5.2.2)(zod@3.22.3)
       typescript: 5.2.2
-      zod: 3.22.2
+      zod: 3.22.3
     dev: false
 
   /@tanstack/query-core@4.35.3:
@@ -2783,7 +2783,7 @@ packages:
       hanji: 0.0.5
       json-diff: 0.9.0
       minimatch: 7.4.6
-      zod: 3.22.2
+      zod: 3.22.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4572,12 +4572,12 @@ packages:
       set-blocking: 2.0.0
     dev: false
 
-  /nza@0.1.14(zod@3.22.2):
+  /nza@0.1.14(zod@3.22.3):
     resolution: {integrity: sha512-IWUrN9sb450J3ymZBAyDe6qVhRCaSJsUGkDhp89Ex4GVRHcsZpMtgneVWdeee0a0V62dbs056gIl3tq3TqPORQ==}
     peerDependencies:
       zod: '>=3.0.0'
     dependencies:
-      zod: 3.22.2
+      zod: 3.22.3
     dev: false
 
   /object-assign@4.1.1:
@@ -5941,5 +5941,5 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zod@3.22.2:
-    resolution: {integrity: sha512-wvWkphh5WQsJbVk1tbx1l1Ly4yg+XecD+Mq280uBGt9wa5BKSWf4Mhp6GmrkPixhMxmabYY7RbzlwVP32pbGCg==}
+  /zod@3.22.3:
+    resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
