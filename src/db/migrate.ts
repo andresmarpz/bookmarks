@@ -3,9 +3,9 @@ import { migrate } from "drizzle-orm/postgres-js/migrator"
 import fs from "fs"
 import postgres from "postgres"
 
-import { env } from "@/config/env"
+import { env } from "@/config/env.mjs"
 
-const migrationClient = postgres(env.server?.DATABASE_URL!, { max: 1 })
+const migrationClient = postgres(env.DATABASE_URL!, { max: 1 })
 const db = drizzle(migrationClient)
 
 async function runMigrations() {

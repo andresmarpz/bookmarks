@@ -1,10 +1,10 @@
 import { cache } from "react"
-import { cookies } from "next/headers"
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import type { Session } from "@supabase/supabase-js"
 
+import { createServerComponentSupabase } from "@/lib/supabase/create-server-component.supabase"
+
 export const getSession = cache(async () => {
-  const supabase = createServerComponentClient({ cookies })
+  const supabase = createServerComponentSupabase()
   return supabase.auth.getSession().then((query) => {
     if (query.error) throw query.error
 

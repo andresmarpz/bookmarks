@@ -3,14 +3,14 @@
 import { useRouter } from "next/navigation"
 import { LogOut } from "lucide-react"
 
-import { supabaseClientComponent } from "@/lib/supabase.client"
+import { createClientComponentSupabase } from "@/lib/supabase/create-client-component.supabase"
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
 
 export default function SignOutItem() {
   const router = useRouter()
 
   async function handleClick() {
-    await supabaseClientComponent.auth.signOut()
+    await createClientComponentSupabase().auth.signOut()
 
     router.refresh()
   }

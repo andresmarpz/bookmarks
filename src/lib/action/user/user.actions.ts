@@ -1,11 +1,9 @@
 "use server"
 
 import { revalidatePath, revalidateTag } from "next/cache"
-import { cookies } from "next/headers"
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs"
 import { createServerAction } from "nza"
 
-import { env } from "@/config/env"
+import { env } from "@/config/env.mjs"
 import { withAuth } from "@/lib/action/middleware/with-auth"
 import {
   createUserWithGithubSchema,
@@ -14,6 +12,7 @@ import {
   updateUserUsernameSchema,
 } from "@/lib/action/user/user.schema"
 import { userRepository } from "@/lib/repository/user.repository"
+import { createServerActionSupabase } from "@/lib/supabase/create-server-action.supabase"
 
 export const createUserWithPassword = createServerAction()
   .input(createUserWithPasswordSchema)
@@ -40,11 +39,11 @@ export const createUserWithPassword = createServerAction()
       }
     }
 
-    const { data, error } = await createServerActionClient({ cookies }).auth.signUp({
+    const { data, error } = await createServerActionSupabase().auth.signUp({
       email: email,
       password: password,
       options: {
-        emailRedirectTo: `${env.client.NEXT_PUBLIC_URL}/auth/signin?confirmEmail=true`,
+        emailRedirectTo: `${env.NEXT_PUBLIC_URL}/auth/signin?confirmEmail=true`,
       },
     })
     if (error)
@@ -83,7 +82,7 @@ export const createUserWithGithub = createServerAction()
       throw new Error("Failed to create user.")
     }
 
-    const supabase = createServerActionClient({ cookies })
+    const supabase = createServerActionSupabase()
     await supabase.auth.updateUser({
       data: {
         on_database: true,
@@ -96,7 +95,7 @@ export const updateUserUsername = createServerAction()
   .use(withAuth)
   .handler(async ({ username }, { session }) => {
     await userRepository.updateOne(session.user.id, { username })
-    const supabase = createServerActionClient({ cookies })
+    const supabase = createServerActionSupabase()
     await supabase.auth.updateUser({
       data: {
         username,

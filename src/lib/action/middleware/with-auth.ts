@@ -1,9 +1,9 @@
-import { cookies } from "next/headers"
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs"
 import { AuthError } from "@supabase/supabase-js"
 
+import { createServerActionSupabase } from "@/lib/supabase/create-server-action.supabase"
+
 export async function withAuth() {
-  const supabase = createServerActionClient({ cookies })
+  const supabase = createServerActionSupabase()
   const session = await supabase.auth.getSession()
 
   if (!session)

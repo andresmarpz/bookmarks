@@ -1,6 +1,6 @@
 import type { Config } from "drizzle-kit"
 
-import { env } from "./src/config/env"
+import { env } from "./src/config/env.mjs"
 
 export default {
   schema: "src/db/schema/*",
@@ -9,6 +9,6 @@ export default {
   verbose: true,
   strict: true,
   dbCredentials: {
-    connectionString: env.server?.DATABASE_URL!,
+    connectionString: env.DATABASE_URL,
   },
 } satisfies Config

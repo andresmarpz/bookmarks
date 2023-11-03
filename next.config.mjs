@@ -1,3 +1,5 @@
+import "./src/config/env.mjs"
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -10,11 +12,13 @@ const nextConfig = {
   },
 }
 
+let config = nextConfig
+
 if (!!process.env.ANALYZE) {
   const withBundleAnalyzer = require("@next/bundle-analyzer")({
     enabled: process.env.ANALYZE === "true",
   })
-  module.exports = withBundleAnalyzer(nextConfig)
-} else {
-  module.exports = nextConfig
+  config = withBundleAnalyzer(nextConfig)
 }
+
+export default config
