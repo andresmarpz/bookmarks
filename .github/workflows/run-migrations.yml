@@ -11,10 +11,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install
-        uses: ./tooling/github-actions/install
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
 
       - name: Apply all pending migrations to the database
-        run: pnpm drizzle:migration:run
+        run: bun drizzle:migration:run
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}

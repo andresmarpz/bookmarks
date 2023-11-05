@@ -19,11 +19,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install
-        uses: ./tooling/github-actions/install
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
 
       - name: Run Prettier
-        run: pnpm format
+        run: bun format
 
   eslint:
     name: ESLint
@@ -33,11 +34,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup and install
-        uses: ./tooling/github-actions/install
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
 
       - name: Lint
-        run: pnpm lint
+        run: bun lint
 
   typecheck:
     name: TypeCheck
@@ -47,8 +49,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install
-        uses: ./tooling/github-actions/install
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
 
       - name: Cache TypeScript TSBuild Info Files
         id: cache-typescript-tsbuildinfo
@@ -62,4 +65,4 @@ jobs:
           restore-keys: ${{ runner.os }}-cache-typescript-tsbuildinfo-
 
       - name: Run TypeScript type check
-        run: pnpm typecheck
+        run: bun typecheck

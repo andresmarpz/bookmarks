@@ -8,7 +8,7 @@ rm -rf .next
 rm -rf node_modules
 
 # Clear pnpm cache           
-pnpm store prune
+bun store prune
 
 # Install dependencies again
-pnpm install
+bun install

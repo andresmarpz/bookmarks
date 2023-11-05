@@ -6,6 +6,7 @@ public
 CHANGELOG.md
 .yarn
 .pnpm
+.bun
 dist
 node_modules
 .next

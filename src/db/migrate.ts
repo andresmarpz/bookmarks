@@ -1,6 +1,6 @@
 import { drizzle } from "drizzle-orm/postgres-js"
 import { migrate } from "drizzle-orm/postgres-js/migrator"
-import fs from "fs"
+import fs from "node:fs"
 import postgres from "postgres"
 
 import { env } from "@/config/env.mjs"
@@ -20,4 +20,4 @@ async function runMigrations() {
   } else console.log("No migrations found.")
 }
 
-if (require.main === module) runMigrations()
+runMigrations()

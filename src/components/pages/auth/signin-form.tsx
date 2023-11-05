@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input"
 
 export default function SignInForm() {
   const [isEmailLoading, startEmailTransition] = useTransition()
+
   const router = useRouter()
   const searchParams = useSearchParams()
   const returnTo = searchParams.get("returnTo") ?? "/dashboard"
@@ -43,24 +44,18 @@ export default function SignInForm() {
     ),
   })
 
-  const onSubmit = form.handleSubmit((data) => {
+  const onSubmit = form.handleSubmit(async (data) => {
     const { email, password } = data
     try {
-      startEmailTransition(async () => {
-        try {
-          await signInWithPassword({ email, password })
+      await signInWithPassword({ email, password })
 
-          router.push(returnTo)
-        } catch (err: unknown) {
-          if (err instanceof AuthApiError) {
-            form.setError("root", {
-              message: err.message,
-            })
-          }
-        }
-      })
-    } catch (err) {
-      console.error(err)
+      router.push(returnTo)
+    } catch (err: unknown) {
+      if (err instanceof AuthApiError) {
+        form.setError("root", {
+          message: err.message,
+        })
+      }
     }
   })
 

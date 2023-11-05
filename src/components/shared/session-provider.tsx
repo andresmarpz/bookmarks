@@ -4,7 +4,7 @@ import { useEffect, type PropsWithChildren } from "react"
 
 import { queryClient } from "@/lib/react-query.client"
 import { createClientComponentSupabase } from "@/lib/supabase/create-client-component.supabase"
-import { useSession } from "@/hooks/auth/use-session"
+import { useSession, useSessionQueryOptions } from "@/hooks/auth/use-session"
 
 export default function SessionProvider({ children }: PropsWithChildren) {
   const { refetch } = useSession({ redirect: false })
@@ -13,7 +13,7 @@ export default function SessionProvider({ children }: PropsWithChildren) {
     const {
       data: { subscription },
     } = createClientComponentSupabase().auth.onAuthStateChange((_event, session) => {
-      queryClient.setQueryData(["user/session"], () => session)
+      queryClient.setQueryData(useSessionQueryOptions.queryKey, () => session)
       refetch()
     })
 
