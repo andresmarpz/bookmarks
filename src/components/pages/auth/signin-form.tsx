@@ -1,13 +1,11 @@
-import { useTransition } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { AuthApiError } from "@supabase/supabase-js"
 import { AlertCircle } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { signInWithPassword } from "@/lib/auth/sign-in-with-password"
-import Spinner from "@/components/ui/Spinner"
+import { useSignInWithPassword } from "@/hooks/auth/use-sign-in-with-password"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -19,12 +17,13 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import Spinner from "@/components/ui/Spinner"
 
 export default function SignInForm() {
-  const [isEmailLoading, startEmailTransition] = useTransition()
-  const router = useRouter()
   const searchParams = useSearchParams()
   const returnTo = searchParams.get("returnTo") ?? "/dashboard"
+
+  const { mutate, isPending, error } = useSignInWithPassword({ returnTo })
 
   const form = useForm<{
     email: string
@@ -43,35 +42,16 @@ export default function SignInForm() {
     ),
   })
 
-  const onSubmit = form.handleSubmit((data) => {
-    const { email, password } = data
-    try {
-      startEmailTransition(async () => {
-        try {
-          await signInWithPassword({ email, password })
-
-          router.push(returnTo)
-        } catch (err: unknown) {
-          if (err instanceof AuthApiError) {
-            form.setError("root", {
-              message: err.message,
-            })
-          }
-        }
-      })
-    } catch (err) {
-      console.error(err)
-    }
-  })
+  const onSubmit = form.handleSubmit((data) => mutate(data))
 
   return (
     <Form {...form}>
       <form onSubmit={onSubmit} className="flex flex-col">
-        {form.formState.errors.root && (
+        {error && error instanceof AuthApiError && (
           <Alert variant="destructive" className="my-2">
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Error</AlertTitle>
-            <AlertDescription>{form.formState.errors.root.message}.</AlertDescription>
+            <AlertDescription>{error.message}.</AlertDescription>
           </Alert>
         )}
 
@@ -109,9 +89,9 @@ export default function SignInForm() {
             type="submit"
             size="sm"
             variant="default"
-            disabled={isEmailLoading}
+            disabled={isPending}
           >
-            {isEmailLoading ? <Spinner /> : "Sign In"}
+            {isPending ? <Spinner /> : "Sign In"}
           </Button>
         </div>
 
