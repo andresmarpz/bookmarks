@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, type DefaultValues, type FieldValues, type Path } from "react-hook-form"
 import type { AnyZodObject } from "zod"
 
-import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -17,6 +16,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
+import Spinner from "@/components/ui/Spinner"
 
 interface Props<Data> {
   name: string

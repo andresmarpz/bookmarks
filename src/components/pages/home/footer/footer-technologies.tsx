@@ -33,8 +33,8 @@ export default function FooterTechnologies() {
       {idx === TECHNOLOGIES.length - 2
         ? " and "
         : idx <= TECHNOLOGIES.length - 3
-        ? ", "
-        : null}
+          ? ", "
+          : null}
     </>
   ))
 }

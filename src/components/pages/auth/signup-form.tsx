@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form"
 
 import { createUserWithPasswordSchema } from "@/lib/action/user/user.schema"
 import { signUpWithPassword } from "@/lib/auth/sign-up-with-password"
-import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -16,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import Spinner from "@/components/ui/Spinner"
 
 export default function SignUpForm() {
   const [isEmailLoading, startEmailTransition] = useTransition()

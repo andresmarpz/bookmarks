@@ -1,7 +1,8 @@
+import { and, eq } from "drizzle-orm"
+
 import { db } from "@/db/drizzle"
 import { bookmarks, type Bookmark } from "@/db/schema/bookmark.entity"
 import { groups, type Group, type GroupInsert } from "@/db/schema/group.entity"
-import { and, eq } from "drizzle-orm"
 
 class GroupRepository {
   public async createOne(input: GroupInsert) {

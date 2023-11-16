@@ -1,7 +1,5 @@
 "use client"
 
-import type { User } from "@/db/schema/user.entity"
-
 import { updateUserName, updateUserUsername } from "@/lib/action/user/user.actions"
 import {
   updateUserNameSchema,
@@ -12,6 +10,7 @@ import {
 import SettingInput, {
   LoadingSettingInput,
 } from "@/components/pages/dashboard/settings/setting-input"
+import type { User } from "@/db/schema/user.entity"
 
 export function LoadingSettingsForm() {
   const skeletons = Array.from({ length: 2 }, (_, i) => (

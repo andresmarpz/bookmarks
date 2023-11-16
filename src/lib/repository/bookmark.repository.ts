@@ -1,10 +1,11 @@
+import { eq, inArray } from "drizzle-orm"
+
 import { db } from "@/db/drizzle"
 import {
   bookmarks,
   type Bookmark,
   type BookmarkInsert,
 } from "@/db/schema/bookmark.entity"
-import { eq, inArray } from "drizzle-orm"
 
 class BookmarkRepository {
   public async insertOne(input: BookmarkInsert) {
