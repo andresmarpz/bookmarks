@@ -1,10 +1,10 @@
 import { useMemo } from "react"
 import { Search } from "lucide-react"
 
-import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
+import Spinner from "@/components/ui/Spinner"
 import DashboardPage from "@/components/pages/dashboard/dashboard-page"
 
 export default function LoadingGroup() {

@@ -46,5 +46,5 @@ export const env = createEnv({
    * We need to skip validation of environment variables outside of Vercel,
    * when running CI on Github, for example.
    */
-  skipValidation: process.env.VERCEL === undefined,
+  skipValidation: !!process?.env?.CI ?? false,
 })

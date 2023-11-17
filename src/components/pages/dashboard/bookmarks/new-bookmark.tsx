@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useTransition } from "react"
-import type { Group } from "@/db/schema/group.entity"
 import { zodResolver } from "@hookform/resolvers/zod"
 import mql from "@microlink/mql"
 import { PlusIcon } from "lucide-react"
@@ -10,7 +9,6 @@ import { z } from "zod"
 
 import { createBookmark } from "@/lib/action/bookmark/bookmark.actions"
 import { createBookmarkSchema } from "@/lib/action/bookmark/bookmark.schema"
-import Spinner from "@/components/ui/Spinner"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import {
@@ -30,6 +28,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import Spinner from "@/components/ui/Spinner"
+import type { Group } from "@/db/schema/group.entity"
 
 interface Props {
   groups: Group[]

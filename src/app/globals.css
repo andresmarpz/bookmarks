@@ -76,7 +76,9 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
 }
 
@@ -90,7 +92,9 @@
   --paper-color: rgb(24 24 27);
 
   background-color: var(--paper-color);
-  background-size: var(--grid-gap) var(--grid-gap), var(--grid-size) var(--grid-size);
+  background-size:
+    var(--grid-gap) var(--grid-gap),
+    var(--grid-size) var(--grid-size);
   background-image: linear-gradient(
       to bottom,
       transparent var(--grid-dash),

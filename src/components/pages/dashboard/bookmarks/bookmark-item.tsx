@@ -2,19 +2,19 @@
 
 import { useTransition } from "react"
 import Image from "next/image"
-import type { Bookmark } from "@/db/schema/bookmark.entity"
-import { cn } from "@/utils/clsx"
-import { prettifyUrl } from "@/utils/formatting/prettify-url"
 import { Copy, Pencil, TrashIcon } from "lucide-react"
 
 import { deleteBookmark } from "@/lib/action/bookmark/bookmark.actions"
-import Spinner from "@/components/ui/Spinner"
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
+import Spinner from "@/components/ui/Spinner"
+import type { Bookmark } from "@/db/schema/bookmark.entity"
+import { cn } from "@/utils/clsx"
+import { prettifyUrl } from "@/utils/formatting/prettify-url"
 
 interface Props {
   bookmark: Bookmark

@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
-import type { Group } from "@/db/schema/group.entity"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CheckIcon, ChevronsUpDownIcon, PlusCircleIcon, Trash } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -44,6 +43,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import type { Group } from "@/db/schema/group.entity"
 
 interface Props {
   groups: Group[]
@@ -103,10 +103,13 @@ export default function GroupSwitcher({ groups }: Props) {
    */
   const groupMap = useMemo(
     () =>
-      groups.reduce((prev, { slug, name, id }) => {
-        prev[id] = { slug, name }
-        return prev
-      }, {} as { [K: Group["id"]]: { name: string; slug: string } }),
+      groups.reduce(
+        (prev, { slug, name, id }) => {
+          prev[id] = { slug, name }
+          return prev
+        },
+        {} as { [K: Group["id"]]: { name: string; slug: string } }
+      ),
     [groups]
   )
 

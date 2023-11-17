@@ -1,9 +1,10 @@
 "use client"
 
 import * as React from "react"
-import { cn } from "@/utils/clsx"
 import * as ContextMenuPrimitive from "@radix-ui/react-context-menu"
 import { CheckIcon, ChevronRightIcon, DotIcon } from "lucide-react"
+
+import { cn } from "@/utils/clsx"
 
 const ContextMenu = ContextMenuPrimitive.Root
 

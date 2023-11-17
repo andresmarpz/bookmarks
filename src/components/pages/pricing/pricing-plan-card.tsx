@@ -1,5 +1,4 @@
 import { cn } from "@/utils/clsx"
-
 import PlanFeatureItem from "./plan-feature-item"
 
 interface Props {
