@@ -1,19 +1,18 @@
 "use server"
 
 import { revalidatePath, revalidateTag } from "next/cache"
-import { createServerAction } from "nza"
-
-import { env } from "@/config/env"
-import { withAuth } from "@/lib/action/middleware/with-auth"
-import {
-  createUserWithGithubSchema,
+import { env } from "~/config/env"
+import { withAuth } from "~/lib/action/middleware/with-auth"
+import {~/~/
+  createUserWithGithubSche~/,
   createUserWithPasswordSchema,
   updateUserNameSchema,
   updateUserUsernameSchema,
-} from "@/lib/action/user/user.schema"
-import { userRepository } from "@/lib/repository/user.repository"
-import { createServerActionSupabase } from "@/lib/supabase/create-server-action.supabase"
-
+} from "~/lib/action/user/user.schema"
+import { userRepository } from "~/lib/repository/user.repository"
+import {~/reateServerActionSupabase } from "~/lib/supabase/create-server-action.supabase"
+import { createServerAction } fr~/ "nza"
+~/~/
 export const createUserWithPassword = createServerAction()
   .input(createUserWithPasswordSchema)
   .handler(async ({ username, email, password }) => {

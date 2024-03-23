@@ -1,6 +1,6 @@
 import type { SignInWithPasswordCredentials } from "@supabase/supabase-js"
 
-import { createClientComponentSupabase } from "@/lib/supabase/create-client-component.supabase"
+import { createClientComponentSupabase } from "~/lib/supabase/create-client-component.supabase"
 
 export async function signInWithPassword(opts: SignInWithPasswordCredentials) {
   const { data, error } =

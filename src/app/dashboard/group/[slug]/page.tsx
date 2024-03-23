@@ -1,14 +1,13 @@
 import { Suspense } from "react"
 import { notFound } from "next/navigation"
+import BookmarkList from "~/components/pages/dashboard/bookmarks/bookmark-list"
+import NewBookmarkServer from "~/components/pages/dashboard/bookmarks/new-bookmark.rsc"
+import DashboardPage from "~/components/pages/dashboard/dashboard-page"
+import { Button } from "~/components/ui/button"
+import { Input } from "~/components/ui/input"
+import Spinner from "~/components/ui/Spinner"
+import { getGroupBySlug } from "~/lib/query/group.queries"
 import { Search } from "lucide-react"
-
-import { getGroupBySlug } from "@/lib/query/group.queries"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import Spinner from "@/components/ui/Spinner"
-import BookmarkList from "@/components/pages/dashboard/bookmarks/bookmark-list"
-import NewBookmarkServer from "@/components/pages/dashboard/bookmarks/new-bookmark.rsc"
-import DashboardPage from "@/components/pages/dashboard/dashboard-page"
 
 export default async function SlugPage({ params }: { params: { slug: string } }) {
   const { slug } = params

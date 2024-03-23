@@ -1,4 +1,4 @@
-import { BaseError } from "@/utils/error/base.error"
+import { BaseError } from "~/utils/error/base.error"
 
 export class FormError extends BaseError {
   private field: string

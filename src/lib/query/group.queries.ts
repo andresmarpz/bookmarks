@@ -1,6 +1,6 @@
-import { getSession } from "@/lib/auth/get-session"
-import { groupRepository } from "@/lib/repository/group.repository"
-import type { Group } from "@/db/schema/group.entity"
+import { getSession } from "~/lib/auth/get-session"
+import { groupRepository } from "~/lib/repository/group.repository"
+import type { Group } from "~/db/schema/group.entity"
 
 export const getGroupById = async (id: Group["id"]) => await groupRepository.findOne(id)
 

@@ -1,13 +1,8 @@
 import { useSearchParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { AuthApiError } from "@supabase/supabase-js"
-import { AlertCircle } from "lucide-react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-
-import { useSignInWithPassword } from "@/hooks/auth/use-sign-in-with-password"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Button } from "@/components/ui/button"
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
+import { Button } from "~/components/ui/button"
 import {
   Form,
   FormControl,
@@ -15,9 +10,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import Spinner from "@/components/ui/Spinner"
+} from "~/components/ui/form"
+import { Input } from "~/components/ui/input"
+import Spinner from "~/components/ui/Spinner"
+import { useSignInWithPassword } from "~/hooks/auth/use-sign-in-with-password"
+import { AlertCircle } from "lucide-react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
 
 export default function SignInForm() {
   const searchParams = useSearchParams()

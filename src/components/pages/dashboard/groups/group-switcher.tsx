@@ -7,9 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { CheckIcon, ChevronsUpDownIcon, PlusCircleIcon, Trash } from "lucide-react"
 import { useForm } from "react-hook-form"
 
-import { createGroup, deleteGroup } from "@/lib/action/group/group.actions"
-import { createGroupSchema } from "@/lib/action/group/group.schema"
-import { commandScore } from "@/lib/command-score"
+import { createGroup, deleteGroup } from "~/lib/action/group/group.actions"
+import { createGroupSchema } from "~/lib/action/group/group.schema"
+import { commandScore } from "~/lib/command-score"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,9 +19,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+} from "~/components/ui/alert-dialog"
+import { Button } from "~/components/ui/button"
+import { Checkbox } from "~/components/ui/checkbox"
 import {
   Command,
   CommandEmpty,
@@ -30,8 +30,8 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command-menu"
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+} from "~/components/ui/command-menu"
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "~/components/ui/dialog"
 import {
   Form,
   FormControl,
@@ -40,10 +40,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import type { Group } from "@/db/schema/group.entity"
+} from "~/components/ui/form"
+import { Input } from "~/components/ui/input"
+import { Popover, PopoverContent, PopoverTrigger } from "~/components/ui/popover"
+import type { Group } from "~/db/schema/group.entity"
 
 interface Props {
   groups: Group[]

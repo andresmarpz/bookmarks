@@ -1,7 +1,7 @@
-import NextSVG from "@/components/shared/svg/nextjs.svg"
-import RadixUISVG from "@/components/shared/svg/radixui.svg"
-import SupabaseSVG from "@/components/shared/svg/supabase.svg"
-import TailwindSVG from "@/components/shared/svg/tailwind.svg"
+import NextSVG from "~/components/shared/svg/nextjs.svg"
+import RadixUISVG from "~/components/shared/svg/radixui.svg"
+import SupabaseSVG from "~/components/shared/svg/supabase.svg"
+import TailwindSVG from "~/components/shared/svg/tailwind.svg"
 
 export default function FeaturedTechnologies() {
   return (

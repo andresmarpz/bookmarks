@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react"
 
-import Container from "@/components/pages/dashboard/container"
+import Container from "~/components/pages/dashboard/container"
 
 export default function PageTitle({ children }: PropsWithChildren) {
   return (

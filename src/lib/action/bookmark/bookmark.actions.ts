@@ -1,14 +1,13 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { createServerAction } from "nza"
-
 import {
   createBookmarkSchema,
   deleteBookmarkSchema,
-} from "@/lib/action/bookmark/bookmark.schema"
-import { withAuth } from "@/lib/action/middleware/with-auth"
-import { bookmarkRepository } from "@/lib/repository/bookmark.repository"
+} from "~/lib/action/bookmark/bookmark.schema"
+import { withAuth } from "~/lib/action/middleware/with-auth"
+import { bookmarkRepository } from "~/lib/repository/bookmark.repository"
+import { createServerAction } from "nza"
 
 export const createBookmark = createServerAction()
   .input(createBookmarkSchema)

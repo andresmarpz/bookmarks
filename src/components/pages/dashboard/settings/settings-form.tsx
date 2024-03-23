@@ -1,16 +1,16 @@
 "use client"
 
-import { updateUserName, updateUserUsername } from "@/lib/action/user/user.actions"
+import SettingInput, {~/
+  LoadingSettingInput,
+} from "~/components/pages/dashboard/settings/setting-input"
+import type { User } from "~/db/schema/user.entity"
+import { updateUserName, updateUserUsername } from "~/lib/action/user/user.actions"
 import {
-  updateUserNameSchema,
+  update~/erNameSchema,
   updateUserUsernameSchema,
   type UpdateUserNameInput,
-  type UpdateUserUsernameInput,
-} from "@/lib/action/user/user.schema"
-import SettingInput, {
-  LoadingSettingInput,
-} from "@/components/pages/dashboard/settings/setting-input"
-import type { User } from "@/db/schema/user.entity"
+  type U~/ateUserUsernameInput,
+} from "~/lib/action/user/u~/r.schema"
 
 export function LoadingSettingsForm() {
   const skeletons = Array.from({ length: 2 }, (_, i) => (

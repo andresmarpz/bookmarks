@@ -1,7 +1,6 @@
 import Link from "next/link"
+import DummyBookmarks from "~/components/pages/home/main/dummy-bookmarks"
 import { ChevronRight } from "lucide-react"
-
-import DummyBookmarks from "@/components/pages/home/main/dummy-bookmarks"
 
 export default function Home() {
   return (

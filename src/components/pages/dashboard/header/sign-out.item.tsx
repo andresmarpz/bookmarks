@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation"
 import { LogOut } from "lucide-react"
 
-import { createClientComponentSupabase } from "@/lib/supabase/create-client-component.supabase"
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
+import { createClientComponentSupabase } from "~/lib/supabase/create-client-component.supabase"
+import { DropdownMenuItem } from "~/components/ui/dropdown-menu"
 
 export default function SignOutItem() {
   const router = useRouter()

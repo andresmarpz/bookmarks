@@ -1,7 +1,6 @@
 import { cookies } from "next/headers"
 import { createServerClient } from "@supabase/ssr"
-
-import { env } from "@/config/env"
+import { env } from "~/config/env"
 
 export function createServerComponentSupabase() {
   return createServerClient(

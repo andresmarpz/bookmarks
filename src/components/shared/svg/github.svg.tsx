@@ -1,4 +1,4 @@
-import type { SvgIconProps } from "@/components/shared/svg/svg-icon"
+import type { SvgIconProps } from "~/components/shared/svg/svg-icon"
 
 export default function GithubSVG({ width, height }: SvgIconProps) {
   return (

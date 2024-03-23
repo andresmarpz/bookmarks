@@ -1,6 +1,5 @@
 import Link from "next/link"
-
-import AuthForm from "@/components/pages/auth/auth-form"
+import AuthForm from "~/components/pages/auth/auth-form"
 
 export default async function LoginPage() {
   return (

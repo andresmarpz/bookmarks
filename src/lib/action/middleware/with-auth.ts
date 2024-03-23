@@ -1,6 +1,5 @@
 import { AuthError } from "@supabase/supabase-js"
-
-import { createServerActionSupabase } from "@/lib/supabase/create-server-action.supabase"
+import { createServerActionSupabase } from "~/lib/supabase/create-server-action.supabase"
 
 export async function withAuth() {
   const supabase = createServerActionSupabase()

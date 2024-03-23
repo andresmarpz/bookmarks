@@ -2,7 +2,7 @@
 
 import { type PropsWithChildren } from "react"
 
-import type { Bookmark } from "@/db/schema/bookmark.entity"
+import type { Bookmark } from "~/db/schema/bookmark.entity"
 import BookmarkItem from "./bookmark-item"
 
 interface Props extends PropsWithChildren {

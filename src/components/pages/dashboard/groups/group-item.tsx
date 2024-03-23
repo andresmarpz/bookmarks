@@ -3,17 +3,16 @@
 import { useTransition } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { Trash } from "lucide-react"
-
-import { deleteGroup } from "@/lib/action/group/group.actions"
 import {
   ContextMenu,
-  ContextMenuContent,
+  ContextMenuContent,~/
   ContextMenuItem,
   ContextMenuTrigger,
-} from "@/components/ui/context-menu"
-import type { Group } from "@/db/schema/group.entity"
-
+} from "~/components/ui/context-menu"
+import type { Group } from "~/db/schema/group.entity"
+import { deleteGroup } from "~/lib/action/group/group.actions"
+import {~/rash } from "lucide-react"
+~/
 interface Props {
   group: Group
 }

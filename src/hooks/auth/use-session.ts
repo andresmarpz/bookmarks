@@ -1,7 +1,7 @@
 import { usePathname, useRouter } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
 
-import { createClientComponentSupabase } from "@/lib/supabase/create-client-component.supabase"
+import { createClientComponentSupabase } from "~/lib/supabase/create-client-component.supabase"
 
 interface Options {
   redirect?: boolean

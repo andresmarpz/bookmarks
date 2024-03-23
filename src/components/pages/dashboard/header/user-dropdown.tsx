@@ -2,9 +2,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { ChevronsUpDownIcon } from "lucide-react"
 
-import { getSession } from "@/lib/auth/get-session"
-import { getUser } from "@/lib/query/user.queries"
-import { Button } from "@/components/ui/button"
+import { getSession } from "~/lib/auth/get-session"
+import { getUser } from "~/lib/query/user.queries"
+import { Button } from "~/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,9 +12,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Skeleton } from "@/components/ui/skeleton"
-import SignOutItem from "@/components/pages/dashboard/header/sign-out.item"
+} from "~/components/ui/dropdown-menu"
+import { Skeleton } from "~/components/ui/skeleton"
+import SignOutItem from "~/components/pages/dashboard/header/sign-out.item"
 
 export function LoadingUserDropdown() {
   return <Skeleton className="h-10 w-full max-w-[200px]" />

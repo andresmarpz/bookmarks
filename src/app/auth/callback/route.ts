@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-
-import { createUserWithGithub } from "@/lib/action/user/user.actions"
-import { createRouteHandlerSupabase } from "@/lib/supabase/create-route-handler.supabase"
+import { createUserWithGithub } from "~/lib/action/user/user.actions"
+import { createRouteHandlerSupabase } from "~/lib/supabase/create-route-handler.supabase"
 
 export const dynamic = "force-dynamic"
 

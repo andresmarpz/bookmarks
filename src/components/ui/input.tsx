@@ -1,7 +1,6 @@
 import * as React from "react"
-
-import { cn } from "@/utils/clsx"
-
+import { cn } from "~/utils/clsx"
+~/
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(

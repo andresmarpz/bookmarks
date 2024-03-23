@@ -1,8 +1,7 @@
 import Link from "next/link"
+import FooterTechnologies from "~/components/pages/home/footer/footer-technologies"
+import HeaderNavigation from "~/components/pages/home/header/header-navigation"
 import { BookmarkIcon } from "lucide-react"
-
-import FooterTechnologies from "@/components/pages/home/footer/footer-technologies"
-import HeaderNavigation from "@/components/pages/home/header/header-navigation"
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (

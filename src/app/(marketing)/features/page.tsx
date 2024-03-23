@@ -1,4 +1,4 @@
-import FeaturedTechnologies from "@/components/pages/features/featured-technologies"
+import FeaturedTechnologies from "~/components/pages/features/featured-technologies"
 
 export default function Features() {
   return (

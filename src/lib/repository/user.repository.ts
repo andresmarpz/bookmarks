@@ -1,7 +1,7 @@
 import { and, eq } from "drizzle-orm"
 
-import { db } from "@/db/drizzle"
-import { users, type User, type UserInsert } from "@/db/schema/user.entity"
+import { db } from "~/db/drizzle"
+import { users, type User, type UserInsert } from "~/db/schema/user.entity"
 
 class UserRepository {
   public async insertOne(user: UserInsert) {

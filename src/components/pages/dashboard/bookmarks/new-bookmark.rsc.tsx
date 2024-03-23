@@ -1,6 +1,6 @@
-import { getGroups } from "@/lib/query/group.queries"
-import NewBookmark from "@/components/pages/dashboard/bookmarks/new-bookmark"
-import type { Group } from "@/db/schema/group.entity"
+import NewBookmark from "~/~/mponents/pages/dashboard/bookmarks/new-bookmark"
+import type { Group } fro~/"~/db/schema/group.entity"
+import { getGroups } from "~~/ib/query/group.queries"
 
 interface Props {
   currentGroup: Pick<Group, "slug" | "id">
