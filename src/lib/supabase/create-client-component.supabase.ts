@@ -1,6 +1,6 @@
 import { createBrowserClient } from "@supabase/ssr"
 
-import { env } from "@/config/env.mjs"
+import { env } from "@/config/env"
 
 export function createClientComponentSupabase() {
   return createBrowserClient(

@@ -3,7 +3,7 @@
 import { revalidatePath, revalidateTag } from "next/cache"
 import { createServerAction } from "nza"
 
-import { env } from "@/config/env.mjs"
+import { env } from "@/config/env"
 import { withAuth } from "@/lib/action/middleware/with-auth"
 import {
   createUserWithGithubSchema,
