@@ -10,7 +10,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().nonempty(),
     NEXT_PUBLIC_URL: z
       .string()
-      .nonempty()
+      .min(1)
       .refine((val) => {
         // remove trailing slash for consistency when using it
         return val.replace(/\/$/, "")
@@ -21,7 +21,8 @@ export const env = createEnv({
    * What object holds the environment variables at runtime. This is usually
    * `process.env` or `import.meta.env`.
    */
-  experimental__runtimeEnv: {
+  runtimeEnv: {
+    DATABASE_URL: process.env.DATABASE_URL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
