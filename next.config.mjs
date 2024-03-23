@@ -1,5 +1,3 @@
-import "./src/config/env.mjs"
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -12,7 +10,7 @@ const nextConfig = {
   },
   experimental: {
     optimisticClientCache: true,
-    fallbackNodePolyfills: false,
+    ppr: true,
   },
 }
 
